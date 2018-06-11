@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'MSPeekCollectionViewDelegateImplementation'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of MSPeekCollectionViewDelegateImplementation.'
+  s.summary          = 'A custom paging behavior that shows the previous and next items in a collection view'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,8 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Current design trends require complex designs which allow horizontal scrolling inside vertical scrolling. So to show the user that he/she can scroll vertically, a peeking item should be shown on the side. This library does exactly that.
+I wrote this library because there's no pod that does this simple feature. Also, other libraries require me to inherit from a UICollectionViewController, which doesn't give alot of freedom if I'm inheriting from other View Controllers.
                        DESC
 
   s.homepage         = 'https://github.com/maher.santina90@gmail.com/MSPeekCollectionViewDelegateImplementation'
@@ -28,7 +29,7 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/maher.santina90@gmail.com/MSPeekCollectionViewDelegateImplementation.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.3'
 
   s.source_files = 'MSPeekCollectionViewDelegateImplementation/Classes/**/*'
   

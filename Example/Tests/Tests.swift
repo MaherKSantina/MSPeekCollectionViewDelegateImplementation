@@ -1,5 +1,5 @@
 import XCTest
-import MSPeekCollectionViewDelegateImplementation
+@testable import MSPeekCollectionViewDelegateImplementation_Example
 
 class Tests: XCTestCase {
     

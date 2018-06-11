@@ -1,0 +1,6 @@
+framework module MSPeekCollectionViewDelegateImplementation {
+  umbrella header "MSPeekCollectionViewDelegateImplementation-umbrella.h"
+
+  export *
+  module * { export * }
+}

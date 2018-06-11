@@ -1,0 +1,22 @@
+{
+  "name": "MSPeekCollectionViewDelegateImplementation",
+  "version": "0.1.0",
+  "summary": "A short description of MSPeekCollectionViewDelegateImplementation.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/maher.santina90@gmail.com/MSPeekCollectionViewDelegateImplementation",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "maher.santina90@gmail.com": "maher.santina90@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/maher.santina90@gmail.com/MSPeekCollectionViewDelegateImplementation.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.3"
+  },
+  "source_files": "MSPeekCollectionViewDelegateImplementation/Classes/**/*"
+}
