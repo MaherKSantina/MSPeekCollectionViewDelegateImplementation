@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'MSPeekCollectionViewDelegateImplementation_Example' do
+  pod 'MSPeekCollectionViewDelegateImplementation', :path => '../'
+
+  target 'MSPeekCollectionViewDelegateImplementation_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
