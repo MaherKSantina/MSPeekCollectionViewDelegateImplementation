@@ -20,13 +20,13 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
         return Int(round(currentScrollOffset/itemWidth))
     }
     
-    init(itemWidth: CGFloat, itemsCount: Int) {
+    public init(itemWidth: CGFloat, itemsCount: Int) {
         self.itemWidth = itemWidth
         self.itemsCount = itemsCount
         self.scrollThreshold = itemWidth/4
     }
     
-    convenience init(itemWidth: CGFloat, itemsCount: Int, scrollThreshold: CGFloat) {
+    public convenience init(itemWidth: CGFloat, itemsCount: Int, scrollThreshold: CGFloat) {
         self.init(itemWidth: itemWidth, itemsCount: itemsCount)
         self.scrollThreshold = scrollThreshold
     }
@@ -55,5 +55,19 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
         
         targetContentOffset.pointee = CGPoint(x: destinationScrollOffsetX, y: 0)
         self.currentScrollOffset = destinationScrollOffsetX
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: itemWidth, height: collectionView.frame.size.height)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        let leftAndRightInsets = collectionView.frame.size.width - itemWidth
+        let leftAndRightInsets: CGFloat = 0
+        return UIEdgeInsets(top: 0, left: leftAndRightInsets, bottom: 0, right: leftAndRightInsets)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return collectionView.frame.size.width - itemWidth
     }
 }

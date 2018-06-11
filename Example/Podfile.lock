@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MSPeekCollectionViewDelegateImplementation: 4cb8f2f3347365116eed7584e88c59398fadcd1d
+  MSPeekCollectionViewDelegateImplementation: d6e06b0811d83671d1df29926403d866fb1a9830
 
 PODFILE CHECKSUM: 8d230cee08c8a8b7e62859eff8016277efe2311d
 
