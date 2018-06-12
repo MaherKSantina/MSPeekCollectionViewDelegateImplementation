@@ -15,6 +15,10 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
     private var indexOfCellBeforeDragging: Int = 0
     private var currentScrollOffset: CGFloat = 0
     private var scrollThreshold: CGFloat
+    private lazy var finalWidthMap: (UIScrollView) -> CGFloat = {
+        collectionView in
+        return (collectionView.frame.size.width - self.itemWidth)/2
+    }
     
     private var currentScrollIndex: Int {
         return Int(round(currentScrollOffset/itemWidth))
@@ -51,7 +55,7 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
         
         let indexOfNewPositionFloat = CGFloat(indexOfNewPosition)
         
-        let destinationScrollOffsetX = indexOfNewPositionFloat * itemWidth
+        let destinationScrollOffsetX = indexOfNewPositionFloat * (itemWidth + finalWidthMap(scrollView)/2)
         
         targetContentOffset.pointee = CGPoint(x: destinationScrollOffsetX, y: 0)
         self.currentScrollOffset = destinationScrollOffsetX
@@ -62,16 +66,7 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        let leftAndRightInsets = collectionView.frame.size.width - itemWidth
-        let leftAndRightInsets: CGFloat = 0
+        let leftAndRightInsets = finalWidthMap(collectionView)
         return UIEdgeInsets(top: 0, left: leftAndRightInsets, bottom: 0, right: leftAndRightInsets)
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return collectionView.frame.size.width - itemWidth
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
     }
 }
