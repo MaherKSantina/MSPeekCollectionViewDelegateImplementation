@@ -26,9 +26,9 @@ pod 'MSPeekCollectionViewDelegateImplementation'
 ### Storyboard
 1. Drag-Drop a `UICollectionView`
 
-3. Set the reuse identifier for the collection view's cell to `Cell`
+2. Set the reuse identifier for the collection view's cell to `Cell`
 
-4. Create a reference for the collection view
+3. Create a reference for the collection view
 ```swift
 @IBOutlet weak var collectionView: UICollectionView!
 ```
@@ -40,7 +40,7 @@ pod 'MSPeekCollectionViewDelegateImplementation'
 import MSPeekCollectionViewDelegateImplementation
 ```
 
-5. Create a variable of type `MSPeekCollectionViewDelegateImplementation`
+6. Create a variable of type `MSPeekCollectionViewDelegateImplementation`
 ```swift
 var delegate: MSPeekCollectionViewDelegateImplementation!
 ```
@@ -50,7 +50,7 @@ var delegate: MSPeekCollectionViewDelegateImplementation!
 collectionView.configureForPeekingDelegate()
 ```
 
-6. In `viewDidLoad()`, initialize the delegate using the basic initializer:
+8. In `viewDidLoad()`, initialize the delegate using the basic initializer:
 ```swift
 delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4)
 ```
@@ -65,11 +65,11 @@ delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing
 delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing: 10, cellPeekWidth: 20, scrollThreshold: 150)
 ```
 
-7. In `viewDidLoad()`, set the collection view's delegate:
+9. In `viewDidLoad()`, set the collection view's delegate:
 ```swift
 collectionView.delegate = delegate
 ```
-8. Create the data source implementation as an extension for the `ViewController`
+10. Create the data source implementation as an extension for the `ViewController`
 ```swift
 extension ViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -88,7 +88,7 @@ extension ViewController: UICollectionViewDataSource {
 }
 ```
 
-9. In `viewDidLoad()`, Set the collection view's data source to `self`
+11. In `viewDidLoad()`, Set the collection view's data source to `self`
 ```swift
 collectionView.dataSource = self
 ```
