@@ -21,6 +21,16 @@
 
 import UIKit
 
+extension UICollectionView {
+    public func configureForPeekingDelegate() {
+        self.decelerationRate = UIScrollViewDecelerationRateFast
+        self.showsHorizontalScrollIndicator = false
+        self.showsVerticalScrollIndicator = false
+        let layout = self.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.scrollDirection = .horizontal
+    }
+}
+
 public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionViewDelegateFlowLayout {
     
     private let itemsCount: Int

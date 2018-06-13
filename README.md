@@ -25,18 +25,7 @@ pod 'MSPeekCollectionViewDelegateImplementation'
 ### Storyboard
 1. Drag-Drop a `UICollectionView`
 
-2. Set the scroll direction to horizontal
-
-3. Remove show vertical indicator and show horizontal indicator
-
-4. Set the deceleration rate to fast
-```swift
-collectionView.decelerationRate = UIScrollViewDecelerationRateFast
-```
-
-2. Add a `UICollectionViewCell`
-
-3. Set the reuse identifier to `Cell`
+3. Set the reuse identifier for the collection view's cell to `Cell`
 
 4. Create a reference for the collection view
 ```swift
@@ -55,7 +44,12 @@ import MSPeekCollectionViewDelegateImplementation
 var delegate: MSPeekCollectionViewDelegateImplementation!
 ```
 
-6. Initialize the variable in `viewDidLoad()` using the basic initializer:
+7. In `viewDidLoad()`, Configure the `collectionView` for peek behavior:
+```swift
+collectionView.configureForPeekingDelegate()
+```
+
+6. In `viewDidLoad()`, initialize the delegate using the basic initializer:
 ```swift
 delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4)
 ```
@@ -74,7 +68,7 @@ delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing
 ```swift
 collectionView.delegate = delegate
 ```
-8. Create the data source implementation
+8. Create the data source implementation as an extension for the `ViewController`
 ```swift
 extension ViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {

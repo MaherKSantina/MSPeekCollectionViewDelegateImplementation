@@ -21,40 +21,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="e0H-Gs-qf9">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LPX-Xy-ffX">
                                 <rect key="frame" x="0.0" y="20" width="375" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="3dW-jl-zG0"/>
+                                    <constraint firstAttribute="height" constant="200" id="mPI-O6-6Yu"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="eUZ-Kw-l3d">
-                                    <size key="itemSize" width="341" height="150"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GwU-G6-38q">
+                                    <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Ofm-vb-Eib">
-                                        <rect key="frame" x="0.0" y="25" width="341" height="150"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="7fh-Xy-Ynz">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="150"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </view>
-                                        <color key="backgroundColor" red="0.80000000000000004" green="0.1764705882" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="e0H-Gs-qf9" secondAttribute="trailing" id="49B-zB-kAK"/>
-                            <constraint firstItem="e0H-Gs-qf9" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Njw-FF-X90"/>
-                            <constraint firstItem="e0H-Gs-qf9" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="pLr-pn-HIX"/>
+                            <constraint firstItem="LPX-Xy-ffX" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="VYM-mY-QLz"/>
+                            <constraint firstAttribute="trailing" secondItem="LPX-Xy-ffX" secondAttribute="trailing" id="WWq-KL-QGL"/>
+                            <constraint firstItem="LPX-Xy-ffX" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="qIu-sF-cle"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="collectionView" destination="e0H-Gs-qf9" id="EB7-cH-ZVE"/>
+                        <outlet property="collectionView" destination="LPX-Xy-ffX" id="Nat-yj-TR4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

@@ -30,9 +30,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4)
+        collectionView.configureForPeekingDelegate()
         collectionView.delegate = delegate
         collectionView.dataSource = self
-        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
     }
 
 }
