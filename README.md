@@ -34,8 +34,6 @@ pod 'MSPeekCollectionViewDelegateImplementation'
 collectionView.decelerationRate = UIScrollViewDecelerationRateFast
 ```
 
-5. Set the minimum spacing to `0` for cells and lines
-
 2. Add a `UICollectionViewCell`
 
 3. Set the reuse identifier to `Cell`
@@ -57,11 +55,20 @@ import MSPeekCollectionViewDelegateImplementation
 var delegate: MSPeekCollectionViewDelegateImplementation!
 ```
 
-6. Initialize the variable in `viewDidLoad()`
+6. Initialize the variable in `viewDidLoad()` using the basic initializer:
 ```swift
-delegate = MSPeekCollectionViewDelegateImplementation(itemWidth: width, itemsCount: count)
+delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4)
 ```
-Where `width` is your desired width and `count` is the total number of item
+Or you can use one of the initializers that take more arguments:
+```swift
+delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing: 10)
+```
+```swift
+delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing: 10, cellPeekWidth: 20)
+```
+```swift
+delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing: 10, cellPeekWidth: 20, scrollThreshold: 150)
+```
 
 7. In `viewDidLoad()`, set the collection view's delegate:
 ```swift
@@ -80,6 +87,7 @@ extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+        //TODO: Configure cell
         return cell
     }
 }
@@ -92,7 +100,7 @@ collectionView.dataSource = self
 
 ## Author
 
-maher.santina90@gmail.com, maher.santina90@gmail.com
+Maher Santina, maher.santina90@gmail.com
 
 ## License
 

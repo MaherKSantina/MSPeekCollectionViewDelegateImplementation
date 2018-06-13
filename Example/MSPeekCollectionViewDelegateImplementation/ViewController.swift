@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing: 20, cellPeekWidth: 30)
+        delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4)
         collectionView.delegate = delegate
         collectionView.dataSource = self
         collectionView.decelerationRate = UIScrollViewDecelerationRateFast

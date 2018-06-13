@@ -13,9 +13,11 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
     private let itemsCount: Int
     private let cellPeekWidth: CGFloat
     private let cellSpacing: CGFloat
+    private let scrollThreshold: CGFloat
+    
     private var indexOfCellBeforeDragging: Int = 0
     private var currentScrollOffset: CGFloat = 0
-    private var scrollThreshold: CGFloat
+    
     private lazy var finalWidthMap: (UICollectionView) -> CGFloat = {
         collectionView in
         return (collectionView.frame.size.width - self.itemWidth(collectionView))/2
@@ -31,15 +33,10 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
         return Int(round(self.currentScrollOffset/self.itemWidth(collectionView)))
     }
     
-    public init(itemsCount: Int, cellSpacing: CGFloat, cellPeekWidth: CGFloat) {
+    public init(itemsCount: Int, cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 150) {
         self.itemsCount = itemsCount
         self.cellSpacing = cellSpacing
         self.cellPeekWidth = cellPeekWidth
-        self.scrollThreshold = 150
-    }
-    
-    public convenience init(itemsCount: Int, cellSpacing: CGFloat, cellPeekWidth: CGFloat, scrollThreshold: CGFloat) {
-        self.init(itemsCount: itemsCount, cellSpacing: cellSpacing, cellPeekWidth: cellPeekWidth)
         self.scrollThreshold = scrollThreshold
     }
     
