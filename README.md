@@ -14,6 +14,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 - XCode 9.3
 - Swift 3.2
 
+This pod will probably work on older versions of XCode but I haven't tested it.
+
 ## Installation
 
 MSPeekCollectionViewDelegateImplementation is available through [CocoaPods](https://cocoapods.org). To install
