@@ -99,6 +99,43 @@ extension ViewController: UICollectionViewDataSource {
 collectionView.dataSource = self
 ```
 
+### Working Example
+
+```swift
+import UIKit
+import MSPeekCollectionViewDelegateImplementation
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    let delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4)
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.configureForPeekingDelegate()
+        collectionView.delegate = delegate
+        collectionView.dataSource = self
+    }
+
+
+}
+
+extension ViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+        return cell
+    }
+}
+```
+
 ## Author
 
 Maher Santina, maher.santina90@gmail.com
