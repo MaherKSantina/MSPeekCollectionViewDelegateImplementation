@@ -69,6 +69,8 @@ delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing
 
 ![peek explanation](https://user-images.githubusercontent.com/24646608/41348656-b0ad14fc-6f50-11e8-8723-2996b016e9c9.jpg)
 
+The scroll threshold is the minimum amount of scroll distance required to move to the adjacent item.
+
 9. In `viewDidLoad()`, set the collection view's delegate:
 ```swift
 collectionView.delegate = delegate
