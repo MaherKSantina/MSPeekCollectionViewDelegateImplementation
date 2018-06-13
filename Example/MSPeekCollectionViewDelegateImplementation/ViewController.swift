@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  MSPeekCollectionViewDelegateImplementation
 //
-//  Created by maher.santina90@gmail.com on 06/11/2018.
-//  Copyright (c) 2018 maher.santina90@gmail.com. All rights reserved.
+//  Created by Maher Santina on 06/11/2018.
+//  Copyright (c) 2018 Maher Santina. All rights reserved.
 //
 
 import UIKit
@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = MSPeekCollectionViewDelegateImplementation(itemWidth: 335, itemsCount: 4)
+        delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing: 20, cellPeekWidth: 30)
         collectionView.delegate = delegate
         collectionView.dataSource = self
         collectionView.decelerationRate = UIScrollViewDecelerationRateFast

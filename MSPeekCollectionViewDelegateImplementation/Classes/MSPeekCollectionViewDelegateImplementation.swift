@@ -10,63 +10,82 @@ import UIKit
 
 public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionViewDelegateFlowLayout {
     
-    private var itemWidth: CGFloat
-    private var itemsCount: Int
+    private let itemsCount: Int
+    private let cellPeekWidth: CGFloat
+    private let cellSpacing: CGFloat
     private var indexOfCellBeforeDragging: Int = 0
     private var currentScrollOffset: CGFloat = 0
     private var scrollThreshold: CGFloat
-    private lazy var finalWidthMap: (UIScrollView) -> CGFloat = {
+    private lazy var finalWidthMap: (UICollectionView) -> CGFloat = {
         collectionView in
-        return (collectionView.frame.size.width - self.itemWidth)/2
+        return (collectionView.frame.size.width - self.itemWidth(collectionView))/2
     }
     
-    private var currentScrollIndex: Int {
-        return Int(round(currentScrollOffset/itemWidth))
+    private lazy var itemWidth: (UICollectionView) -> CGFloat = {
+        collectionView in
+        return collectionView.frame.size.width - 2 * (self.cellSpacing + self.cellPeekWidth)
     }
     
-    public init(itemWidth: CGFloat, itemsCount: Int) {
-        self.itemWidth = itemWidth
+    private lazy var currentScrollIndex: (UICollectionView) -> Int = {
+        collectionView in
+        return Int(round(self.currentScrollOffset/self.itemWidth(collectionView)))
+    }
+    
+    public init(itemsCount: Int, cellSpacing: CGFloat, cellPeekWidth: CGFloat) {
         self.itemsCount = itemsCount
-        self.scrollThreshold = itemWidth/4
+        self.cellSpacing = cellSpacing
+        self.cellPeekWidth = cellPeekWidth
+        self.scrollThreshold = 150
     }
     
-    public convenience init(itemWidth: CGFloat, itemsCount: Int, scrollThreshold: CGFloat) {
-        self.init(itemWidth: itemWidth, itemsCount: itemsCount)
+    public convenience init(itemsCount: Int, cellSpacing: CGFloat, cellPeekWidth: CGFloat, scrollThreshold: CGFloat) {
+        self.init(itemsCount: itemsCount, cellSpacing: cellSpacing, cellPeekWidth: cellPeekWidth)
         self.scrollThreshold = scrollThreshold
     }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let isLastItemAndScrollingForward = currentScrollIndex == itemsCount - 1 && velocity.x > 0.0
-        let isFirstItemAndScrollingBackward = currentScrollIndex == 0 && velocity.x < 0.0
+        guard let collectionView = scrollView as? UICollectionView else {
+            fatalError("Scroll View is not a Collection View")
+        }
+        let isLastItemAndScrollingForward = currentScrollIndex(collectionView) == itemsCount - 1 && velocity.x > 0.0
+        let isFirstItemAndScrollingBackward = currentScrollIndex(collectionView) == 0 && velocity.x < 0.0
         
         if isLastItemAndScrollingForward || isFirstItemAndScrollingBackward {
             return
         }
         
-        var indexOfNewPosition: Int = currentScrollIndex
+        var indexOfNewPosition: Int = currentScrollIndex(collectionView)
         
         let isDisplacementGreaterThanThreshold = abs(targetContentOffset.pointee.x - currentScrollOffset) > scrollThreshold
         
         if isDisplacementGreaterThanThreshold {
             let displacementIsPositive = targetContentOffset.pointee.x - currentScrollOffset > 0
             let indexCoefficient = (displacementIsPositive ? 1 : -1)
-            indexOfNewPosition = currentScrollIndex + (1 * indexCoefficient)
+            indexOfNewPosition = currentScrollIndex(collectionView) + (1 * indexCoefficient)
         }
         
         let indexOfNewPositionFloat = CGFloat(indexOfNewPosition)
         
-        let destinationScrollOffsetX = indexOfNewPositionFloat * (itemWidth + finalWidthMap(scrollView)/2)
+        let destinationScrollOffsetX = indexOfNewPositionFloat * (itemWidth(collectionView) + cellSpacing)
         
         targetContentOffset.pointee = CGPoint(x: destinationScrollOffsetX, y: 0)
         self.currentScrollOffset = destinationScrollOffsetX
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: itemWidth, height: collectionView.frame.size.height)
+        return CGSize(width: itemWidth(collectionView), height: collectionView.frame.size.height)
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let leftAndRightInsets = finalWidthMap(collectionView)
         return UIEdgeInsets(top: 0, left: leftAndRightInsets, bottom: 0, right: leftAndRightInsets)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return cellSpacing
     }
 }
