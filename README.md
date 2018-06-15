@@ -143,6 +143,10 @@ extension ViewController: UICollectionViewDataSource {
 
 Maher Santina, maher.santina90@gmail.com
 
+## Contributing
+
+Any contribution is highly appreciated, please see [CONTRIBUTING.md](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/blob/master/CONTRIBUTING.md) for more info.
+
 ## License
 
-MSPeekCollectionViewDelegateImplementation is available under the MIT license. See the LICENSE file for more info.
+MSPeekCollectionViewDelegateImplementation is available under the MIT license. See the [LICENSE](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/blob/master/LICENSE) file for more info.
