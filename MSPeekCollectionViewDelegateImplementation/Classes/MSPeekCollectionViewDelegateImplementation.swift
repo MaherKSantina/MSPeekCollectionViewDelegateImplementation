@@ -41,14 +41,9 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
     private var indexOfCellBeforeDragging: Int = 0
     private var currentScrollOffset: CGFloat = 0
     
-    private lazy var finalWidthMap: (UICollectionView) -> CGFloat = {
-        collectionView in
-        return (collectionView.frame.size.width - self.itemWidth(collectionView))/2
-    }
-    
     private lazy var itemWidth: (UICollectionView) -> CGFloat = {
         collectionView in
-        return collectionView.frame.size.width - 2 * (self.cellSpacing + self.cellPeekWidth)
+        return max(0, collectionView.frame.size.width - 2 * (self.cellSpacing + self.cellPeekWidth))
     }
     
     private lazy var currentScrollIndex: (UICollectionView) -> Int = {
@@ -97,7 +92,7 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let leftAndRightInsets = finalWidthMap(collectionView)
+        let leftAndRightInsets = cellSpacing + cellPeekWidth
         return UIEdgeInsets(top: 0, left: leftAndRightInsets, bottom: 0, right: leftAndRightInsets)
     }
     
