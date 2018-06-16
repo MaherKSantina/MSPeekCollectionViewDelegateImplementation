@@ -47,13 +47,61 @@ class Tests: XCTestCase {
     }
     
     //Item width should be collection view width minus double the cell spacing with the cell peek width because there's peeking and spacing on both sides
-    func test_sizeForItemAtIndexPath_collectionViewSizeGreaterThanArgs_ShouldReturnSizeCorrectly() {
+    func test_sizeForItemAtIndexPath_ShouldReturnSizeCorrectly() {
         collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
         sut = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing: 20, cellPeekWidth: 30)
         let testIndexPath = IndexPath(row: 0, section: 0)
         let expectedSize = sut.collectionView(collectionView, layout: collectionViewFlowLayout, sizeForItemAt: testIndexPath)
         XCTAssertEqual(expectedSize.height, 200)
         XCTAssertEqual(expectedSize.width, 220)
+    }
+    
+    func test_ScrollViewWillEndDragging_ViewFrameIs0_ShouldNotCrash() {
+        sut = MSPeekCollectionViewDelegateImplementation(itemsCount: 5, cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
+        collectionView.contentOffset = CGPoint(x: 0, y: 0)
+        sut.scrollViewWillBeginDragging(collectionView)
+        let simulatedTargetContentOffset = UnsafeMutablePointer<CGPoint>.allocate(capacity: 1)
+        simulatedTargetContentOffset.pointee = CGPoint(x: 0, y: 49)
+        sut.scrollViewWillEndDragging(collectionView, withVelocity: CGPoint.zero, targetContentOffset: simulatedTargetContentOffset)
+        XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 0)
+    }
+    
+    func test_ScrollViewWillEndDragging_ScrollLessThanThreshold_ShouldNotScrollToAdjacentItem() {
+        let randomPosition: CGFloat = 260
+        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut = MSPeekCollectionViewDelegateImplementation(itemsCount: 5, cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
+        collectionView.contentOffset = CGPoint(x: randomPosition, y: 0)
+        sut.scrollViewWillBeginDragging(collectionView)
+        let simulatedTargetContentOffset = UnsafeMutablePointer<CGPoint>.allocate(capacity: 1)
+        simulatedTargetContentOffset.pointee = CGPoint(x: randomPosition + 49, y: 0)
+        sut.scrollViewWillEndDragging(collectionView, withVelocity: CGPoint.zero, targetContentOffset: simulatedTargetContentOffset)
+        XCTAssertEqual(simulatedTargetContentOffset.pointee.x, randomPosition)
+        
+        simulatedTargetContentOffset.pointee = CGPoint(x: randomPosition - 49, y: 0)
+        sut.scrollViewWillEndDragging(collectionView, withVelocity: CGPoint.zero, targetContentOffset: simulatedTargetContentOffset)
+        XCTAssertEqual(simulatedTargetContentOffset.pointee.x, randomPosition)
+    }
+    
+    func test_ScrollViewWillEndDragging_ScrollGreaterThanThreshold_DirectionRight_ShouldScrollToNextItem() {
+        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut = MSPeekCollectionViewDelegateImplementation(itemsCount: 5, cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
+        collectionView.contentOffset = CGPoint(x: 0, y: 0)
+        sut.scrollViewWillBeginDragging(collectionView)
+        let simulatedTargetContentOffset = UnsafeMutablePointer<CGPoint>.allocate(capacity: 1)
+        simulatedTargetContentOffset.pointee = CGPoint(x: 50, y: 0)
+        sut.scrollViewWillEndDragging(collectionView, withVelocity: CGPoint.zero, targetContentOffset: simulatedTargetContentOffset)
+        XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 260)
+    }
+    
+    func test_ScrollViewWillEndDragging_ScrollGreaterThanThreshold_DirectionLeft_ShouldScrollToPreviousItem() {
+        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut = MSPeekCollectionViewDelegateImplementation(itemsCount: 5, cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
+        collectionView.contentOffset = CGPoint(x: 260, y: 0)
+        sut.scrollViewWillBeginDragging(collectionView)
+        let simulatedTargetContentOffset = UnsafeMutablePointer<CGPoint>.allocate(capacity: 1)
+        simulatedTargetContentOffset.pointee = CGPoint(x: 50, y: 0)
+        sut.scrollViewWillEndDragging(collectionView, withVelocity: CGPoint.zero, targetContentOffset: simulatedTargetContentOffset)
+        XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 0)
     }
     
 }
