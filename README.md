@@ -60,7 +60,7 @@ collectionView.configureForPeekingDelegate()
 ```swift
 delegate = MSPeekCollectionViewDelegateImplementation()
 ```
-Or you can use one of the initializers that take more arguments:
+Or you can use one of the initializers that takes arguments:
 ```swift
 delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: 10)
 ```
