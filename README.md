@@ -1,5 +1,7 @@
 # MSPeekCollectionViewDelegateImplementation
 
+[![Build Status](https://travis-ci.org/MaherKSantina/MSPeekCollectionViewDelegateImplementation.svg?branch=master)](https://travis-ci.org/MaherKSantina/MSPeekCollectionViewDelegateImplementation)
+
 ![ezgif-2-9f7a86182f](https://user-images.githubusercontent.com/24646608/41348369-c0887714-6f4f-11e8-9231-8a86a278ee4a.gif)
 
 Current design trends require complex designs which allow horizontal scrolling inside vertical scrolling. So to show the users that they can scroll vertically, a peeking item should be shown on the side. This library does exactly that.
