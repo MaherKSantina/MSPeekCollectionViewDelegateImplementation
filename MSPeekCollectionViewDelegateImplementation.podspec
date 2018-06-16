@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MSPeekCollectionViewDelegateImplementation'
-  s.version          = '0.2.0'
+  s.version          = '0.3.0'
   s.summary          = 'A custom paging behavior that peeks the previous and next items in a collection view'
   s.swift_version    = '3.2'
 

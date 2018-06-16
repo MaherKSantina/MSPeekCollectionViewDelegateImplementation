@@ -33,7 +33,6 @@ extension UICollectionView {
 
 public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionViewDelegateFlowLayout {
     
-    private let itemsCount: Int
     private let cellPeekWidth: CGFloat
     private let cellSpacing: CGFloat
     private let scrollThreshold: CGFloat
@@ -53,8 +52,7 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
         return Int(round(self.currentScrollOffset.x/self.itemWidth(view)))
     }
     
-    public init(itemsCount: Int, cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50) {
-        self.itemsCount = itemsCount
+    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50) {
         self.cellSpacing = cellSpacing
         self.cellPeekWidth = cellPeekWidth
         self.scrollThreshold = scrollThreshold
