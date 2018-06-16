@@ -61,22 +61,17 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
     }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let targetPoint = getAdjacentItemTargetContentOffsetPoint(view: scrollView, targetContentOffset: targetContentOffset.pointee)
-        
-        targetContentOffset.pointee = targetPoint
-    }
-    
-    private func getAdjacentItemTargetContentOffsetPoint(view: UIView, targetContentOffset: CGPoint) -> CGPoint {
+        let target = targetContentOffset.pointee
         //Current scroll distance is the distance between where the user tapped and the destination for the scrolling (If the velocity is high, this might be of big magnitude)
-        let currentScrollDistance = targetContentOffset.x - currentScrollOffset.x
+        let currentScrollDistance = target.x - currentScrollOffset.x
         //Make the value an integer between -1 and 1 (Because we don't want to scroll more than one item at a time)
         let coefficent = Int(max(-1, min(currentScrollDistance/scrollThreshold, 1)))
         
-        let adjacentItemIndex = currentItemIndex(view) + coefficent
+        let adjacentItemIndex = currentItemIndex(scrollView) + coefficent
         let adjacentItemIndexFloat = CGFloat(adjacentItemIndex)
-        let adjacentItemOffsetX = adjacentItemIndexFloat * (itemWidth(view) + cellSpacing)
+        let adjacentItemOffsetX = adjacentItemIndexFloat * (itemWidth(scrollView) + cellSpacing)
         
-        return CGPoint(x: adjacentItemOffsetX, y: targetContentOffset.y)
+        targetContentOffset.pointee = CGPoint(x: adjacentItemOffsetX, y: target.y)
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
