@@ -58,17 +58,17 @@ collectionView.configureForPeekingDelegate()
 
 8. In `viewDidLoad()`, initialize the delegate using the basic initializer:
 ```swift
-delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4)
+delegate = MSPeekCollectionViewDelegateImplementation()
 ```
 Or you can use one of the initializers that take more arguments:
 ```swift
-delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing: 10)
+delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: 10)
 ```
 ```swift
-delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing: 10, cellPeekWidth: 20)
+delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: 10, cellPeekWidth: 20)
 ```
 ```swift
-delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4, cellSpacing: 10, cellPeekWidth: 20, scrollThreshold: 150)
+delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: 10, cellPeekWidth: 20, scrollThreshold: 150)
 ```
 
 ![peek explanation](https://user-images.githubusercontent.com/24646608/41348656-b0ad14fc-6f50-11e8-8723-2996b016e9c9.jpg)
@@ -112,7 +112,7 @@ import MSPeekCollectionViewDelegateImplementation
 class ViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    let delegate = MSPeekCollectionViewDelegateImplementation(itemsCount: 4)
+    let delegate = MSPeekCollectionViewDelegateImplementation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
