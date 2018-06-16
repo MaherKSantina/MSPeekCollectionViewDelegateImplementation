@@ -47,6 +47,9 @@ public class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionV
     
     private lazy var currentItemIndex: (UIView) -> Int = {
         view in
+        guard self.itemWidth(view) > 0 else {
+            return 0
+        }
         return Int(round(self.currentScrollOffset.x/self.itemWidth(view)))
     }
     
