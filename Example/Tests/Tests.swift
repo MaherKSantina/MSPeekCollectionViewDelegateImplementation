@@ -95,9 +95,7 @@ class Tests: XCTestCase {
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
         collectionView.contentOffset = CGPoint(x: 0, y: 0)
         sut.scrollViewWillBeginDragging(collectionView)
-        let simulatedTargetContentOffset = UnsafeMutablePointer<CGPoint>.allocate(capacity: 1)
-        simulatedTargetContentOffset.pointee = CGPoint(x: 50, y: 0)
-        sut.scrollViewWillEndDragging(collectionView, withVelocity: CGPoint.zero, targetContentOffset: simulatedTargetContentOffset)
+        let simulatedTargetContentOffset = simulateVerticalScroll(distance: 50)
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 260)
     }
     
@@ -106,13 +104,14 @@ class Tests: XCTestCase {
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
         collectionView.contentOffset = CGPoint(x: 260, y: 0)
         let simulatedTargetContentOffset = simulateVerticalScroll(distance: -210)
-        sut.scrollViewWillEndDragging(collectionView, withVelocity: CGPoint.zero, targetContentOffset: simulatedTargetContentOffset)
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 0)
     }
     
     func test_ScrollDistanceIsLarge_ShouldScroll1ItemByDefault() {
         collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
+        let simulatedTargetContentOffset = simulateVerticalScroll(distance: 500)
+        XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 260)
     }
     
 }
