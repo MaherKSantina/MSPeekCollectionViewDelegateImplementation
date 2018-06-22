@@ -141,6 +141,23 @@ extension ViewController: UICollectionViewDataSource {
 }
 ```
 
+## Customization
+### Subclassing
+You can subclass the delegate implementation to integrate other features to it, or listen to certain events:
+```swift
+class SelectablePeekCollectionViewDelegateImplementation: MSPeekCollectionViewDelegateImplementation {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Item Selected")
+    }
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        super.scrollViewWillBeginDragging(scrollView)
+        // Add other code to support other features
+    }
+}
+```
+Note: Make sure you call super on overriden functions (Unless you know what you're doing)
+
 ## Author
 
 Maher Santina, maher.santina90@gmail.com
