@@ -158,6 +158,10 @@ class SelectablePeekCollectionViewDelegateImplementation: MSPeekCollectionViewDe
 ```
 Note: Make sure you call super on overriden functions (Unless you know what you're doing)
 
+## Changelog
+### 0.5.0
+- First stable version
+
 ## Author
 
 Maher Santina, maher.santina90@gmail.com
