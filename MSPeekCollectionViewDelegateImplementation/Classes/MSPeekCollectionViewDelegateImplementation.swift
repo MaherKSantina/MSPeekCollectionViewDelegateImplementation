@@ -36,6 +36,7 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
     private let cellPeekWidth: CGFloat
     private let cellSpacing: CGFloat
     private let scrollThreshold: CGFloat
+    private let maximumItemsToScroll: Int
     
     private var currentScrollOffset: CGPoint = CGPoint(x: 0, y: 0)
     
@@ -52,24 +53,42 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
         return Int(round(self.currentScrollOffset.x/self.itemWidth(view)))
     }
     
-    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50) {
+    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50, maximumItemsToScroll: Int = 1) {
         self.cellSpacing = cellSpacing
         self.cellPeekWidth = cellPeekWidth
         self.scrollThreshold = scrollThreshold
+        self.maximumItemsToScroll = maximumItemsToScroll
     }
     
     open func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard scrollView.frame.size.width > 0 else {
+            return
+        }
         let target = targetContentOffset.pointee
         //Current scroll distance is the distance between where the user tapped and the destination for the scrolling (If the velocity is high, this might be of big magnitude)
         let currentScrollDistance = target.x - currentScrollOffset.x
-        //Make the value an integer between -1 and 1 (Because we don't want to scroll more than one item at a time)
-        let coefficent = Int(max(-1, min(currentScrollDistance/scrollThreshold, 1)))
+        let coefficient = calculateCoefficient(scrollDistance: currentScrollDistance, scrollWidth: itemWidth(scrollView))
         
-        let adjacentItemIndex = currentItemIndex(scrollView) + coefficent
+        let adjacentItemIndex = currentItemIndex(scrollView) + coefficient
         let adjacentItemIndexFloat = CGFloat(adjacentItemIndex)
         let adjacentItemOffsetX = adjacentItemIndexFloat * (itemWidth(scrollView) + cellSpacing)
         
         targetContentOffset.pointee = CGPoint(x: adjacentItemOffsetX, y: target.y)
+    }
+    
+    private func calculateCoefficient(scrollDistance: CGFloat, scrollWidth: CGFloat) -> Int {
+        var coefficent = 0
+        if abs(scrollDistance/scrollThreshold) <= 1 {
+            coefficent = Int(scrollDistance/scrollThreshold)
+        }
+        else if Int(abs(scrollDistance/scrollWidth)) == 0 {
+            coefficent = max(-1, min(Int(scrollDistance/scrollThreshold), 1))
+        }
+        else {
+            coefficent = Int(scrollDistance/scrollWidth)
+        }
+        let finalCoefficent = max((-1) * maximumItemsToScroll, min(coefficent, maximumItemsToScroll))
+        return finalCoefficent
     }
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

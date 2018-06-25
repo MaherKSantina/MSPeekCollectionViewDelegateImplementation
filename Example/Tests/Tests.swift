@@ -107,11 +107,19 @@ class Tests: XCTestCase {
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 0)
     }
     
-    func test_ScrollDistanceIsLarge_ShouldScroll1ItemByDefault() {
+    func test_ScrollDistanceIsLarge_MaxIsDefault_ShouldScroll1ItemByDefault() {
         collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
         let simulatedTargetContentOffset = simulateVerticalScroll(distance: 500)
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 260)
+    }
+    
+    //The number of cells that will be scrolled depends on the distance scrolled and the max scroll items specified by the implementation
+    func test_ScrollDistanceIsLarge_MaxIsSet_ShouldScrollProperly() {
+        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50, maximumItemsToScroll: 2)
+        let simulatedTargetContentOffset = simulateVerticalScroll(distance: 640)
+        XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 520)
     }
     
 }

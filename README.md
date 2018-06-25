@@ -65,15 +65,19 @@ Or you can use one of the initializers that takes arguments:
 delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: 10)
 ```
 ```swift
-delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: 10, cellPeekWidth: 20)
+delegate = MSPeekCollectionViewDelegateImplementation(cellPeekWidth: 20)
 ```
 ```swift
-delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: 10, cellPeekWidth: 20, scrollThreshold: 150)
+//scrollThreshold is the minimum amount of scroll distance required to move to the adjacent item.
+delegate = MSPeekCollectionViewDelegateImplementation(scrollThreshold: 150)
+```
+```swift
+//maximumItemsToScroll is the maximum number of items that can be scrolled if the scroll distance is large
+delegate = MSPeekCollectionViewDelegateImplementation(maximumItemsToScroll: 3)
 ```
 
 ![peek explanation](https://user-images.githubusercontent.com/24646608/41348656-b0ad14fc-6f50-11e8-8723-2996b016e9c9.jpg)
 
-The scroll threshold is the minimum amount of scroll distance required to move to the adjacent item.
 
 9. In `viewDidLoad()`, set the collection view's delegate:
 ```swift
