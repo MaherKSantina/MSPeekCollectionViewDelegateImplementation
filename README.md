@@ -165,6 +165,8 @@ Note: Make sure you call super on overriden functions (Unless you know what you'
 ## Changelog
 ### 0.5.0
 - First stable version
+### 0.6.0
+- Added support to scroll multiple items at a time [#7](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/7)
 
 ## Author
 
