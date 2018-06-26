@@ -12,6 +12,8 @@ class Tests: XCTestCase {
         sut = MSPeekCollectionViewDelegateImplementation()
         collectionViewFlowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: collectionViewFlowLayout)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.dataSource = self
     }
     
     override func tearDown() {
@@ -122,4 +124,28 @@ class Tests: XCTestCase {
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 520)
     }
     
+    func test_contentOffsetAtIndex_ShouldReturnCorrectOffset() {
+        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50, maximumItemsToScroll: 2)
+        let offset = sut.scrollView(collectionView, contentOffsetForItemAtIndex: 0)
+        XCTAssertEqual(offset, 0)
+        let offset2 = sut.scrollView(collectionView, contentOffsetForItemAtIndex: 1)
+        XCTAssertEqual(offset2, 260)
+    }
+    
+}
+
+extension Tests: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+        return cell
+    }
 }

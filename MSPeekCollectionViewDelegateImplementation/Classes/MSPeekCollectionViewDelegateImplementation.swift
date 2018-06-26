@@ -37,12 +37,21 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
     private let cellSpacing: CGFloat
     private let scrollThreshold: CGFloat
     private let maximumItemsToScroll: Int
+    private let numberOfItemsToShow: Int
     
     private var currentScrollOffset: CGPoint = CGPoint(x: 0, y: 0)
     
     private lazy var itemWidth: (UIView) -> CGFloat = {
         view in
-        return max(0, view.frame.size.width - 2 * (self.cellSpacing + self.cellPeekWidth))
+        //Get the total remaining width for the
+        let itemsWidth = (view.frame.size.width
+                //If we have 2 items, there will be 3 spacing and so on
+                - (CGFloat(self.numberOfItemsToShow + 1) * (self.cellSpacing))
+                //There's always 2 peeking cells even if there are multiple cells showing
+                - 2 * (self.cellPeekWidth))
+        //Divide the remaining space by the number of items to get each item's width
+        let finalWidth = itemsWidth / CGFloat(self.numberOfItemsToShow)
+        return max(0, finalWidth)
     }
     
     private lazy var currentItemIndex: (UIView) -> Int = {
@@ -53,11 +62,12 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
         return Int(round(self.currentScrollOffset.x/self.itemWidth(view)))
     }
     
-    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50, maximumItemsToScroll: Int = 1) {
+    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50, maximumItemsToScroll: Int = 1, numberOfItemsToShow: Int = 1) {
         self.cellSpacing = cellSpacing
         self.cellPeekWidth = cellPeekWidth
         self.scrollThreshold = scrollThreshold
         self.maximumItemsToScroll = maximumItemsToScroll
+        self.numberOfItemsToShow = numberOfItemsToShow
     }
     
     open func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -70,10 +80,13 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
         let coefficient = calculateCoefficient(scrollDistance: currentScrollDistance, scrollWidth: itemWidth(scrollView))
         
         let adjacentItemIndex = currentItemIndex(scrollView) + coefficient
-        let adjacentItemIndexFloat = CGFloat(adjacentItemIndex)
-        let adjacentItemOffsetX = adjacentItemIndexFloat * (itemWidth(scrollView) + cellSpacing)
+        let adjacentItemOffsetX = self.scrollView(scrollView, contentOffsetForItemAtIndex: adjacentItemIndex)
         
         targetContentOffset.pointee = CGPoint(x: adjacentItemOffsetX, y: target.y)
+    }
+    
+    open func scrollView(_ scrollView: UIScrollView, contentOffsetForItemAtIndex index: Int) -> CGFloat{
+        return CGFloat(index) * (itemWidth(scrollView) + cellSpacing)
     }
     
     private func calculateCoefficient(scrollDistance: CGFloat, scrollWidth: CGFloat) -> Int {
