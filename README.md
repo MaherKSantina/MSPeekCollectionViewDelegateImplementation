@@ -60,7 +60,7 @@ collectionView.configureForPeekingDelegate()
 ```swift
 delegate = MSPeekCollectionViewDelegateImplementation()
 ```
-Or you can use one of the initializers that takes arguments:
+Or you can use whatever arguments from the ones below (Can be combined together as needed):
 ```swift
 delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: 10)
 ```
@@ -74,6 +74,10 @@ delegate = MSPeekCollectionViewDelegateImplementation(scrollThreshold: 150)
 ```swift
 //maximumItemsToScroll is the maximum number of items that can be scrolled if the scroll distance is large
 delegate = MSPeekCollectionViewDelegateImplementation(maximumItemsToScroll: 3)
+```
+```swift
+//numberOfItemsToShow is the number of items that will be shown at the same time.
+delegate = MSPeekCollectionViewDelegateImplementation(numberOfItemsToShow: 3)
 ```
 
 ![peek explanation](https://user-images.githubusercontent.com/24646608/41348656-b0ad14fc-6f50-11e8-8723-2996b016e9c9.jpg)
