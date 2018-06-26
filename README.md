@@ -171,6 +171,9 @@ Note: Make sure you call super on overriden functions (Unless you know what you'
 - First stable version
 ### 0.6.0
 - Added support to scroll multiple items at a time [#7](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/7)
+### 0.7.0
+- Added support to show multiple cells at the same time [#12](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/12)
+- Added support to get the content offset of an item at a specific index [#13](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/13)
 
 ## Author
 
