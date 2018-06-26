@@ -149,6 +149,14 @@ extension ViewController: UICollectionViewDataSource {
 }
 ```
 
+## Features
+### Getting the offset of a specific index
+The implementation introduces a function (`scrollView(_:,contentOffsetForItemAtIndex:) -> CGFloat`) to get the content offset of an item at a specific index. This can be helpful if you want to scroll the collection view programmatically to a specific index (Maybe create a carousel with a timer). You can do that by using the following code:
+```swift
+let secondItemContentOffset = delegate.scrollView(collectionView, contentOffsetForItemAtIndex: 1)
+collectionView.setContentOffset(CGPoint(x: secondItemContentOffset, y: 0), animated: false)
+```
+
 ## Customization
 ### Subclassing
 You can subclass the delegate implementation to integrate other features to it, or listen to certain events:
