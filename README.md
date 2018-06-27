@@ -194,6 +194,8 @@ Note: Make sure you call super on overriden functions (Unless you know what you'
 ### 0.7.0
 - Added support to show multiple cells at the same time [#12](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/12)
 - Added support to get the content offset of an item at a specific index [#13](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/13)
+### 0.8.0
+- Added support for vertical scrolling/peeking [#5](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/5)
 
 ## Author
 
