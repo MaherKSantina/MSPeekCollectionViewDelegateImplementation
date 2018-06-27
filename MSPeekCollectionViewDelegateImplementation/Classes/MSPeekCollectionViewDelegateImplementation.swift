@@ -22,10 +22,13 @@
 import UIKit
 
 extension UICollectionView {
-    public func configureForPeekingDelegate() {
+    public func configureForPeekingDelegate(scrollDirection: UICollectionViewScrollDirection = .horizontal) {
         self.decelerationRate = UIScrollViewDecelerationRateFast
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
+        //Keeping this to support older versions
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        layout.scrollDirection = scrollDirection
     }
 }
 
