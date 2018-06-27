@@ -14,6 +14,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* HorizontalScrollDirectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* HorizontalScrollDirectionTests.swift */; };
+		69A57A2E20E39A1700D492D4 /* VerticalScrollDirectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A57A2D20E39A1700D492D4 /* VerticalScrollDirectionTests.swift */; };
 		6CC61A01D070E53B5C9713D3 /* Pods_MSPeekCollectionViewDelegateImplementation_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D63706738AAABD8B65F2802 /* Pods_MSPeekCollectionViewDelegateImplementation_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		607FACE51AFB9204008FA782 /* MSPeekCollectionViewDelegateImplementation_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSPeekCollectionViewDelegateImplementation_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* HorizontalScrollDirectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollDirectionTests.swift; sourceTree = "<group>"; };
+		69A57A2D20E39A1700D492D4 /* VerticalScrollDirectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalScrollDirectionTests.swift; sourceTree = "<group>"; };
 		6D62A78B4ED727736705D900 /* Pods-MSPeekCollectionViewDelegateImplementation_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSPeekCollectionViewDelegateImplementation_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSPeekCollectionViewDelegateImplementation_Example/Pods-MSPeekCollectionViewDelegateImplementation_Example.release.xcconfig"; sourceTree = "<group>"; };
 		7C9735FF72CB49CDCEB9B535 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		A2049B1E9B6ED415F87F1C5A /* MSPeekCollectionViewDelegateImplementation.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MSPeekCollectionViewDelegateImplementation.podspec; path = ../MSPeekCollectionViewDelegateImplementation.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACEB1AFB9204008FA782 /* HorizontalScrollDirectionTests.swift */,
+				69A57A2D20E39A1700D492D4 /* VerticalScrollDirectionTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -331,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69A57A2E20E39A1700D492D4 /* VerticalScrollDirectionTests.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* HorizontalScrollDirectionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
