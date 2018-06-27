@@ -105,7 +105,7 @@ class HorizontalScrollDirectionTests: XCTestCase {
         collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
         collectionView.contentOffset = CGPoint(x: 260, y: 0)
-        let simulatedTargetContentOffset = simulateHorizontalScroll(distance: -210)
+        let simulatedTargetContentOffset = simulateHorizontalScroll(distance: -51)
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 0)
     }
     
