@@ -158,6 +158,18 @@ collectionView.setContentOffset(CGPoint(x: secondItemContentOffset, y: 0), anima
 ```
 
 ## Customization
+### Vertical Scroll Direction
+The implementation supports collection views with vertical directions and will automatically position cells correctly, you can set the scrolling and peeking to be vertical using:
+```swift
+delegate = MSPeekCollectionViewDelegateImplementation(scrollDirection: .vertical)
+collectionView.configureForPeekingDelegate(scrollDirection: .vertical)
+```
+Or alternatively:
+```swift
+let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+delegate = MSPeekCollectionViewDelegateImplementation(scrollDirection: layout.scrollDirection)
+collectionView.configureForPeekingDelegate(scrollDirection: layout.scrollDirection)
+```
 ### Subclassing
 You can subclass the delegate implementation to integrate other features to it, or listen to certain events:
 ```swift
