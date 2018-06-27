@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = MSPeekCollectionViewDelegateImplementation(maximumItemsToScroll: 3)
+        delegate = MSPeekCollectionViewDelegateImplementation(maximumItemsToScroll: 3, scrollDirection: .vertical)
         collectionView.configureForPeekingDelegate()
         collectionView.delegate = delegate
         collectionView.dataSource = self

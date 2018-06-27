@@ -2,7 +2,7 @@ import XCTest
 @testable import MSPeekCollectionViewDelegateImplementation_Example
 @testable import MSPeekCollectionViewDelegateImplementation
 
-class VerticalScrollDirectionTests: XCTestCase {
+class HorizontalScrollDirectionTests: XCTestCase {
     
     var sut: MSPeekCollectionViewDelegateImplementation!
     var collectionView: UICollectionView!
@@ -21,7 +21,7 @@ class VerticalScrollDirectionTests: XCTestCase {
         super.tearDown()
     }
     
-    private func simulateVerticalScroll(distance: CGFloat) -> UnsafeMutablePointer<CGPoint> {
+    private func simulateHorizontalScroll(distance: CGFloat) -> UnsafeMutablePointer<CGPoint> {
         sut.scrollViewWillBeginDragging(collectionView)
         let simulatedTargetContentOffset = UnsafeMutablePointer<CGPoint>.allocate(capacity: 1)
         simulatedTargetContentOffset.pointee = CGPoint(x: collectionView.contentOffset.x + distance, y: 0)
@@ -97,7 +97,7 @@ class VerticalScrollDirectionTests: XCTestCase {
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
         collectionView.contentOffset = CGPoint(x: 0, y: 0)
         sut.scrollViewWillBeginDragging(collectionView)
-        let simulatedTargetContentOffset = simulateVerticalScroll(distance: 50)
+        let simulatedTargetContentOffset = simulateHorizontalScroll(distance: 50)
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 260)
     }
     
@@ -105,14 +105,14 @@ class VerticalScrollDirectionTests: XCTestCase {
         collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
         collectionView.contentOffset = CGPoint(x: 260, y: 0)
-        let simulatedTargetContentOffset = simulateVerticalScroll(distance: -210)
+        let simulatedTargetContentOffset = simulateHorizontalScroll(distance: -210)
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 0)
     }
     
     func test_ScrollDistanceIsLarge_MaxIsDefault_ShouldScroll1ItemByDefault() {
         collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
-        let simulatedTargetContentOffset = simulateVerticalScroll(distance: 500)
+        let simulatedTargetContentOffset = simulateHorizontalScroll(distance: 500)
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 260)
     }
     
@@ -120,7 +120,7 @@ class VerticalScrollDirectionTests: XCTestCase {
     func test_ScrollDistanceIsLarge_MaxIsSet_ShouldScrollProperly() {
         collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50, maximumItemsToScroll: 2)
-        let simulatedTargetContentOffset = simulateVerticalScroll(distance: 640)
+        let simulatedTargetContentOffset = simulateHorizontalScroll(distance: 640)
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 520)
     }
     
@@ -135,7 +135,7 @@ class VerticalScrollDirectionTests: XCTestCase {
     
 }
 
-extension VerticalScrollDirectionTests: UICollectionViewDataSource {
+extension HorizontalScrollDirectionTests: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
