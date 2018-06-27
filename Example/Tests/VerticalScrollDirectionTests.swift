@@ -2,7 +2,7 @@ import XCTest
 @testable import MSPeekCollectionViewDelegateImplementation_Example
 @testable import MSPeekCollectionViewDelegateImplementation
 
-class Tests: XCTestCase {
+class VerticalScrollDirectionTests: XCTestCase {
     
     var sut: MSPeekCollectionViewDelegateImplementation!
     var collectionView: UICollectionView!
@@ -135,7 +135,7 @@ class Tests: XCTestCase {
     
 }
 
-extension Tests: UICollectionViewDataSource {
+extension VerticalScrollDirectionTests: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
