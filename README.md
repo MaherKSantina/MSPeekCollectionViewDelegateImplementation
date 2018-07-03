@@ -196,6 +196,9 @@ Note: Make sure you call super on overriden functions (Unless you know what you'
 - Added support to get the content offset of an item at a specific index [#13](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/13)
 ### 0.8.0
 - Added support for vertical scrolling/peeking [#5](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/5)
+### 0.9.0
+- Added sliders in example to show supported functionality
+- Fixed app crashing if scroll threshold is 0
 
 ## Author
 
