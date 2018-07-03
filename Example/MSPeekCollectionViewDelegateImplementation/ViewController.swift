@@ -22,7 +22,17 @@
 import UIKit
 import MSPeekCollectionViewDelegateImplementation
 
+class CustomSlider: UISlider {
+    @IBInspectable var isInt: Bool = false
+}
+
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var cellSpacingSlider: UISlider!
+    @IBOutlet weak var cellPeekWidthSlider: UISlider!
+    @IBOutlet weak var scrollThresholdSlider: UISlider!
+    @IBOutlet weak var maximumItemsToScrollSlider: UISlider!
+    @IBOutlet weak var numberOfItemsToShowSlider: UISlider!
 
     @IBOutlet weak var collectionView: UICollectionView!
     var delegate: MSPeekCollectionViewDelegateImplementation!
@@ -33,6 +43,31 @@ class ViewController: UIViewController {
         collectionView.configureForPeekingDelegate()
         collectionView.delegate = delegate
         collectionView.dataSource = self
+        
+        initSliderValues()
+    }
+    
+    func initSliderValues() {
+        cellSpacingSlider.value = Float(delegate.cellSpacing)
+        cellPeekWidthSlider.value = Float(delegate.cellPeekWidth)
+        scrollThresholdSlider.value = Float(delegate.scrollThreshold)
+        maximumItemsToScrollSlider.value = Float(delegate.maximumItemsToScroll)
+        numberOfItemsToShowSlider.value = Float(delegate.numberOfItemsToShow)
+    }
+    
+    @IBAction func sliderValueDidChange(_ slider: CustomSlider) {
+        if slider.isInt {
+            let value = slider.value
+            slider.value = Float(Int(value))
+        }
+        
+        reloadDelegate()
+    }
+    
+    func reloadDelegate() {
+        delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: CGFloat(cellSpacingSlider.value), cellPeekWidth: CGFloat(cellPeekWidthSlider.value), scrollThreshold: CGFloat(scrollThresholdSlider.value), maximumItemsToScroll: Int(maximumItemsToScrollSlider.value), numberOfItemsToShow: Int(numberOfItemsToShowSlider.value))
+        collectionView.delegate = delegate
+        collectionView.reloadData()
     }
 
 }
