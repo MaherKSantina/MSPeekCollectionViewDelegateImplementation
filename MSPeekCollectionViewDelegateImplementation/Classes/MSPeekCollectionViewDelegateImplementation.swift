@@ -34,12 +34,12 @@ extension UICollectionView {
 
 open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionViewDelegateFlowLayout {
     
-    private let cellPeekWidth: CGFloat
-    private let cellSpacing: CGFloat
-    private let scrollThreshold: CGFloat
-    private let maximumItemsToScroll: Int
-    private let numberOfItemsToShow: Int
-    private let scrollDirection: UICollectionViewScrollDirection
+    public let cellPeekWidth: CGFloat
+    public let cellSpacing: CGFloat
+    public let scrollThreshold: CGFloat
+    public let maximumItemsToScroll: Int
+    public let numberOfItemsToShow: Int
+    public let scrollDirection: UICollectionViewScrollDirection
     
     private var currentScrollOffset: CGPoint = CGPoint(x: 0, y: 0)
     
@@ -143,11 +143,12 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
     
     private func calculateCoefficient(scrollDistance: CGFloat, scrollWidth: CGFloat) -> Int {
         var coefficent = 0
-        if abs(scrollDistance/scrollThreshold) <= 1 {
-            coefficent = Int(scrollDistance/scrollThreshold)
+        let safeScrollThreshold = max(scrollThreshold, 0.1)
+        if abs(scrollDistance/safeScrollThreshold) <= 1 {
+            coefficent = Int(scrollDistance/safeScrollThreshold)
         }
         else if Int(abs(scrollDistance/scrollWidth)) == 0 {
-            coefficent = max(-1, min(Int(scrollDistance/scrollThreshold), 1))
+            coefficent = max(-1, min(Int(scrollDistance/safeScrollThreshold), 1))
         }
         else {
             coefficent = Int(scrollDistance/scrollWidth)
