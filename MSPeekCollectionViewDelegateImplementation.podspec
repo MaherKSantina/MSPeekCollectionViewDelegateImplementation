@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MSPeekCollectionViewDelegateImplementation'
-  s.version          = '0.9.0'
+  s.version          = '0.10.0'
   s.summary          = 'A custom paging behavior that peeks the previous and next items in a collection view'
   s.swift_version    = '3.2'
 
@@ -28,7 +28,7 @@ I wrote this library because there's no pod that does this simple feature. Also,
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Maher Santina' => 'maher.santina90@gmail.com' }
   s.source           = { :git => 'https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://www.linkedin.com/in/maher-santina/'
 
   s.ios.deployment_target = '9.3'
 
