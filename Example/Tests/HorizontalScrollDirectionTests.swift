@@ -93,20 +93,40 @@ class HorizontalScrollDirectionTests: XCTestCase {
     }
     
     func test_ScrollViewWillEndDragging_ScrollGreaterThanThreshold_DirectionRight_ShouldScrollToNextItem() {
+        
         collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
         collectionView.contentOffset = CGPoint(x: 0, y: 0)
         sut.scrollViewWillBeginDragging(collectionView)
         let simulatedTargetContentOffset = simulateHorizontalScroll(distance: 50)
         XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 260)
+        
+        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 0, cellPeekWidth: 20, scrollThreshold: 50)
+        collectionView.contentOffset = CGPoint(x: 0, y: 0)
+        sut.scrollViewWillBeginDragging(collectionView)
+        let simulatedTargetContentOffset2 = simulateHorizontalScroll(distance: 50)
+        XCTAssertEqual(simulatedTargetContentOffset2.pointee.x, 280)
     }
     
     func test_ScrollViewWillEndDragging_ScrollGreaterThanThreshold_DirectionLeft_ShouldScrollToPreviousItem() {
-        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
-        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
-        collectionView.contentOffset = CGPoint(x: 260, y: 0)
-        let simulatedTargetContentOffset = simulateHorizontalScroll(distance: -51)
-        XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 0)
+//        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+//        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50)
+//        collectionView.contentOffset = CGPoint(x: 260, y: 0)
+//        let simulatedTargetContentOffset = simulateHorizontalScroll(distance: -51)
+//        XCTAssertEqual(simulatedTargetContentOffset.pointee.x, 0)
+//
+//        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+//        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 70, cellPeekWidth: 20, scrollThreshold: 50)
+//        collectionView.contentOffset = CGPoint(x: 480, y: 0)
+//        let simulatedTargetContentOffset2 = simulateHorizontalScroll(distance: -51)
+//        XCTAssertEqual(simulatedTargetContentOffset2.pointee.x, 320)
+        
+        collectionView.frame = CGRect(x: 0, y: 0, width: 400, height: 200)
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 0, cellPeekWidth: 0, scrollThreshold: 50)
+        collectionView.contentOffset = CGPoint(x: 600, y: 0)
+        let simulatedTargetContentOffset3 = simulateHorizontalScroll(distance: -51)
+        XCTAssertEqual(simulatedTargetContentOffset3.pointee.x, 400)
     }
     
     func test_ScrollDistanceIsLarge_MaxIsDefault_ShouldScroll1ItemByDefault() {
@@ -131,6 +151,21 @@ class HorizontalScrollDirectionTests: XCTestCase {
         XCTAssertEqual(offset, 0)
         let offset2 = sut.scrollView(collectionView, contentOffsetForItemAtIndex: 1)
         XCTAssertEqual(offset2, 260)
+    }
+    
+    func test_indexForItemAtContentOffset_ShouldReturnCorrectIndex() {
+        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 0, cellPeekWidth: 0, scrollThreshold: 50, maximumItemsToScroll: 2)
+        let offset = sut.scrollView(collectionView, indexForItemAtContentOffset: CGPoint(x: 640, y: 0))
+        XCTAssertEqual(offset, 2)
+        
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50, maximumItemsToScroll: 1)
+        let offset2 = sut.scrollView(collectionView, indexForItemAtContentOffset: CGPoint(x: 520, y: 0))
+        XCTAssertEqual(offset2, 2)
+        
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 50, cellPeekWidth: 20, scrollThreshold: 50, maximumItemsToScroll: 1)
+        let offset3 = sut.scrollView(collectionView, indexForItemAtContentOffset: CGPoint(x: 600, y: 0))
+        XCTAssertEqual(offset3, 3)
     }
     
 }

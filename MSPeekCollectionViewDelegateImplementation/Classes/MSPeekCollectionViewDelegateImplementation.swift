@@ -57,15 +57,6 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
         return max(0, finalWidth)
     }
     
-    private lazy var currentItemIndex: (UIView) -> Int = {
-        view in
-        guard self.itemWidth(view) > 0 else {
-            return 0
-        }
-        let offset = self.getValueFromPoint(self.currentScrollOffset)
-        return Int(round(offset/self.itemWidth(view)))
-    }
-    
     private func getViewWidth(_ view: UIView) -> CGFloat {
         switch scrollDirection {
         case .horizontal:
@@ -81,6 +72,15 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
             return point.x
         case .vertical:
             return point.y
+        }
+    }
+    
+    private func getValueFromSize(_ size: CGSize) -> CGFloat {
+        switch scrollDirection {
+        case .horizontal:
+            return size.width
+        case .vertical:
+            return size.height
         }
     }
     
@@ -131,10 +131,20 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
         let currentScrollDistance = getValueFromPoint(target) - getValueFromPoint(currentScrollOffset)
         let coefficient = calculateCoefficient(scrollDistance: currentScrollDistance, scrollWidth: itemWidth(scrollView))
         
-        let adjacentItemIndex = currentItemIndex(scrollView) + coefficient
-        let adjacentItemOffsetX = self.scrollView(scrollView, contentOffsetForItemAtIndex: adjacentItemIndex)
+        let adjacentItemNumber = self.scrollView(scrollView, indexForItemAtContentOffset: currentScrollOffset) + coefficient
+        let adjacentItemOffsetX = self.scrollView(scrollView, contentOffsetForItemAtIndex: adjacentItemNumber)
         
         targetContentOffset.pointee = getPointFromValue(adjacentItemOffsetX, defaultPoint: target)
+    }
+    
+    open func scrollView(_ scrollView: UIScrollView, indexForItemAtContentOffset contentOffset: CGPoint) -> Int {
+        let width = itemWidth(scrollView) + cellSpacing
+        guard width > 0 else {
+            return 0
+        }
+        let offset = self.getValueFromPoint(contentOffset)
+        let index = Int(round(offset/width))
+        return index
     }
     
     open func scrollView(_ scrollView: UIScrollView, contentOffsetForItemAtIndex index: Int) -> CGFloat{

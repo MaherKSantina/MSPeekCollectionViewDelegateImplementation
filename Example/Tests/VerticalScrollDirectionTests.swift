@@ -135,6 +135,21 @@ class VerticalScrollDirectionTests: XCTestCase {
         XCTAssertEqual(offset2, 140)
     }
     
+    func test_indexForItemAtContentOffset_ShouldReturnCorrectIndex() {
+        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 0, cellPeekWidth: 0, scrollThreshold: 50, maximumItemsToScroll: 2, scrollDirection: .vertical)
+        let offset = sut.scrollView(collectionView, indexForItemAtContentOffset: CGPoint(x: 0, y: 400))
+        XCTAssertEqual(offset, 2)
+        
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50, maximumItemsToScroll: 1, scrollDirection: .vertical)
+        let offset2 = sut.scrollView(collectionView, indexForItemAtContentOffset: CGPoint(x: 0, y: 280))
+        XCTAssertEqual(offset2, 2)
+        
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 50, cellPeekWidth: 20, scrollThreshold: 50, maximumItemsToScroll: 1, scrollDirection: .vertical)
+        let offset3 = sut.scrollView(collectionView, indexForItemAtContentOffset: CGPoint(x: 0, y: 220))
+        XCTAssertEqual(offset3, 2)
+    }
+    
 }
 
 extension VerticalScrollDirectionTests: UICollectionViewDataSource {
