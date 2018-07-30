@@ -28,7 +28,7 @@ I wrote this library because there's no pod that does this simple feature. Also,
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Maher Santina' => 'maher.santina90@gmail.com' }
   s.source           = { :git => 'https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation.git', :tag => s.version.to_s }
-  s.social_media_url = 'https://www.linkedin.com/in/maher-santina/'
+  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '9.3'
 
