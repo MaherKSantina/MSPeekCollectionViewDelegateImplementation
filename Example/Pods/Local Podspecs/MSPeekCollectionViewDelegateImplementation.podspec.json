@@ -17,7 +17,7 @@
     "tag": "0.10.0"
   },
   "platforms": {
-    "ios": "9.3"
+    "ios": "7"
   },
   "source_files": "MSPeekCollectionViewDelegateImplementation/Classes/**/*"
 }
