@@ -21,6 +21,10 @@
 
 import UIKit
 
+public protocol MSPeekImplementationDelegate: AnyObject {
+    func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int)
+}
+
 extension UICollectionView {
     public func configureForPeekingDelegate(scrollDirection: UICollectionViewScrollDirection = .horizontal) {
         self.decelerationRate = UIScrollViewDecelerationRateFast
@@ -40,6 +44,8 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
     public let maximumItemsToScroll: Int
     public let numberOfItemsToShow: Int
     public let scrollDirection: UICollectionViewScrollDirection
+    
+    public weak var delegate: MSPeekImplementationDelegate?
     
     private var currentScrollOffset: CGPoint = CGPoint(x: 0, y: 0)
     
@@ -135,6 +141,11 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
         let adjacentItemOffsetX = self.scrollView(scrollView, contentOffsetForItemAtIndex: adjacentItemNumber)
         
         targetContentOffset.pointee = getPointFromValue(adjacentItemOffsetX, defaultPoint: target)
+        
+        //Get the new active index
+        let activeIndex = self.scrollView(scrollView, indexForItemAtContentOffset: targetContentOffset.pointee)
+        //Pass the active index to the delegate
+        delegate?.peekImplementation(self, didChangeActiveIndexTo: activeIndex)
     }
     
     open func scrollView(_ scrollView: UIScrollView, indexForItemAtContentOffset contentOffset: CGPoint) -> Int {

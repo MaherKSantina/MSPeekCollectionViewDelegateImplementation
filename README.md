@@ -170,6 +170,14 @@ let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
 delegate = MSPeekCollectionViewDelegateImplementation(scrollDirection: layout.scrollDirection)
 collectionView.configureForPeekingDelegate(scrollDirection: layout.scrollDirection)
 ```
+
+### Listen for index change
+If you want to know whenever the index changes, you can implement the `MSPeekImplementationDelegate`. This delegate has a function
+```swift
+func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int)
+```
+which will be called each time the current index changes.
+
 ### Subclassing
 You can subclass the delegate implementation to integrate other features to it, or listen to certain events:
 ```swift
@@ -185,20 +193,6 @@ class SelectablePeekCollectionViewDelegateImplementation: MSPeekCollectionViewDe
 }
 ```
 Note: Make sure you call super on overriden functions (Unless you know what you're doing)
-
-## Changelog
-### 0.5.0
-- First stable version
-### 0.6.0
-- Added support to scroll multiple items at a time [#7](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/7)
-### 0.7.0
-- Added support to show multiple cells at the same time [#12](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/12)
-- Added support to get the content offset of an item at a specific index [#13](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/13)
-### 0.8.0
-- Added support for vertical scrolling/peeking [#5](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/issues/5)
-### 0.9.0
-- Added sliders in example to show supported functionality
-- Fixed app crashing if scroll threshold is 0
 
 ## Author
 

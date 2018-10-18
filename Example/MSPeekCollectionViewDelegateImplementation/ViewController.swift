@@ -40,6 +40,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = MSPeekCollectionViewDelegateImplementation()
+        delegate.delegate = self
         collectionView.configureForPeekingDelegate()
         collectionView.delegate = delegate
         collectionView.dataSource = self
@@ -86,6 +87,12 @@ extension ViewController: UICollectionViewDataSource {
         let value =  (180 + CGFloat(indexPath.row)*20) / 255
         cell.contentView.backgroundColor = UIColor(red: value, green: value, blue: value, alpha: 1)
         return cell
+    }
+}
+
+extension ViewController: MSPeekImplementationDelegate {
+    func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int) {
+        print("Changed to \(activeIndex)")
     }
 }
 
