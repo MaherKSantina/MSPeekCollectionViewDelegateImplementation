@@ -35,25 +35,25 @@ class ViewController: UIViewController {
     @IBOutlet weak var numberOfItemsToShowSlider: UISlider!
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var delegate: MSPeekCollectionViewDelegateImplementation!
+    var peekImplementation: MSPeekCollectionViewDelegateImplementation!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = MSPeekCollectionViewDelegateImplementation()
-        delegate.delegate = self
+        peekImplementation = MSPeekCollectionViewDelegateImplementation()
+        peekImplementation.delegate = self
         collectionView.configureForPeekingDelegate()
-        collectionView.delegate = delegate
+        collectionView.delegate = peekImplementation
         collectionView.dataSource = self
         
         initSliderValues()
     }
     
     func initSliderValues() {
-        cellSpacingSlider.value = Float(delegate.cellSpacing)
-        cellPeekWidthSlider.value = Float(delegate.cellPeekWidth)
-        scrollThresholdSlider.value = Float(delegate.scrollThreshold)
-        maximumItemsToScrollSlider.value = Float(delegate.maximumItemsToScroll)
-        numberOfItemsToShowSlider.value = Float(delegate.numberOfItemsToShow)
+        cellSpacingSlider.value = Float(peekImplementation.cellSpacing)
+        cellPeekWidthSlider.value = Float(peekImplementation.cellPeekWidth)
+        scrollThresholdSlider.value = Float(peekImplementation.scrollThreshold)
+        maximumItemsToScrollSlider.value = Float(peekImplementation.maximumItemsToScroll)
+        numberOfItemsToShowSlider.value = Float(peekImplementation.numberOfItemsToShow)
     }
     
     @IBAction func sliderValueDidChange(_ slider: CustomSlider) {
@@ -66,8 +66,8 @@ class ViewController: UIViewController {
     }
     
     func reloadDelegate() {
-        delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: CGFloat(cellSpacingSlider.value), cellPeekWidth: CGFloat(cellPeekWidthSlider.value), scrollThreshold: CGFloat(scrollThresholdSlider.value), maximumItemsToScroll: Int(maximumItemsToScrollSlider.value), numberOfItemsToShow: Int(numberOfItemsToShowSlider.value))
-        collectionView.delegate = delegate
+        peekImplementation = MSPeekCollectionViewDelegateImplementation(cellSpacing: CGFloat(cellSpacingSlider.value), cellPeekWidth: CGFloat(cellPeekWidthSlider.value), scrollThreshold: CGFloat(scrollThresholdSlider.value), maximumItemsToScroll: Int(maximumItemsToScrollSlider.value), numberOfItemsToShow: Int(numberOfItemsToShowSlider.value))
+        collectionView.delegate = peekImplementation
         collectionView.reloadData()
     }
 
