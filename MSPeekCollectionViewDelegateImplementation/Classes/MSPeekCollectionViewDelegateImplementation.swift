@@ -30,6 +30,7 @@ extension UICollectionView {
         self.decelerationRate = UIScrollViewDecelerationRateFast
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
+        self.isPagingEnabled = false
         //Keeping this to support older versions
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         layout.scrollDirection = scrollDirection
