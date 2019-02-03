@@ -21,9 +21,10 @@
 
 import UIKit
 
-@objc
-public protocol MSPeekImplementationDelegate: AnyObject {
+@objc public protocol MSPeekImplementationDelegate: AnyObject {
+    ///Will be called when the current active index has changed
     @objc optional func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int)
+    ///Will be called when the user taps on a cell at a specific index path
     @objc optional func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didSelectItemAt indexPath: IndexPath)
 }
 
