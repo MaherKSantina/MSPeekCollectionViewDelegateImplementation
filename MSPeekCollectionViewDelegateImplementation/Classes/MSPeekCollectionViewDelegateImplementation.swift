@@ -75,7 +75,7 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
         return CGFloat(index) * (itemLength(scrollView) + cellSpacing)
     }
     
-    fileprivate func calculateCoefficient(scrollDistance: CGFloat, scrollWidth: CGFloat) -> Int {
+    fileprivate func getNumberOfItemsToScroll(scrollDistance: CGFloat, scrollWidth: CGFloat) -> Int {
         var coefficent = 0
         let safeScrollThreshold = max(scrollThreshold, 0.1)
         
@@ -96,28 +96,32 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
 extension MSPeekCollectionViewDelegateImplementation: UICollectionViewDelegateFlowLayout {
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let viewWidth = scrollDirection.length(for: scrollView)
-        guard viewWidth > 0 else {
+        //Unexpected behavior happens if the scrollview's length is 0
+        guard scrollDirection.length(for: scrollView) > 0 else {
             return
         }
-        let beginningTargetContentOffset = targetContentOffset.pointee
-        //Current scroll distance is the distance between where the user tapped and the destination for the scrolling (If the velocity is high, this might be of big magnitude)
-        let currentScrollDistance = scrollDirection.value(for: beginningTargetContentOffset) -
+        //Save the initial content offset that the collection view was going to scroll to
+        let defaultTargetContentOffset = targetContentOffset.pointee
+        //Get the scroll distance by subtracting the default target content offset from the current position that the user scrolled from
+        let currentScrollDistance = scrollDirection.value(for: defaultTargetContentOffset) -
             scrollDirection.value(for: currentScrollOffset)
-        let coefficient = calculateCoefficient(scrollDistance: currentScrollDistance, scrollWidth: itemLength(scrollView))
+        //Get the number of items to scroll
+        let numberOfItemsToScroll = getNumberOfItemsToScroll(scrollDistance: currentScrollDistance, scrollWidth: itemLength(scrollView))
         
-        let adjacentItemIndex = self.scrollView(scrollView, indexForItemAtContentOffset: currentScrollOffset) + coefficient
-        let destinationItemOffset = self.scrollView(scrollView, contentOffsetForItemAtIndex: adjacentItemIndex)
+        //Get the destination index. numberOfItemsToScroll can be a negative number so the destination would be a previous cell
+        let destinationItemIndex = self.scrollView(scrollView, indexForItemAtContentOffset: currentScrollOffset) + numberOfItemsToScroll
+        //Get the contentOffset from the destination index
+        let destinationItemOffset = self.scrollView(scrollView, contentOffsetForItemAtIndex: destinationItemIndex)
         
-        let newTargetContentOffset = scrollDirection.point(for: destinationItemOffset, defaultPoint: beginningTargetContentOffset)
+        let newTargetContentOffset = scrollDirection.point(for: destinationItemOffset, defaultPoint: defaultTargetContentOffset)
         
+        //Set the target content offset. After doing this, the collection view will automatically animate to the target content offset
         targetContentOffset.pointee = newTargetContentOffset
         
-        //Get the new active index
-        let activeIndex = self.scrollView(scrollView, indexForItemAtContentOffset: newTargetContentOffset)
-        //Pass the active index to the delegate
+        //Pass the call to the delegate to add other behavior the developer needs
         delegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
-        delegate?.peekImplementation(self, didChangeActiveIndexTo: activeIndex)
+        //Pass the active index to the delegate
+        delegate?.peekImplementation(self, didChangeActiveIndexTo: destinationItemIndex)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
