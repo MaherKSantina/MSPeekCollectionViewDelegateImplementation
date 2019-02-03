@@ -100,18 +100,21 @@ extension MSPeekCollectionViewDelegateImplementation: UICollectionViewDelegateFl
         guard viewWidth > 0 else {
             return
         }
-        let target = targetContentOffset.pointee
+        let beginningTargetContentOffset = targetContentOffset.pointee
         //Current scroll distance is the distance between where the user tapped and the destination for the scrolling (If the velocity is high, this might be of big magnitude)
-        let currentScrollDistance = scrollDirection.value(for: target) - scrollDirection.value(for: currentScrollOffset)
+        let currentScrollDistance = scrollDirection.value(for: beginningTargetContentOffset) -
+            scrollDirection.value(for: currentScrollOffset)
         let coefficient = calculateCoefficient(scrollDistance: currentScrollDistance, scrollWidth: itemLength(scrollView))
         
-        let adjacentItemNumber = self.scrollView(scrollView, indexForItemAtContentOffset: currentScrollOffset) + coefficient
-        let adjacentItemOffsetX = self.scrollView(scrollView, contentOffsetForItemAtIndex: adjacentItemNumber)
+        let adjacentItemIndex = self.scrollView(scrollView, indexForItemAtContentOffset: currentScrollOffset) + coefficient
+        let destinationItemOffset = self.scrollView(scrollView, contentOffsetForItemAtIndex: adjacentItemIndex)
         
-        targetContentOffset.pointee = scrollDirection.point(for: adjacentItemOffsetX, defaultPoint: target)
+        let newTargetContentOffset = scrollDirection.point(for: destinationItemOffset, defaultPoint: beginningTargetContentOffset)
+        
+        targetContentOffset.pointee = newTargetContentOffset
         
         //Get the new active index
-        let activeIndex = self.scrollView(scrollView, indexForItemAtContentOffset: targetContentOffset.pointee)
+        let activeIndex = self.scrollView(scrollView, indexForItemAtContentOffset: newTargetContentOffset)
         //Pass the active index to the delegate
         delegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
         delegate?.peekImplementation(self, didChangeActiveIndexTo: activeIndex)
