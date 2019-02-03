@@ -93,7 +93,11 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController: MSPeekImplementationDelegate {
     func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int) {
-        print("Changed to \(activeIndex)")
+        print("Changed active index to \(activeIndex)")
+    }
+    
+    func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didSelectItemAt indexPath: IndexPath) {
+        print("Selected item at \(indexPath)")
     }
 }
 

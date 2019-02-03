@@ -21,8 +21,10 @@
 
 import UIKit
 
-public protocol MSPeekImplementationDelegate: UICollectionViewDelegate, AnyObject {
-    func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int)
+@objc
+public protocol MSPeekImplementationDelegate: AnyObject {
+    @objc optional func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int)
+    @objc optional func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didSelectItemAt indexPath: IndexPath)
 }
 
 open class MSPeekCollectionViewDelegateImplementation: NSObject {
@@ -117,16 +119,12 @@ extension MSPeekCollectionViewDelegateImplementation: UICollectionViewDelegateFl
         
         //Set the target content offset. After doing this, the collection view will automatically animate to the target content offset
         targetContentOffset.pointee = newTargetContentOffset
-        
-        //Pass the call to the delegate to add other behavior the developer needs
-        delegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
         //Pass the active index to the delegate
-        delegate?.peekImplementation(self, didChangeActiveIndexTo: destinationItemIndex)
+        delegate?.peekImplementation?(self, didChangeActiveIndexTo: destinationItemIndex)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         currentScrollOffset = scrollView.contentOffset
-        delegate?.scrollViewWillBeginDragging?(scrollView)
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -144,6 +142,10 @@ extension MSPeekCollectionViewDelegateImplementation: UICollectionViewDelegateFl
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.peekImplementation?(self, didSelectItemAt: indexPath)
     }
     
     
