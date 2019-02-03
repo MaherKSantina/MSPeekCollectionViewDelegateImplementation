@@ -25,74 +25,6 @@ public protocol MSPeekImplementationDelegate: UICollectionViewDelegate, AnyObjec
     func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int)
 }
 
-extension UICollectionView {
-    public func configureForPeekingDelegate(scrollDirection: UICollectionViewScrollDirection = .horizontal) {
-        self.decelerationRate = UIScrollViewDecelerationRateFast
-        self.showsHorizontalScrollIndicator = false
-        self.showsVerticalScrollIndicator = false
-        self.isPagingEnabled = false
-        //Keeping this to support older versions
-        let layout = collectionViewLayout as! UICollectionViewFlowLayout
-        layout.scrollDirection = scrollDirection
-    }
-}
-
-fileprivate extension UICollectionViewScrollDirection {
-    func length(for view: UIView) -> CGFloat {
-        switch self {
-        case .horizontal:
-            return view.frame.size.width
-        case .vertical:
-            return view.frame.size.height
-        }
-    }
-    
-    func value(for point: CGPoint) -> CGFloat {
-        switch self {
-        case .horizontal:
-            return point.x
-        case .vertical:
-            return point.y
-        }
-    }
-    
-    func value(for size: CGSize) -> CGFloat {
-        switch self {
-        case .horizontal:
-            return size.width
-        case .vertical:
-            return size.height
-        }
-    }
-    
-    func point(for value: CGFloat, defaultPoint: CGPoint) -> CGPoint {
-        switch self {
-        case .horizontal:
-            return CGPoint(x: value, y: defaultPoint.y)
-        case .vertical:
-            return CGPoint(x: defaultPoint.x, y: value)
-        }
-    }
-    
-    func size(for value: CGFloat, defaultSize: CGSize) -> CGSize {
-        switch self {
-        case .horizontal:
-            return CGSize(width: value, height: defaultSize.height)
-        case .vertical:
-            return CGSize(width: defaultSize.width, height: value)
-        }
-    }
-    
-    func edgeInsets(for value: CGFloat) -> UIEdgeInsets {
-        switch self {
-        case .horizontal:
-            return UIEdgeInsets(top: 0, left: value, bottom: 0, right: value)
-        case .vertical:
-            return UIEdgeInsets(top: value, left: 0, bottom: value, right: 0)
-        }
-    }
-}
-
 open class MSPeekCollectionViewDelegateImplementation: NSObject {
     
     public let cellPeekWidth: CGFloat
@@ -161,27 +93,6 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
 }
 
 extension MSPeekCollectionViewDelegateImplementation: UICollectionViewDelegateFlowLayout {
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        currentScrollOffset = scrollView.contentOffset
-        delegate?.scrollViewWillBeginDragging?(scrollView)
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return scrollDirection.size(for: itemLength(collectionView), defaultSize: collectionView.frame.size)
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let insets = cellSpacing + cellPeekWidth
-        return scrollDirection.edgeInsets(for: insets)
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return cellSpacing
-    }
     
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let viewWidth = scrollDirection.length(for: scrollView)
@@ -203,6 +114,28 @@ extension MSPeekCollectionViewDelegateImplementation: UICollectionViewDelegateFl
         //Pass the active index to the delegate
         delegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
         delegate?.peekImplementation(self, didChangeActiveIndexTo: activeIndex)
+    }
+    
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        currentScrollOffset = scrollView.contentOffset
+        delegate?.scrollViewWillBeginDragging?(scrollView)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return scrollDirection.size(for: itemLength(collectionView), defaultSize: collectionView.frame.size)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let insets = cellSpacing + cellPeekWidth
+        return scrollDirection.edgeInsets(for: insets)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return cellSpacing
     }
     
     
