@@ -37,6 +37,62 @@ extension UICollectionView {
     }
 }
 
+fileprivate extension UICollectionViewScrollDirection {
+    func length(for view: UIView) -> CGFloat {
+        switch self {
+        case .horizontal:
+            return view.frame.size.width
+        case .vertical:
+            return view.frame.size.height
+        }
+    }
+    
+    func value(for point: CGPoint) -> CGFloat {
+        switch self {
+        case .horizontal:
+            return point.x
+        case .vertical:
+            return point.y
+        }
+    }
+    
+    func value(for size: CGSize) -> CGFloat {
+        switch self {
+        case .horizontal:
+            return size.width
+        case .vertical:
+            return size.height
+        }
+    }
+    
+    func point(for value: CGFloat, defaultPoint: CGPoint) -> CGPoint {
+        switch self {
+        case .horizontal:
+            return CGPoint(x: value, y: defaultPoint.y)
+        case .vertical:
+            return CGPoint(x: defaultPoint.x, y: value)
+        }
+    }
+    
+    func size(for value: CGFloat, defaultSize: CGSize) -> CGSize {
+        switch self {
+        case .horizontal:
+            return CGSize(width: value, height: defaultSize.height)
+        case .vertical:
+            return CGSize(width: defaultSize.width, height: value)
+        }
+    }
+    
+    func edgeInsets(for value: CGFloat) -> UIEdgeInsets {
+        switch self {
+        case .horizontal:
+            return UIEdgeInsets(top: 0, left: value, bottom: 0, right: value)
+        case .vertical:
+            return UIEdgeInsets(top: value, left: 0, bottom: value, right: 0)
+        }
+    }
+}
+
 open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionViewDelegateFlowLayout {
     
     public let cellPeekWidth: CGFloat
@@ -48,75 +104,45 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
     
     public weak var delegate: MSPeekImplementationDelegate?
     
-    private var currentScrollOffset: CGPoint = CGPoint(x: 0, y: 0)
+    private var currentScrollOffset: CGPoint = CGPoint.zero
     
-    private lazy var itemWidth: (UIView) -> CGFloat = {
+    private lazy var itemLength: (UIView) -> CGFloat = {
         view in
-        var frameWidth: CGFloat = self.getViewWidth(view)
+        var frameWidth: CGFloat = self.getViewLength(view)
         //Get the total remaining width for the
-        let itemsWidth = (frameWidth
+        let allItemsWidth = (frameWidth
                 //If we have 2 items, there will be 3 spacing and so on
                 - (CGFloat(self.numberOfItemsToShow + 1) * (self.cellSpacing))
                 //There's always 2 peeking cells even if there are multiple cells showing
                 - 2 * (self.cellPeekWidth))
         //Divide the remaining space by the number of items to get each item's width
-        let finalWidth = itemsWidth / CGFloat(self.numberOfItemsToShow)
+        let finalWidth = allItemsWidth / CGFloat(self.numberOfItemsToShow)
         return max(0, finalWidth)
     }
     
-    private func getViewWidth(_ view: UIView) -> CGFloat {
-        switch scrollDirection {
-        case .horizontal:
-            return view.frame.size.width
-        case .vertical:
-            return view.frame.size.height
-        }
+    private func getViewLength(_ view: UIView) -> CGFloat {
+        return scrollDirection.length(for: view)
     }
     
     private func getValueFromPoint(_ point: CGPoint) -> CGFloat {
-        switch scrollDirection {
-        case .horizontal:
-            return point.x
-        case .vertical:
-            return point.y
-        }
+        return scrollDirection.value(for: point)
     }
     
     private func getValueFromSize(_ size: CGSize) -> CGFloat {
-        switch scrollDirection {
-        case .horizontal:
-            return size.width
-        case .vertical:
-            return size.height
-        }
+        return scrollDirection.value(for: size)
     }
     
     private func getPointFromValue(_ value: CGFloat, defaultPoint: CGPoint) -> CGPoint {
-        switch scrollDirection {
-        case .horizontal:
-            return CGPoint(x: value, y: defaultPoint.y)
-        case .vertical:
-            return CGPoint(x: defaultPoint.x, y: value)
-        }
+        return scrollDirection.point(for: value, defaultPoint: defaultPoint)
     }
     
     private func getSizeFromValue(_ value: CGFloat, defaultSize: CGSize) -> CGSize {
-        switch scrollDirection {
-        case .horizontal:
-            return CGSize(width: value, height: defaultSize.height)
-        case .vertical:
-            return CGSize(width: defaultSize.width, height: value)
-        }
+        return scrollDirection.size(for: value, defaultSize: defaultSize)
     }
     
     private func getEdgeInsets() -> UIEdgeInsets {
         let insets = cellSpacing + cellPeekWidth
-        switch scrollDirection {
-        case .horizontal:
-            return UIEdgeInsets(top: 0, left: insets, bottom: 0, right: insets)
-        case .vertical:
-            return UIEdgeInsets(top: insets, left: 0, bottom: insets, right: 0)
-        }
+        return scrollDirection.edgeInsets(for: insets)
     }
     
     public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50, maximumItemsToScroll: Int = 1, numberOfItemsToShow: Int = 1, scrollDirection: UICollectionViewScrollDirection = .horizontal) {
@@ -129,14 +155,14 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
     }
     
     open func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let viewWidth = getViewWidth(scrollView)
+        let viewWidth = getViewLength(scrollView)
         guard viewWidth > 0 else {
             return
         }
         let target = targetContentOffset.pointee
         //Current scroll distance is the distance between where the user tapped and the destination for the scrolling (If the velocity is high, this might be of big magnitude)
         let currentScrollDistance = getValueFromPoint(target) - getValueFromPoint(currentScrollOffset)
-        let coefficient = calculateCoefficient(scrollDistance: currentScrollDistance, scrollWidth: itemWidth(scrollView))
+        let coefficient = calculateCoefficient(scrollDistance: currentScrollDistance, scrollWidth: itemLength(scrollView))
         
         let adjacentItemNumber = self.scrollView(scrollView, indexForItemAtContentOffset: currentScrollOffset) + coefficient
         let adjacentItemOffsetX = self.scrollView(scrollView, contentOffsetForItemAtIndex: adjacentItemNumber)
@@ -150,7 +176,7 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
     }
     
     open func scrollView(_ scrollView: UIScrollView, indexForItemAtContentOffset contentOffset: CGPoint) -> Int {
-        let width = itemWidth(scrollView) + cellSpacing
+        let width = itemLength(scrollView) + cellSpacing
         guard width > 0 else {
             return 0
         }
@@ -160,7 +186,7 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
     }
     
     open func scrollView(_ scrollView: UIScrollView, contentOffsetForItemAtIndex index: Int) -> CGFloat{
-        return CGFloat(index) * (itemWidth(scrollView) + cellSpacing)
+        return CGFloat(index) * (itemLength(scrollView) + cellSpacing)
     }
     
     private func calculateCoefficient(scrollDistance: CGFloat, scrollWidth: CGFloat) -> Int {
@@ -180,7 +206,7 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
     }
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return getSizeFromValue(itemWidth(collectionView), defaultSize: collectionView.frame.size)
+        return getSizeFromValue(itemLength(collectionView), defaultSize: collectionView.frame.size)
     }
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
