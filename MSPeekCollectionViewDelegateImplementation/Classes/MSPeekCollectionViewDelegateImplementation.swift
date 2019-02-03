@@ -21,7 +21,7 @@
 
 import UIKit
 
-public protocol MSPeekImplementationDelegate: AnyObject {
+public protocol MSPeekImplementationDelegate: UICollectionViewDelegate, AnyObject {
     func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int)
 }
 
@@ -93,7 +93,7 @@ fileprivate extension UICollectionViewScrollDirection {
     }
 }
 
-open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionViewDelegateFlowLayout {
+open class MSPeekCollectionViewDelegateImplementation: NSObject {
     
     public let cellPeekWidth: CGFloat
     public let cellSpacing: CGFloat
@@ -104,9 +104,9 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
     
     public weak var delegate: MSPeekImplementationDelegate?
     
-    private var currentScrollOffset: CGPoint = CGPoint.zero
+    fileprivate var currentScrollOffset: CGPoint = CGPoint.zero
     
-    private lazy var itemLength: (UIView) -> CGFloat = {
+    fileprivate lazy var itemLength: (UIView) -> CGFloat = {
         view in
         var frameWidth: CGFloat = self.getViewLength(view)
         //Get the total remaining width for the
@@ -120,27 +120,27 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
         return max(0, finalWidth)
     }
     
-    private func getViewLength(_ view: UIView) -> CGFloat {
+    fileprivate func getViewLength(_ view: UIView) -> CGFloat {
         return scrollDirection.length(for: view)
     }
     
-    private func getValueFromPoint(_ point: CGPoint) -> CGFloat {
+    fileprivate func getValueFromPoint(_ point: CGPoint) -> CGFloat {
         return scrollDirection.value(for: point)
     }
     
-    private func getValueFromSize(_ size: CGSize) -> CGFloat {
+    fileprivate func getValueFromSize(_ size: CGSize) -> CGFloat {
         return scrollDirection.value(for: size)
     }
     
-    private func getPointFromValue(_ value: CGFloat, defaultPoint: CGPoint) -> CGPoint {
+    fileprivate func getPointFromValue(_ value: CGFloat, defaultPoint: CGPoint) -> CGPoint {
         return scrollDirection.point(for: value, defaultPoint: defaultPoint)
     }
     
-    private func getSizeFromValue(_ value: CGFloat, defaultSize: CGSize) -> CGSize {
+    fileprivate func getSizeFromValue(_ value: CGFloat, defaultSize: CGSize) -> CGSize {
         return scrollDirection.size(for: value, defaultSize: defaultSize)
     }
     
-    private func getEdgeInsets() -> UIEdgeInsets {
+    fileprivate func getEdgeInsets() -> UIEdgeInsets {
         let insets = cellSpacing + cellPeekWidth
         return scrollDirection.edgeInsets(for: insets)
     }
@@ -172,6 +172,7 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
         //Get the new active index
         let activeIndex = self.scrollView(scrollView, indexForItemAtContentOffset: targetContentOffset.pointee)
         //Pass the active index to the delegate
+        delegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
         delegate?.peekImplementation(self, didChangeActiveIndexTo: activeIndex)
     }
     
@@ -204,6 +205,13 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
         let finalCoefficent = max((-1) * maximumItemsToScroll, min(coefficent, maximumItemsToScroll))
         return finalCoefficent
     }
+}
+
+extension MSPeekCollectionViewDelegateImplementation: UICollectionViewDelegateFlowLayout {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        currentScrollOffset = scrollView.contentOffset
+        delegate?.scrollViewWillBeginDragging?(scrollView)
+    }
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return getSizeFromValue(itemLength(collectionView), defaultSize: collectionView.frame.size)
@@ -221,7 +229,5 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject, UICollectionVie
         return cellSpacing
     }
     
-    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        currentScrollOffset = scrollView.contentOffset
-    }
+    
 }
