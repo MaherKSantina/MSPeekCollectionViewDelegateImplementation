@@ -78,15 +78,16 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
     fileprivate func calculateCoefficient(scrollDistance: CGFloat, scrollWidth: CGFloat) -> Int {
         var coefficent = 0
         let safeScrollThreshold = max(scrollThreshold, 0.1)
-        if abs(scrollDistance/safeScrollThreshold) <= 1 {
+        
+        switch scrollDistance {
+        case let x where abs(x/safeScrollThreshold) <= 1:
             coefficent = Int(scrollDistance/safeScrollThreshold)
-        }
-        else if Int(abs(scrollDistance/scrollWidth)) == 0 {
+        case let x where Int(abs(x/scrollWidth)) == 0:
             coefficent = max(-1, min(Int(scrollDistance/safeScrollThreshold), 1))
-        }
-        else {
+        default:
             coefficent = Int(scrollDistance/scrollWidth)
         }
+        
         let finalCoefficent = max((-1) * maximumItemsToScroll, min(coefficent, maximumItemsToScroll))
         return finalCoefficent
     }
