@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UICollectionViewScrollDirection {
+extension UICollectionView.ScrollDirection {
     func length(for view: UIView) -> CGFloat {
         switch self {
         case .horizontal:

@@ -8,8 +8,8 @@
 import UIKit
 
 extension UICollectionView {
-    public func configureForPeekingDelegate(scrollDirection: UICollectionViewScrollDirection = .horizontal) {
-        self.decelerationRate = UIScrollViewDecelerationRateFast
+    public func configureForPeekingDelegate(scrollDirection: UICollectionView.ScrollDirection = .horizontal) {
+        self.decelerationRate = UIScrollView.DecelerationRate.fast
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
         self.isPagingEnabled = false
