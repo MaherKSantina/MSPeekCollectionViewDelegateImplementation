@@ -30,7 +30,7 @@ I wrote this library because there's no pod that does this simple feature. Also,
   s.source           = { :git => 'https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8'
+  s.ios.deployment_target = '10'
 
   s.source_files = 'MSPeekCollectionViewDelegateImplementation/Classes/**/*'
   
