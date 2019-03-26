@@ -8,9 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MSPeekCollectionViewDelegateImplementation'
-  s.version          = '1.1.0'
+  s.version          = '1.2.0'
   s.summary          = 'A custom paging behavior that peeks the previous and next items in a collection view'
-  s.swift_version    = '3.2'
+  s.swift_version    = '4.2'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -30,7 +30,7 @@ I wrote this library because there's no pod that does this simple feature. Also,
   s.source           = { :git => 'https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8'
+  s.ios.deployment_target = '10'
 
   s.source_files = 'MSPeekCollectionViewDelegateImplementation/Classes/**/*'
   
