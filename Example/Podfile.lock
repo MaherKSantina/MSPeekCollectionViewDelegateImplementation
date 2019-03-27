@@ -1,5 +1,5 @@
 PODS:
-  - MSPeekCollectionViewDelegateImplementation (1.2.0)
+  - MSPeekCollectionViewDelegateImplementation (1.2.1)
 
 DEPENDENCIES:
   - MSPeekCollectionViewDelegateImplementation (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MSPeekCollectionViewDelegateImplementation: b94079f87cac2087c5fb73fda46553ea3bab63da
+  MSPeekCollectionViewDelegateImplementation: fcf03209da766882db0dc07c21d32981b7ba2fae
 
 PODFILE CHECKSUM: 8d230cee08c8a8b7e62859eff8016277efe2311d
 
