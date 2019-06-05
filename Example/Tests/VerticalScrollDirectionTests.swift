@@ -126,6 +126,14 @@ class VerticalScrollDirectionTests: XCTestCase {
         XCTAssertEqual(simulatedTargetContentOffset.pointee.y, 280)
     }
     
+    
+    func test_MinimumItemsToScroll_ShouldScrollProperly() {
+        collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50, minimumItemsToScroll: 2, maximumItemsToScroll: 4, scrollDirection: .vertical)
+        let simulatedTargetContentOffset = simulateVerticalScroll(distance: 51)
+        XCTAssertEqual(simulatedTargetContentOffset.pointee.y, 280)
+    }
+    
     func test_contentOffsetAtIndex_ShouldReturnCorrectOffset() {
         collectionView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
         sut = MSPeekCollectionViewDelegateImplementation(cellSpacing: 20, cellPeekWidth: 20, scrollThreshold: 50, maximumItemsToScroll: 2, scrollDirection: .vertical)
