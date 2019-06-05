@@ -72,6 +72,10 @@ delegate = MSPeekCollectionViewDelegateImplementation(cellPeekWidth: 20)
 delegate = MSPeekCollectionViewDelegateImplementation(scrollThreshold: 150)
 ```
 ```swift
+//minimumItemsToScroll is the minimum number of items that can be scrolled
+delegate = MSPeekCollectionViewDelegateImplementation(minimumItemsToScroll: 1)
+```
+```swift
 //maximumItemsToScroll is the maximum number of items that can be scrolled if the scroll distance is large
 delegate = MSPeekCollectionViewDelegateImplementation(maximumItemsToScroll: 3)
 ```
