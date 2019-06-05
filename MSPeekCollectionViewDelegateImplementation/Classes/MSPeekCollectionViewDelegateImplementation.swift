@@ -33,6 +33,7 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
     public let cellPeekWidth: CGFloat
     public let cellSpacing: CGFloat
     public let scrollThreshold: CGFloat
+    public let minimumItemsToScroll: Int
     public let maximumItemsToScroll: Int
     public let numberOfItemsToShow: Int
     public let scrollDirection: UICollectionView.ScrollDirection
@@ -55,10 +56,11 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
         return max(0, finalWidth)
     }
     
-    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50, maximumItemsToScroll: Int = 1, numberOfItemsToShow: Int = 1, scrollDirection: UICollectionView.ScrollDirection = .horizontal) {
+    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50, minimumItemsToScroll: Int = 1, maximumItemsToScroll: Int = 1, numberOfItemsToShow: Int = 1, scrollDirection: UICollectionView.ScrollDirection = .horizontal) {
         self.cellSpacing = cellSpacing
         self.cellPeekWidth = cellPeekWidth
         self.scrollThreshold = scrollThreshold
+        self.minimumItemsToScroll = minimumItemsToScroll
         self.maximumItemsToScroll = maximumItemsToScroll
         self.numberOfItemsToShow = numberOfItemsToShow
         self.scrollDirection = scrollDirection
@@ -89,6 +91,12 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
             coefficent = max(-1, min(Int(scrollDistance/safeScrollThreshold), 1))
         default:
             coefficent = Int(scrollDistance/scrollWidth)
+        }
+        
+        if coefficent > 0 {
+            coefficent = max(minimumItemsToScroll, coefficent)
+        } else if coefficent < 0 {
+            coefficent = min(-minimumItemsToScroll, coefficent)
         }
         
         let finalCoefficent = max((-1) * maximumItemsToScroll, min(coefficent, maximumItemsToScroll))
