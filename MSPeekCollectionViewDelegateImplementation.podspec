@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.name             = 'MSPeekCollectionViewDelegateImplementation'
   s.version          = '1.3.0'
   s.summary          = 'A custom paging behavior that peeks the previous and next items in a collection view'
-  s.swift_version    = '4.2'
+  s.swift_version    = '5.0'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?

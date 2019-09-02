@@ -14,6 +14,8 @@ extension UICollectionView.ScrollDirection {
             return view.frame.size.width
         case .vertical:
             return view.frame.size.height
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -23,6 +25,8 @@ extension UICollectionView.ScrollDirection {
             return point.x
         case .vertical:
             return point.y
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -32,6 +36,8 @@ extension UICollectionView.ScrollDirection {
             return size.width
         case .vertical:
             return size.height
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -41,6 +47,8 @@ extension UICollectionView.ScrollDirection {
             return CGPoint(x: value, y: defaultPoint.y)
         case .vertical:
             return CGPoint(x: defaultPoint.x, y: value)
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -50,6 +58,8 @@ extension UICollectionView.ScrollDirection {
             return CGSize(width: value, height: defaultSize.height)
         case .vertical:
             return CGSize(width: defaultSize.width, height: value)
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -59,6 +69,8 @@ extension UICollectionView.ScrollDirection {
             return UIEdgeInsets(top: 0, left: value, bottom: 0, right: value)
         case .vertical:
             return UIEdgeInsets(top: value, left: 0, bottom: value, right: 0)
+        @unknown default:
+            fatalError()
         }
     }
 }
