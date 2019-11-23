@@ -80,23 +80,32 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
         return CGFloat(index) * (itemLength(scrollView) + cellSpacing)
     }
     
-    fileprivate func getNumberOfItemsToScroll(scrollDistance: CGFloat, scrollWidth: CGFloat) -> Int {
+    fileprivate func getNumberOfItemsToScroll(scrollDistance: CGFloat, scrollWidth: CGFloat, velocityInDirection: CGFloat) -> Int {
         var coefficent = 0
-        let safeScrollThreshold = max(scrollThreshold, 0.1)
         
-        switch scrollDistance {
-        case let x where abs(x/safeScrollThreshold) <= 1:
-            coefficent = Int(scrollDistance/safeScrollThreshold)
-        case let x where Int(abs(x/scrollWidth)) == 0:
-            coefficent = max(-1, min(Int(scrollDistance/safeScrollThreshold), 1))
-        default:
-            coefficent = Int(scrollDistance/scrollWidth)
-        }
-        
-        if coefficent > 0 {
-            coefficent = max(minimumItemsToScroll, coefficent)
-        } else if coefficent < 0 {
-            coefficent = min(-minimumItemsToScroll, coefficent)
+        if velocityInDirection > 0 {
+            
+            let safeScrollThreshold = max(scrollThreshold, 0.1)
+            
+            switch scrollDistance {
+            case let x where abs(x/safeScrollThreshold) <= 1:
+                coefficent = Int(scrollDistance/safeScrollThreshold)
+            case let x where Int(abs(x/scrollWidth)) == 0:
+                coefficent = max(-1, min(Int(scrollDistance/safeScrollThreshold), 1))
+            default:
+                coefficent = Int(scrollDistance/scrollWidth)
+            }
+            
+            if coefficent > 0 {
+                coefficent = max(minimumItemsToScroll, coefficent)
+            } else if coefficent < 0 {
+                coefficent = min(-minimumItemsToScroll, coefficent)
+            }
+            
+        } else {
+            
+            coefficent = Int(scrollDistance / ((scrollWidth + cellSpacing) / 2))
+            
         }
         
         let finalCoefficent = max((-1) * maximumItemsToScroll, min(coefficent, maximumItemsToScroll))
@@ -117,10 +126,13 @@ extension MSPeekCollectionViewDelegateImplementation: UICollectionViewDelegateFl
         let currentScrollDistance = scrollDirection.value(for: defaultTargetContentOffset) -
             scrollDirection.value(for: currentScrollOffset)
         //Get the number of items to scroll
-        let numberOfItemsToScroll = getNumberOfItemsToScroll(scrollDistance: currentScrollDistance, scrollWidth: itemLength(scrollView))
+        let numberOfItemsToScroll = getNumberOfItemsToScroll(scrollDistance: currentScrollDistance,
+                                                             scrollWidth: itemLength(scrollView),
+                                                             velocityInDirection: scrollDirection.value(for: velocity))
         
         //Get the destination index. numberOfItemsToScroll can be a negative number so the destination would be a previous cell
         let destinationItemIndex = self.scrollView(scrollView, indexForItemAtContentOffset: currentScrollOffset) + numberOfItemsToScroll
+        
         //Get the contentOffset from the destination index
         let destinationItemOffset = self.scrollView(scrollView, contentOffsetForItemAtIndex: destinationItemIndex)
         
