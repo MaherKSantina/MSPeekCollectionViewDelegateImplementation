@@ -33,6 +33,7 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
     public let cellPeekWidth: CGFloat
     public let cellSpacing: CGFloat
     public let scrollThreshold: CGFloat
+    public let velocityThreshold: CGFloat
     public let minimumItemsToScroll: Int
     public let maximumItemsToScroll: Int
     public let numberOfItemsToShow: Int
@@ -56,10 +57,11 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
         return max(0, finalWidth)
     }
     
-    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50, minimumItemsToScroll: Int = 1, maximumItemsToScroll: Int = 1, numberOfItemsToShow: Int = 1, scrollDirection: UICollectionView.ScrollDirection = .horizontal) {
+    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, scrollThreshold: CGFloat = 50, velocityThreshold: CGFloat = 0, minimumItemsToScroll: Int = 1, maximumItemsToScroll: Int = 1, numberOfItemsToShow: Int = 1, scrollDirection: UICollectionView.ScrollDirection = .horizontal) {
         self.cellSpacing = cellSpacing
         self.cellPeekWidth = cellPeekWidth
         self.scrollThreshold = scrollThreshold
+        self.velocityThreshold = velocityThreshold
         self.minimumItemsToScroll = minimumItemsToScroll
         self.maximumItemsToScroll = maximumItemsToScroll
         self.numberOfItemsToShow = numberOfItemsToShow
@@ -83,7 +85,7 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
     fileprivate func getNumberOfItemsToScroll(scrollDistance: CGFloat, scrollWidth: CGFloat, velocityInDirection: CGFloat) -> Int {
         var coefficent = 0
         
-        if velocityInDirection > 0 {
+        if abs(velocityInDirection) > velocityThreshold {
             
             let safeScrollThreshold = max(scrollThreshold, 0.1)
             
@@ -96,16 +98,16 @@ open class MSPeekCollectionViewDelegateImplementation: NSObject {
                 coefficent = Int(scrollDistance/scrollWidth)
             }
             
-            if coefficent > 0 {
-                coefficent = max(minimumItemsToScroll, coefficent)
-            } else if coefficent < 0 {
-                coefficent = min(-minimumItemsToScroll, coefficent)
-            }
-            
         } else {
-            
-            coefficent = Int(scrollDistance / ((scrollWidth + cellSpacing) / 2))
-            
+
+            coefficent = Int((scrollDistance / (scrollWidth + cellSpacing)).rounded())
+
+        }
+        
+        if coefficent > 0 {
+            coefficent = max(minimumItemsToScroll, coefficent)
+        } else if coefficent < 0 {
+            coefficent = min(-minimumItemsToScroll, coefficent)
         }
         
         let finalCoefficent = max((-1) * maximumItemsToScroll, min(coefficent, maximumItemsToScroll))
