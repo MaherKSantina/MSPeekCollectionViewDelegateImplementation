@@ -35,7 +35,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var numberOfItemsToShowSlider: UISlider!
 
     @IBOutlet weak var collectionView: UICollectionView!
-//    var peekImplementation: MSPeekCollectionViewDelegateImplementation!
 
     var behavior: MSCollectionViewPeekingBehavior!
     
