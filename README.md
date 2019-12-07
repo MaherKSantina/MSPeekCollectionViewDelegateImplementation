@@ -1,5 +1,34 @@
 # MSPeekCollectionViewDelegateImplementation
 
+# Version 3.0.0 is here! 🎉
+The peeking logic is now done using a custom `UICollectionViewLayout` which makes it easier to integrate and will introduce less bugs! (And hopefully it will solve all the issues you were facing)
+
+# Migrating from 2.0.0 to 3.0.0
+I've tried to keep minimal effort to migrate from v2 to v3. Here are the steps:
+1- Replace `MSPeekCollectionViewDelegateImplementation` initialization with `MSCollectionViewPeekingBehavior`
+
+2- On your `collectionView`, call `configureForPeekingBehavior` like this:
+
+```swift
+collectionView.configureForPeekingBehavior(behavior: behavior)
+```
+3- Set the collection view's delegate as the view controller (Or any other class you want)
+
+4- In the collection view delegate function `scrollViewWillEndDragging`, call the behavior's `scrollViewWillEndDragging` like this:
+```swift
+func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        behavior.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+}
+```
+
+5- ???
+
+6- Profit 💰
+
+You can check out the example for a detailed use
+
+# Introduction
+
 [![Build Status](https://travis-ci.org/MaherKSantina/MSPeekCollectionViewDelegateImplementation.svg?branch=master)](https://travis-ci.org/MaherKSantina/MSPeekCollectionViewDelegateImplementation)
 
 ![ezgif-2-9f7a86182f](https://user-images.githubusercontent.com/24646608/41348369-c0887714-6f4f-11e8-9231-8a86a278ee4a.gif)
@@ -13,8 +42,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-- XCode 9.3
-- Swift 3.2
+- XCode 11.2.1
+- Swift 5
 
 This pod will probably work on older versions of XCode but I haven't tested it.
 
@@ -46,50 +75,48 @@ pod 'MSPeekCollectionViewDelegateImplementation'
 import MSPeekCollectionViewDelegateImplementation
 ```
 
-6. Create a variable of type `MSPeekCollectionViewDelegateImplementation`
+6. Create a variable of type `MSCollectionViewPeekingBehavior`
 ```swift
-var delegate: MSPeekCollectionViewDelegateImplementation!
+var behavior: MSCollectionViewPeekingBehavior!
 ```
 
-7. In `viewDidLoad()`, Configure the `collectionView` for peek behavior:
+7. In `viewDidLoad()`, , initialize the behavior and configure the `collectionView` for peek behavior:
 ```swift
-collectionView.configureForPeekingDelegate()
-```
-
-8. In `viewDidLoad()`, initialize the delegate using the basic initializer:
-```swift
-delegate = MSPeekCollectionViewDelegateImplementation()
+behavior = MSCollectionViewPeekingBehavior()
+collectionView.configureForPeekingBehavior(behavior: behavior)
 ```
 Or you can use whatever arguments from the ones below (Can be combined together as needed):
 ```swift
-delegate = MSPeekCollectionViewDelegateImplementation(cellSpacing: 10)
+behavior = MSCollectionViewPeekingBehavior(cellSpacing: 10)
 ```
 ```swift
-delegate = MSPeekCollectionViewDelegateImplementation(cellPeekWidth: 20)
-```
-```swift
-//scrollThreshold is the minimum amount of scroll distance required to move to the adjacent item.
-delegate = MSPeekCollectionViewDelegateImplementation(scrollThreshold: 150)
+behavior = MSCollectionViewPeekingBehavior(cellPeekWidth: 20)
 ```
 ```swift
 //minimumItemsToScroll is the minimum number of items that can be scrolled
-delegate = MSPeekCollectionViewDelegateImplementation(minimumItemsToScroll: 1)
+behavior = MSCollectionViewPeekingBehavior(minimumItemsToScroll: 1)
 ```
 ```swift
 //maximumItemsToScroll is the maximum number of items that can be scrolled if the scroll distance is large
-delegate = MSPeekCollectionViewDelegateImplementation(maximumItemsToScroll: 3)
+behavior = MSCollectionViewPeekingBehavior(maximumItemsToScroll: 3)
 ```
 ```swift
 //numberOfItemsToShow is the number of items that will be shown at the same time.
-delegate = MSPeekCollectionViewDelegateImplementation(numberOfItemsToShow: 3)
+behavior = MSCollectionViewPeekingBehavior(numberOfItemsToShow: 3)
 ```
 
 ![peek explanation](https://user-images.githubusercontent.com/24646608/41348656-b0ad14fc-6f50-11e8-8723-2996b016e9c9.jpg)
 
 
-9. In `viewDidLoad()`, set the collection view's delegate:
+8. In `viewDidLoad()`, set the collection view's delegate to self:
 ```swift
-collectionView.delegate = delegate
+collectionView.delegate = self
+```
+9. In the collection view delegate function `scrollViewWillEndDragging`, call the behavior's `scrollViewWillEndDragging` like this:
+```swift
+func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        behavior.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+}
 ```
 10. Create the data source implementation as an extension for the `ViewController`
 ```swift
@@ -124,16 +151,14 @@ import MSPeekCollectionViewDelegateImplementation
 class ViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    let delegate = MSPeekCollectionViewDelegateImplementation()
+    var behavior = MSCollectionViewPeekingBehavior()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.configureForPeekingDelegate()
-        collectionView.delegate = delegate
+        collectionView.configureForPeekingBehavior(behavior: behavior)
+        collectionView.delegate = self
         collectionView.dataSource = self
     }
-
-
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -151,79 +176,21 @@ extension ViewController: UICollectionViewDataSource {
         return cell
     }
 }
-```
 
-## Features
-### Getting the offset of a specific index
-The implementation introduces a function (`scrollView(_:,contentOffsetForItemAtIndex:) -> CGFloat`) to get the content offset of an item at a specific index. This can be helpful if you want to scroll the collection view programmatically to a specific index (Maybe create a carousel with a timer). You can do that by using the following code:
-```swift
-let secondItemContentOffset = delegate.scrollView(collectionView, contentOffsetForItemAtIndex: 1)
-collectionView.setContentOffset(CGPoint(x: secondItemContentOffset, y: 0), animated: false)
+extension ViewController: UICollectionViewDelegate {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        behavior.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
+}
 ```
 
 ## Customization
 ### Vertical Scroll Direction
 The implementation supports collection views with vertical directions and will automatically position cells correctly, you can set the scrolling and peeking to be vertical using:
 ```swift
-delegate = MSPeekCollectionViewDelegateImplementation(scrollDirection: .vertical)
-collectionView.configureForPeekingDelegate(scrollDirection: .vertical)
+delegate = MSCollectionViewPeekingBehavior(scrollDirection: .vertical)
+collectionView.configureForPeekingBehavior(behavior: behavior)
 ```
-Or alternatively:
-```swift
-let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-delegate = MSPeekCollectionViewDelegateImplementation(scrollDirection: layout.scrollDirection)
-collectionView.configureForPeekingDelegate(scrollDirection: layout.scrollDirection)
-```
-
-### Implementing MSPeekImplementationDelegate
-You can implement the delegate of the peek implementation to listen to specific events. This is the protocol of the delegate
-```swift
-@objc public protocol MSPeekImplementationDelegate: AnyObject {
-    ///Will be called when the current active index has changed
-    @objc optional func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int)
-    ///Will be called when the user taps on a cell at a specific index path
-    @objc optional func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didSelectItemAt indexPath: IndexPath)
-}
-```
-
-To listen to those events, you can do something like this:
-```swift
-class ViewController: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
-    var peekImplementation: MSPeekCollectionViewDelegateImplementation!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //Set the collection view
-        //...
-        peekImplementation = MSPeekCollectionViewDelegateImplementation()
-        peekImplementation.delegate = self
-    }
-}
-
-extension ViewController: MSPeekImplementationDelegate {
-    func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int) {
-        print("Changed active index to \(activeIndex)")
-    }
-    
-    func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didSelectItemAt indexPath: IndexPath) {
-        print("Selected item at \(indexPath)")
-    }
-}
-```
-
-### Subclassing
-You can subclass the delegate implementation to integrate other features to it, or listen to certain events:
-```swift
-class SelectablePeekCollectionViewDelegateImplementation: MSPeekCollectionViewDelegateImplementation {
-    
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        super.scrollViewWillBeginDragging(scrollView)
-        // Add other code to support other features
-    }
-}
-```
-Note: Make sure you call super on overriden functions (Unless you know what you're doing)
 
 ## Author
 

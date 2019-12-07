@@ -35,25 +35,23 @@ class ViewController: UIViewController {
     @IBOutlet weak var numberOfItemsToShowSlider: UISlider!
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var peekImplementation: MSPeekCollectionViewDelegateImplementation!
+
+    var behavior: MSCollectionViewPeekingBehavior!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        peekImplementation = MSPeekCollectionViewDelegateImplementation()
-        peekImplementation.delegate = self
-        collectionView.configureForPeekingDelegate()
-        collectionView.delegate = peekImplementation
+        reloadDelegate()
+        collectionView.delegate = self
         collectionView.dataSource = self
         
         initSliderValues()
     }
     
     func initSliderValues() {
-        cellSpacingSlider.value = Float(peekImplementation.cellSpacing)
-        cellPeekWidthSlider.value = Float(peekImplementation.cellPeekWidth)
-        scrollThresholdSlider.value = Float(peekImplementation.scrollThreshold)
-        maximumItemsToScrollSlider.value = Float(peekImplementation.maximumItemsToScroll)
-        numberOfItemsToShowSlider.value = Float(peekImplementation.numberOfItemsToShow)
+        cellSpacingSlider.value = Float(behavior.cellSpacing)
+        cellPeekWidthSlider.value = Float(behavior.cellPeekWidth)
+        maximumItemsToScrollSlider.value = Float(behavior.maximumItemsToScroll ?? 1)
+        numberOfItemsToShowSlider.value = Float(behavior.numberOfItemsToShow)
     }
     
     @IBAction func sliderValueDidChange(_ slider: CustomSlider) {
@@ -66,9 +64,8 @@ class ViewController: UIViewController {
     }
     
     func reloadDelegate() {
-        peekImplementation = MSPeekCollectionViewDelegateImplementation(cellSpacing: CGFloat(cellSpacingSlider.value), cellPeekWidth: CGFloat(cellPeekWidthSlider.value), scrollThreshold: CGFloat(scrollThresholdSlider.value), maximumItemsToScroll: Int(maximumItemsToScrollSlider.value), numberOfItemsToShow: Int(numberOfItemsToShowSlider.value))
-        collectionView.delegate = peekImplementation
-        peekImplementation.delegate = self
+        behavior = MSCollectionViewPeekingBehavior(cellSpacing: CGFloat(cellSpacingSlider.value), cellPeekWidth: CGFloat(cellPeekWidthSlider.value), maximumItemsToScroll: Int(maximumItemsToScrollSlider.value), numberOfItemsToShow: Int(numberOfItemsToShowSlider.value), scrollDirection: .horizontal)
+        collectionView.configureForPeekingBehavior(behavior: behavior)
         collectionView.reloadData()
     }
 
@@ -91,13 +88,8 @@ extension ViewController: UICollectionViewDataSource {
     }
 }
 
-extension ViewController: MSPeekImplementationDelegate {
-    func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didChangeActiveIndexTo activeIndex: Int) {
-        print("Changed active index to \(activeIndex)")
-    }
-    
-    func peekImplementation(_ peekImplementation: MSPeekCollectionViewDelegateImplementation, didSelectItemAt indexPath: IndexPath) {
-        print("Selected item at \(indexPath)")
+extension ViewController: UICollectionViewDelegate {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        behavior.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
 }
-
