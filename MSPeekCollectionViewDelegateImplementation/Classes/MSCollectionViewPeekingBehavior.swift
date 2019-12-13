@@ -63,6 +63,11 @@ public class MSCollectionViewPeekingBehavior {
         paging.dataSource = self
     }
 
+    /// Scrolls to an item at a specific index with or without animation
+    public func scrollToItem(at index: Int, animated: Bool) {
+        layout.collectionView?.setContentOffset(layout.startingPointForItem(index: index), animated: animated)
+    }
+
     /// Required function to be called when the `scrollViewWillEndDragging` `UICollectionViewDelegate` function is called
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         paging.collectionViewWillEndDragging(scrollDirection: scrollDirection, withVelocity: velocity, targetContentOffset: targetContentOffset)

@@ -184,6 +184,18 @@ extension ViewController: UICollectionViewDelegate {
 }
 ```
 
+## Features
+### Scrolling to a specific item
+The `MSCollectionViewPeekingBehavior` now has a function to scroll to a specific index
+```swift
+public func scrollToItem(at index: Int, animated: Bool)
+```
+
+You can do something like:
+```swift
+behavior.scrollToItem(at: 1, animated: true)
+```
+
 ## Customization
 ### Vertical Scroll Direction
 The implementation supports collection views with vertical directions and will automatically position cells correctly, you can set the scrolling and peeking to be vertical using:
