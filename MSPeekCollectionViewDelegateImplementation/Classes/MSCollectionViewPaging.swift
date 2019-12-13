@@ -61,6 +61,7 @@ public class MSCollectionViewPaging: NSObject {
         let currentIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: startingOffset) ?? 0
         let targetIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: targetOffset) ?? 0
 
+        let delta = targetIndex - currentIndex
 
         var offset: Int
         switch (currentIndex, targetIndex, abs(velocity)) {
@@ -70,7 +71,7 @@ public class MSCollectionViewPaging: NSObject {
 
             // Otherwise, get the differece between the target and the current indices
         default:
-            offset = abs(targetIndex - currentIndex)
+            offset = abs(delta)
         }
 
         /// If we've set a minimum number of items to scroll, enforce it
@@ -84,7 +85,7 @@ public class MSCollectionViewPaging: NSObject {
         }
 
         // The final index is the current index ofsetted by the value and in the velocity direction
-        var finalIndex = currentIndex + (offset * velocity.sign.multiplier)
+        var finalIndex = currentIndex + (offset * Sign(value: delta).multiplier)
 
         // Move to index only if it exists. This will solve issues when there are multiple items in the same page
         if !(dataSource?.collectionViewPaging(self, indexExists: finalIndex) ?? false) {

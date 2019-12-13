@@ -20,6 +20,15 @@ enum Sign {
             return -1
         }
     }
+
+    init(value: Int) {
+        if value < 0 {
+            self = .negative
+        }
+        else {
+            self = .positive
+        }
+    }
 }
 
 extension CGFloat {
