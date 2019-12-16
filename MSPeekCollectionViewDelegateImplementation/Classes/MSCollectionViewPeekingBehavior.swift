@@ -66,6 +66,7 @@ public class MSCollectionViewPeekingBehavior {
     /// Scrolls to an item at a specific index with or without animation
     public func scrollToItem(at index: Int, animated: Bool) {
         layout.collectionView?.setContentOffset(layout.startingPointForItem(index: index), animated: animated)
+        paging.setIndex(index)
     }
 
     /// Required function to be called when the `scrollViewWillEndDragging` `UICollectionViewDelegate` function is called
@@ -89,6 +90,10 @@ extension MSCollectionViewPeekingBehavior: MSCollectionViewCellPeekingLayoutData
 }
 
 extension MSCollectionViewPeekingBehavior: MSCollectionViewPagingDataSource {
+    public func collectionViewNumberOfItems(_ collectionViewPaging: MSCollectionViewPaging) -> Int {
+        return numberOfItems
+    }
+
     public func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, offsetForItemAtIndex index: Int) -> CGFloat {
         return layout.startingPointForItem(index: index).attribute(axis: .main, scrollDirection: scrollDirection)
     }
@@ -114,9 +119,5 @@ extension MSCollectionViewPeekingBehavior: MSCollectionViewPagingDataSource {
 
     public func collectionViewPagingMaximumItemsToScroll(_ collectionViewPaging: MSCollectionViewPaging) -> Int? {
         return maximumItemsToScroll
-    }
-
-    public func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, indexExists index: Int) -> Bool {
-        return index < numberOfItems
     }
 }

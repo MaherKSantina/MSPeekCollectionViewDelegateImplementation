@@ -102,7 +102,7 @@ open class MSCollectionViewCellPeekingLayout: UICollectionViewLayout {
         switch axis {
         case .main:
             let length = itemLength(axis: .main)
-            let offsets = spacingLength * 2 //One from the start and one at the end
+            let offsets = spacingLength * 2 + peekingLength * 2 //One from the start and one at the end
             return (length * CGFloat(numberOfItems)) + (CGFloat(numberOfItems) * spacingLength) + offsets
         case .cross:
             return itemLength(axis: .cross)

@@ -27,7 +27,7 @@ public protocol MSCollectionViewPagingDataSource: AnyObject {
     func collectionViewPagingMaximumItemsToScroll(_ collectionViewPaging: MSCollectionViewPaging) -> Int?
 
     /// Returns whether a specific index exists in the collection items or not
-    func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, indexExists index: Int) -> Bool
+    func collectionViewNumberOfItems(_ collectionViewPaging: MSCollectionViewPaging) -> Int
 }
 
 // Default arguments
@@ -55,11 +55,24 @@ public class MSCollectionViewPaging: NSObject {
         return dataSource?.collectionViewPagingScrollThreshold(self) ?? 0
     }
 
+    var numberOfItems: Int {
+        return dataSource?.collectionViewNumberOfItems(self) ?? 0
+    }
+
+    func setIndex(_ index: Int) {
+        currentContentOffset = dataSource?.collectionViewPaging(self, offsetForItemAtIndex: index) ?? 0
+    }
+
     func getNewTargetOffset(startingOffset: CGFloat, velocity: CGFloat, targetOffset: CGFloat) -> CGFloat {
 
         // Get the current index and target index based on the offset
         let currentIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: startingOffset) ?? 0
         let targetIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: targetOffset) ?? 0
+
+        let imAtFistItemAndScrollingBack = currentIndex == 0 && velocity < 0
+        let imAtLastItemAndScrollingForward = currentIndex == numberOfItems && velocity > 0
+
+        guard !imAtFistItemAndScrollingBack && !imAtLastItemAndScrollingForward else { return startingOffset }
 
         let delta = targetIndex - currentIndex
 
@@ -87,8 +100,9 @@ public class MSCollectionViewPaging: NSObject {
         // The final index is the current index ofsetted by the value and in the velocity direction
         var finalIndex = currentIndex + (offset * Sign(value: delta).multiplier)
 
+        let indexExists = finalIndex < numberOfItems
         // Move to index only if it exists. This will solve issues when there are multiple items in the same page
-        if !(dataSource?.collectionViewPaging(self, indexExists: finalIndex) ?? false) {
+        if !indexExists {
             finalIndex = currentIndex
         }
 
