@@ -209,6 +209,10 @@ collectionView.configureForPeekingBehavior(behavior: behavior)
 
 Maher Santina, maher.santina90@gmail.com
 
+## Sponsor
+
+If you're liking this repo I'd really appreciate it if you sponsor me (Orange Juice) so that I can continue supporting this project. I'm also working on adding more reusable UI elements similar to this one to make developer's lives easier. Please see [my sponsor page](https://github.com/sponsors/MaherKSantina/) for more details
+
 ## Contributing
 
 Any contribution is highly appreciated, please see [CONTRIBUTING.md](https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation/blob/master/CONTRIBUTING.md) for more info.
