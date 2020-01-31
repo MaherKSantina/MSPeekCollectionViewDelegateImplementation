@@ -18,6 +18,9 @@ public protocol MSCollectionViewPagingDataSource: AnyObject {
     func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, indexForItemAtOffset offset: CGFloat) -> Int
 
     /// The minimum velocity required to jump to the adjacent item
+    func collectionViewPagingVelocityThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat
+
+    /// The minimum scroll required to jump to the adjacent item
     func collectionViewPagingScrollThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat
 
     /// The minimum number of items to scroll
@@ -32,8 +35,12 @@ public protocol MSCollectionViewPagingDataSource: AnyObject {
 
 // Default arguments
 extension MSCollectionViewPagingDataSource {
-    public func collectionViewPagingScrollThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat {
+    public func collectionViewPagingVelocityThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat {
         return 0.2
+    }
+
+    public func collectionViewPagingScrollThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat {
+        return 50
     }
 
     public func collectionViewPagingMinimumItemsToScroll(_ collectionViewPaging: MSCollectionViewPaging) -> Int? {
@@ -51,8 +58,8 @@ public class MSCollectionViewPaging: NSObject {
 
     var currentContentOffset: CGFloat = 0
 
-    var scrollThreshold: CGFloat {
-        return dataSource?.collectionViewPagingScrollThreshold(self) ?? 0
+    var velocityThreshold: CGFloat {
+        return dataSource?.collectionViewPagingVelocityThreshold(self) ?? 0
     }
 
     var numberOfItems: Int {
@@ -79,7 +86,7 @@ public class MSCollectionViewPaging: NSObject {
         var offset: Int
         switch (currentIndex, targetIndex, abs(velocity)) {
             // If there was no change in indices but the velocity is higher than the threshold, move to adjacent cell
-        case let (x, y, v) where x == y && v > scrollThreshold:
+        case let (x, y, v) where x == y && v > velocityThreshold:
             offset = 1
 
             // Otherwise, get the differece between the target and the current indices

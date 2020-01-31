@@ -57,7 +57,15 @@ class MSPeekingTests: XCTestCase {
         setupWith(cellSpacing: 100, cellPeekWidth: 0)
         let target = simulateHorizontalScroll(distance: 10, velocity: 2)
         print(target.pointee)
-        XCTAssertEqual(sut.layout.collectionViewContentSize.width, 1500)
+        XCTAssertEqual(sut.layout.collectionViewContentSize.width, 1300)
+    }
+
+    func test_targetOffset_WithVelocity_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        let paging = sut.paging
+        paging.setIndex(1)
+        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: 0, targetOffset: 375)
+        XCTAssertEqual(newOffset, 375)
     }
 
 }
