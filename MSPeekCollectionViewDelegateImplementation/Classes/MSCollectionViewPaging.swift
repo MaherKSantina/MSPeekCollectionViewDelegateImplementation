@@ -109,4 +109,13 @@ public class MSCollectionViewPaging: NSObject {
             assertionFailure("Not Implemented")
         }
     }
+
+    public func scrollViewWillBeginDragging(scrollDirection: UICollectionView.ScrollDirection, contentOffset: CGPoint) {
+        switch scrollDirection {
+        case .vertical:
+            currentContentOffset = contentOffset.y
+        case .horizontal:
+            currentContentOffset = contentOffset.x
+        }
+    }
 }

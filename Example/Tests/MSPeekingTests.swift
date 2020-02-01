@@ -35,9 +35,16 @@ class MSPeekingTests: XCTestCase {
     private func simulateHorizontalScroll(distance: CGFloat, velocity: CGFloat) -> UnsafeMutablePointer<CGPoint> {
         collectionView.delegate?.scrollViewWillBeginDragging?(collectionView)
         let simulatedTargetContentOffset = UnsafeMutablePointer<CGPoint>.allocate(capacity: 1)
-        simulatedTargetContentOffset.pointee = CGPoint(x: distance, y: 0)
+        simulatedTargetContentOffset.pointee = CGPoint(x: collectionView.contentOffset.x + distance, y: 0)
         collectionView.delegate?.scrollViewWillEndDragging?(collectionView, withVelocity: CGPoint(x: velocity, y: 0), targetContentOffset: simulatedTargetContentOffset)
         return simulatedTargetContentOffset
+    }
+
+    @discardableResult
+    private func setContentOffset(index: Int) -> CGFloat {
+        let offset = sut.collectionViewPaging(sut.paging, offsetForItemAtIndex: index)
+        collectionView.setContentOffset(CGPoint(x: offset, y: 0), animated: false)
+        return offset
     }
 
     func test_100PeekWidth_0CellSpacing() {
@@ -62,49 +69,43 @@ class MSPeekingTests: XCTestCase {
 
     func test_targetOffset_LessThanVelocityThreshold_Forward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        let paging = sut.paging
-        paging.setIndex(1)
-        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: 0.19, targetOffset: 375)
+        setContentOffset(index: 1)
+        let newOffset = simulateHorizontalScroll(distance: 50, velocity: 0.2).pointee.x
         XCTAssertEqual(newOffset, 375)
     }
 
     func test_targetOffset_LessThanVelocityThreshold_Backward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        let paging = sut.paging
-        paging.setIndex(1)
-        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: -0.19, targetOffset: 375)
+        setContentOffset(index: 1)
+        let newOffset = simulateHorizontalScroll(distance: -50, velocity: -0.2).pointee.x
         XCTAssertEqual(newOffset, 375)
     }
 
     func test_targetOffset_GreaterThanVelocityThreshold_Forward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        let paging = sut.paging
-        paging.setIndex(1)
-        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: 0.2, targetOffset: 750)
+        setContentOffset(index: 1)
+        let newOffset = simulateHorizontalScroll(distance: 50, velocity: 0.21).pointee.x
         XCTAssertEqual(newOffset, 750)
     }
 
     func test_targetOffset_GreaterThanVelocityThreshold_Backward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        let paging = sut.paging
-        paging.setIndex(1)
-        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: -0.2, targetOffset: 750)
+        setContentOffset(index: 1)
+        let newOffset = simulateHorizontalScroll(distance: -50, velocity: -0.21).pointee.x
         XCTAssertEqual(newOffset, 750)
     }
 
     func test_targetOffset_GreaterThanVelocityThreshold_LastItem_GoingForward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        let paging = sut.paging
-        paging.setIndex(4)
-        let newOffset = paging.getNewTargetOffset(startingOffset: 1125, velocity: 0.2, targetOffset: 1500)
+        setContentOffset(index: 3)
+        let newOffset = simulateHorizontalScroll(distance: 50, velocity: 0.21).pointee.x
         XCTAssertEqual(newOffset, 1125)
     }
 
     func test_targetOffset_GreaterThanVelocityThreshold_FirstItem_GoingBack_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        let paging = sut.paging
-        paging.setIndex(4)
-        let newOffset = paging.getNewTargetOffset(startingOffset: 0, velocity: 0.2, targetOffset: -1000)
+        setContentOffset(index: 0)
+        let newOffset = simulateHorizontalScroll(distance: -50, velocity: -0.21).pointee.x
         XCTAssertEqual(newOffset, 0)
     }
 
@@ -146,5 +147,9 @@ extension MSPeekingTests: UICollectionViewDataSource {
 extension MSPeekingTests: UICollectionViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         sut.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        sut.scrollViewWillBeginDragging(scrollView)
     }
 }

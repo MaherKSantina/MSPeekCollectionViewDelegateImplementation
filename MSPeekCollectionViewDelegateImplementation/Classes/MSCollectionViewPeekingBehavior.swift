@@ -79,6 +79,10 @@ public class MSCollectionViewPeekingBehavior {
     public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         paging.collectionViewWillEndDragging(scrollDirection: scrollDirection, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
+
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        paging.scrollViewWillBeginDragging(scrollDirection: scrollDirection, contentOffset: scrollView.contentOffset)
+    }
 }
 
 extension MSCollectionViewPeekingBehavior: MSCollectionViewCellPeekingLayoutDataSource {
