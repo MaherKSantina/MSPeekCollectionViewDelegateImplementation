@@ -33,25 +33,6 @@ public protocol MSCollectionViewPagingDataSource: AnyObject {
     func collectionViewNumberOfItems(_ collectionViewPaging: MSCollectionViewPaging) -> Int
 }
 
-// Default arguments
-extension MSCollectionViewPagingDataSource {
-    public func collectionViewPagingVelocityThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat {
-        return 0.2
-    }
-
-    public func collectionViewPagingScrollThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat {
-        return 50
-    }
-
-    public func collectionViewPagingMinimumItemsToScroll(_ collectionViewPaging: MSCollectionViewPaging) -> Int? {
-        return nil
-    }
-
-    public func collectionViewPagingMaximumItemsToScroll(_ collectionViewPaging: MSCollectionViewPaging) -> Int? {
-        return nil
-    }
-}
-
 public class MSCollectionViewPaging: NSObject {
 
     weak var dataSource: MSCollectionViewPagingDataSource?

@@ -60,12 +60,68 @@ class MSPeekingTests: XCTestCase {
         XCTAssertEqual(sut.layout.collectionViewContentSize.width, 1300)
     }
 
-    func test_targetOffset_WithVelocity_ShouldShowCorrect() {
+    func test_targetOffset_LessThanVelocityThreshold_Forward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
         let paging = sut.paging
         paging.setIndex(1)
-        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: 0, targetOffset: 375)
+        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: 0.19, targetOffset: 375)
         XCTAssertEqual(newOffset, 375)
+    }
+
+    func test_targetOffset_LessThanVelocityThreshold_Backward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        let paging = sut.paging
+        paging.setIndex(1)
+        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: -0.19, targetOffset: 375)
+        XCTAssertEqual(newOffset, 375)
+    }
+
+    func test_targetOffset_GreaterThanVelocityThreshold_Forward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        let paging = sut.paging
+        paging.setIndex(1)
+        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: 0.2, targetOffset: 750)
+        XCTAssertEqual(newOffset, 750)
+    }
+
+    func test_targetOffset_GreaterThanVelocityThreshold_Backward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        let paging = sut.paging
+        paging.setIndex(1)
+        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: -0.2, targetOffset: 750)
+        XCTAssertEqual(newOffset, 750)
+    }
+
+    func test_targetOffset_GreaterThanVelocityThreshold_LastItem_GoingForward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        let paging = sut.paging
+        paging.setIndex(4)
+        let newOffset = paging.getNewTargetOffset(startingOffset: 1125, velocity: 0.2, targetOffset: 1500)
+        XCTAssertEqual(newOffset, 1125)
+    }
+
+    func test_targetOffset_GreaterThanVelocityThreshold_FirstItem_GoingBack_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        let paging = sut.paging
+        paging.setIndex(4)
+        let newOffset = paging.getNewTargetOffset(startingOffset: 0, velocity: 0.2, targetOffset: -1000)
+        XCTAssertEqual(newOffset, 0)
+    }
+
+    func test_targetOffset_LessThanVelocityThreshold_GreaterThanScrollThreshold_Forward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        let paging = sut.paging
+        paging.setIndex(0)
+        let newOffset = paging.getNewTargetOffset(startingOffset: 0, velocity: 0.19, targetOffset: 50)
+        XCTAssertEqual(newOffset, 375)
+    }
+
+    func test_targetOffset_LessThanVelocityThreshold_GreaterThanScrollThreshold_Back_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        let paging = sut.paging
+        paging.setIndex(1)
+        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: -0.19, targetOffset: 325)
+        XCTAssertEqual(newOffset, 0)
     }
 
 }
