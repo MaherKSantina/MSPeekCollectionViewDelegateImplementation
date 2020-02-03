@@ -92,7 +92,7 @@ class MSPeekingTests: XCTestCase {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
         setContentOffset(index: 1)
         let newOffset = simulateHorizontalScroll(distance: -50, velocity: -0.21).pointee.x
-        XCTAssertEqual(newOffset, 750)
+        XCTAssertEqual(newOffset, 0)
     }
 
     func test_targetOffset_GreaterThanVelocityThreshold_LastItem_GoingForward_ShouldShowCorrect() {

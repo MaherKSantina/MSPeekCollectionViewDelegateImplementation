@@ -101,10 +101,8 @@ public class MSCollectionViewPaging: NSObject {
         switch scrollDirection {
         case .horizontal:
             targetContentOffset.pointee = CGPoint(x: getNewTargetOffset(startingOffset: currentContentOffset, velocity: velocity.x, targetOffset: targetContentOffset.pointee.x), y: targetContentOffset.pointee.y)
-            currentContentOffset = targetContentOffset.pointee.x
         case .vertical:
             targetContentOffset.pointee = CGPoint(x: targetContentOffset.pointee.x, y: getNewTargetOffset(startingOffset: currentContentOffset, velocity: velocity.y, targetOffset: targetContentOffset.pointee.y))
-            currentContentOffset = targetContentOffset.pointee.y
         default:
             assertionFailure("Not Implemented")
         }
