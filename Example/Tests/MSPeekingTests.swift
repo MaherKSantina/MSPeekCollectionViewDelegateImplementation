@@ -82,13 +82,6 @@ class MSPeekingTests: XCTestCase {
         XCTAssertEqual(newOffset, 375)
     }
 
-    func test_LessThanVelocityThreshold_Backward_ShouldShowCorrect() {
-        setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        setContentIndex(index: 1)
-        let newOffset = simulateHorizontalScroll(distance: -50, velocity: -0.2).pointee.x
-        XCTAssertEqual(newOffset, 375)
-    }
-
     func test_GreaterThanVelocityThreshold_Forward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
         setContentIndex(index: 1)
@@ -117,13 +110,6 @@ class MSPeekingTests: XCTestCase {
         XCTAssertEqual(newOffset, 0)
     }
 
-    func test_LessThanVelocityThreshold_GreaterThanScrollThreshold_Forward_ShouldShowCorrect() {
-        setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        setContentIndex(index: 0)
-        let newOffset = simulateHorizontalScroll(distance: 51, velocity: 0.2).pointee.x
-        XCTAssertEqual(newOffset, 375)
-    }
-
     func test_SingleTap_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
         setContentOffset(offset: 350)
@@ -131,11 +117,16 @@ class MSPeekingTests: XCTestCase {
         XCTAssertEqual(newOffset, 375)
     }
 
-    func test_LessThanVelocityThreshold_GreaterThanScrollThreshold_Back_ShouldShowCorrect() {
+    func test_LessThanVelocityThreshold_ScrollForward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        let paging = sut.paging
-        paging.setIndex(1)
-        let newOffset = paging.getNewTargetOffset(startingOffset: 375, velocity: -0.19, targetOffset: 325)
+        let newOffset = simulateHorizontalScroll(distance: 190, velocity: 0).pointee.x
+        XCTAssertEqual(newOffset, 375)
+    }
+
+    func test_LessThanVelocityThreshold_ScrollBackward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        setContentIndex(index: 1)
+        let newOffset = simulateHorizontalScroll(distance: -190, velocity: 0).pointee.x
         XCTAssertEqual(newOffset, 0)
     }
 
