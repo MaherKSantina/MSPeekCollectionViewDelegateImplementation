@@ -46,12 +46,14 @@ public class MSCollectionViewPeekingBehavior {
     /// The direction of scrolling of the collection view
     public var scrollDirection: UICollectionView.ScrollDirection
 
+    public var velocityThreshold: CGFloat
+
     /// Total number of items to be shown
     private var numberOfItems: Int {
         return layout.collectionView?.numberOfItems(inSection: 0) ?? 0
     }
 
-    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, minimumItemsToScroll: Int? = nil, maximumItemsToScroll: Int? = nil, numberOfItemsToShow: Int = 1, scrollDirection: UICollectionView.ScrollDirection = .horizontal) {
+    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, minimumItemsToScroll: Int? = nil, maximumItemsToScroll: Int? = nil, numberOfItemsToShow: Int = 1, scrollDirection: UICollectionView.ScrollDirection = .horizontal, velocityThreshold: CGFloat = 0.2) {
         self.cellSpacing = cellSpacing
         self.cellPeekWidth = cellPeekWidth
         self.minimumItemsToScroll = minimumItemsToScroll
@@ -59,6 +61,7 @@ public class MSCollectionViewPeekingBehavior {
         self.numberOfItemsToShow = numberOfItemsToShow
         self.scrollDirection = scrollDirection
         layout = MSCollectionViewCellPeekingLayout(scrollDirection: scrollDirection)
+        self.velocityThreshold = velocityThreshold
         layout.dataSource = self
         paging.dataSource = self
     }
@@ -90,6 +93,10 @@ extension MSCollectionViewPeekingBehavior: MSCollectionViewCellPeekingLayoutData
 }
 
 extension MSCollectionViewPeekingBehavior: MSCollectionViewPagingDataSource {
+    public func collectionViewPagingVelocityThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat {
+        return velocityThreshold
+    }
+
     public func collectionViewNumberOfItems(_ collectionViewPaging: MSCollectionViewPaging) -> Int {
         return numberOfItems
     }

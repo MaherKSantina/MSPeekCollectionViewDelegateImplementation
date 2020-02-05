@@ -35,9 +35,24 @@ class MSPeekingTests: XCTestCase {
     private func simulateHorizontalScroll(distance: CGFloat, velocity: CGFloat) -> UnsafeMutablePointer<CGPoint> {
         collectionView.delegate?.scrollViewWillBeginDragging?(collectionView)
         let simulatedTargetContentOffset = UnsafeMutablePointer<CGPoint>.allocate(capacity: 1)
-        simulatedTargetContentOffset.pointee = CGPoint(x: distance, y: 0)
+        simulatedTargetContentOffset.pointee = CGPoint(x: collectionView.contentOffset.x + distance, y: 0)
         collectionView.delegate?.scrollViewWillEndDragging?(collectionView, withVelocity: CGPoint(x: velocity, y: 0), targetContentOffset: simulatedTargetContentOffset)
         return simulatedTargetContentOffset
+    }
+
+    @discardableResult
+    private func setContentIndex(index: Int) -> CGFloat {
+        let offset = sut.collectionViewPaging(sut.paging, offsetForItemAtIndex: index)
+        collectionView.setContentOffset(CGPoint(x: offset, y: 0), animated: false)
+        sut.paging.setIndex(index)
+        return offset
+    }
+
+    @discardableResult
+    private func setContentOffset(offset: CGFloat) -> CGFloat {
+        collectionView.setContentOffset(CGPoint(x: offset, y: 0), animated: false)
+        sut.paging.currentContentOffset = offset
+        return offset
     }
 
     func test_100PeekWidth_0CellSpacing() {
@@ -57,7 +72,62 @@ class MSPeekingTests: XCTestCase {
         setupWith(cellSpacing: 100, cellPeekWidth: 0)
         let target = simulateHorizontalScroll(distance: 10, velocity: 2)
         print(target.pointee)
-        XCTAssertEqual(sut.layout.collectionViewContentSize.width, 1500)
+        XCTAssertEqual(sut.layout.collectionViewContentSize.width, 1300)
+    }
+
+    func test_LessThanVelocityThreshold_Forward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        setContentIndex(index: 1)
+        let newOffset = simulateHorizontalScroll(distance: 50, velocity: 0.2).pointee.x
+        XCTAssertEqual(newOffset, 375)
+    }
+
+    func test_GreaterThanVelocityThreshold_Forward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        setContentIndex(index: 1)
+        let newOffset = simulateHorizontalScroll(distance: 190, velocity: 0.21).pointee.x
+        XCTAssertEqual(newOffset, 750)
+    }
+
+    func test_GreaterThanVelocityThreshold_Backward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        setContentIndex(index: 1)
+        let newOffset = simulateHorizontalScroll(distance: -50, velocity: -0.21).pointee.x
+        XCTAssertEqual(newOffset, 0)
+    }
+
+    func test_GreaterThanVelocityThreshold_LastItem_GoingForward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        setContentIndex(index: 3)
+        let newOffset = simulateHorizontalScroll(distance: 50, velocity: 0.21).pointee.x
+        XCTAssertEqual(newOffset, 1125)
+    }
+
+    func test_GreaterThanVelocityThreshold_FirstItem_GoingBack_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        setContentIndex(index: 0)
+        let newOffset = simulateHorizontalScroll(distance: -50, velocity: -0.21).pointee.x
+        XCTAssertEqual(newOffset, 0)
+    }
+
+    func test_SingleTap_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        setContentOffset(offset: 350)
+        let newOffset = simulateHorizontalScroll(distance: 0, velocity: 0).pointee.x
+        XCTAssertEqual(newOffset, 375)
+    }
+
+    func test_LessThanVelocityThreshold_ScrollForward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        let newOffset = simulateHorizontalScroll(distance: 190, velocity: 0).pointee.x
+        XCTAssertEqual(newOffset, 375)
+    }
+
+    func test_LessThanVelocityThreshold_ScrollBackward_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        setContentIndex(index: 1)
+        let newOffset = simulateHorizontalScroll(distance: -190, velocity: 0).pointee.x
+        XCTAssertEqual(newOffset, 0)
     }
 
 }

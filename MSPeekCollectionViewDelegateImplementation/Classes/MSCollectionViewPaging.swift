@@ -14,11 +14,11 @@ public protocol MSCollectionViewPagingDataSource: AnyObject {
     /// Will be called whenever the pager needs the offset of a specific index
     func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, offsetForItemAtIndex index: Int) -> CGFloat
 
-    /// Will be called whenever the pager needs an index at a specific offset
+    /// Will be called whenever the pager needs an index at a specific offset.
     func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, indexForItemAtOffset offset: CGFloat) -> Int
 
     /// The minimum velocity required to jump to the adjacent item
-    func collectionViewPagingScrollThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat
+    func collectionViewPagingVelocityThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat
 
     /// The minimum number of items to scroll
     func collectionViewPagingMinimumItemsToScroll(_ collectionViewPaging: MSCollectionViewPaging) -> Int?
@@ -30,29 +30,14 @@ public protocol MSCollectionViewPagingDataSource: AnyObject {
     func collectionViewNumberOfItems(_ collectionViewPaging: MSCollectionViewPaging) -> Int
 }
 
-// Default arguments
-extension MSCollectionViewPagingDataSource {
-    public func collectionViewPagingScrollThreshold(_ collectionViewPaging: MSCollectionViewPaging) -> CGFloat {
-        return 0.2
-    }
-
-    public func collectionViewPagingMinimumItemsToScroll(_ collectionViewPaging: MSCollectionViewPaging) -> Int? {
-        return nil
-    }
-
-    public func collectionViewPagingMaximumItemsToScroll(_ collectionViewPaging: MSCollectionViewPaging) -> Int? {
-        return nil
-    }
-}
-
 public class MSCollectionViewPaging: NSObject {
 
     weak var dataSource: MSCollectionViewPagingDataSource?
 
     var currentContentOffset: CGFloat = 0
 
-    var scrollThreshold: CGFloat {
-        return dataSource?.collectionViewPagingScrollThreshold(self) ?? 0
+    var velocityThreshold: CGFloat {
+        return dataSource?.collectionViewPagingVelocityThreshold(self) ?? 0
     }
 
     var numberOfItems: Int {
@@ -65,60 +50,63 @@ public class MSCollectionViewPaging: NSObject {
 
     func getNewTargetOffset(startingOffset: CGFloat, velocity: CGFloat, targetOffset: CGFloat) -> CGFloat {
 
-        // Get the current index and target index based on the offset
-        let currentIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: startingOffset) ?? 0
-        let targetIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: targetOffset) ?? 0
+        // Check the velocity, if it's greater than the threshold, move at least 1 cell in the direction of the velocity
+        switch abs(velocity) {
+        case let v where v > velocityThreshold:
 
-        let imAtFistItemAndScrollingBack = currentIndex == 0 && velocity < 0
-        let imAtLastItemAndScrollingForward = currentIndex == numberOfItems && velocity > 0
+            // Get the current index and target index based on the offset
+            let currentIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: startingOffset) ?? 0
+            let targetIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: targetOffset) ?? 0
 
-        guard !imAtFistItemAndScrollingBack && !imAtLastItemAndScrollingForward else { return startingOffset }
+            // Making sure not to scroll to non-existing indices
+            let imAtFistItemAndScrollingBack = currentIndex == 0 && velocity < 0
+            let imAtLastItemAndScrollingForward = currentIndex == numberOfItems && velocity > 0
 
-        let delta = targetIndex - currentIndex
+            guard !imAtFistItemAndScrollingBack && !imAtLastItemAndScrollingForward else { return startingOffset }
 
-        var offset: Int
-        switch (currentIndex, targetIndex, abs(velocity)) {
-            // If there was no change in indices but the velocity is higher than the threshold, move to adjacent cell
-        case let (x, y, v) where x == y && v > scrollThreshold:
-            offset = 1
+            // Making sure we move at least 1 cell
+            var offset = max(targetIndex - currentIndex, 1)
 
-            // Otherwise, get the differece between the target and the current indices
+            // If we've set a minimum number of items to scroll, enforce it
+            if let minimumItemsToScroll = dataSource?.collectionViewPagingMinimumItemsToScroll(self), offset != 0 {
+                offset = max(offset, minimumItemsToScroll)
+            }
+
+            // If we've set a maximum number of items to scroll, enforce it
+            if let maximumItemsToScroll = dataSource?.collectionViewPagingMaximumItemsToScroll(self) {
+                offset = min(offset, maximumItemsToScroll)
+            }
+
+            // The final index is the current index ofsetted by the value and in the velocity direction
+            var finalIndex = currentIndex + (offset * Sign(value: velocity).multiplier)
+
+            let indexExists = finalIndex < numberOfItems
+            // Move to index only if it exists. This will solve issues when there are multiple items in the same page
+            if !indexExists {
+                finalIndex = currentIndex
+            }
+            return dataSource?.collectionViewPaging(self, offsetForItemAtIndex: finalIndex) ?? 0
+
         default:
-            offset = abs(delta)
+
+            let finalIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: targetOffset) ?? 0
+            return dataSource?.collectionViewPaging(self, offsetForItemAtIndex: finalIndex) ?? 0
         }
-
-        /// If we've set a minimum number of items to scroll, enforce it
-        if let minimumItemsToScroll = dataSource?.collectionViewPagingMinimumItemsToScroll(self), offset != 0 {
-            offset = max(offset, minimumItemsToScroll)
-        }
-
-        /// If we've set a maximum number of items to scroll, enforce it
-        if let maximumItemsToScroll = dataSource?.collectionViewPagingMaximumItemsToScroll(self) {
-            offset = min(offset, maximumItemsToScroll)
-        }
-
-        // The final index is the current index ofsetted by the value and in the velocity direction
-        var finalIndex = currentIndex + (offset * Sign(value: delta).multiplier)
-
-        let indexExists = finalIndex < numberOfItems
-        // Move to index only if it exists. This will solve issues when there are multiple items in the same page
-        if !indexExists {
-            finalIndex = currentIndex
-        }
-
-        return dataSource?.collectionViewPaging(self, offsetForItemAtIndex: finalIndex) ?? 0
     }
 
     public func collectionViewWillEndDragging(scrollDirection: UICollectionView.ScrollDirection, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        var newOffset: CGFloat
         switch scrollDirection {
         case .horizontal:
-            targetContentOffset.pointee = CGPoint(x: getNewTargetOffset(startingOffset: currentContentOffset, velocity: velocity.x, targetOffset: targetContentOffset.pointee.x), y: targetContentOffset.pointee.y)
-            currentContentOffset = targetContentOffset.pointee.x
+            newOffset = getNewTargetOffset(startingOffset: currentContentOffset, velocity: velocity.x, targetOffset: targetContentOffset.pointee.x)
+            targetContentOffset.pointee = CGPoint(x: newOffset, y: targetContentOffset.pointee.y)
         case .vertical:
-            targetContentOffset.pointee = CGPoint(x: targetContentOffset.pointee.x, y: getNewTargetOffset(startingOffset: currentContentOffset, velocity: velocity.y, targetOffset: targetContentOffset.pointee.y))
-            currentContentOffset = targetContentOffset.pointee.y
+            newOffset = getNewTargetOffset(startingOffset: currentContentOffset, velocity: velocity.y, targetOffset: targetContentOffset.pointee.y)
+            targetContentOffset.pointee = CGPoint(x: targetContentOffset.pointee.x, y: newOffset)
         default:
             assertionFailure("Not Implemented")
+            newOffset = 0
         }
+        currentContentOffset = newOffset
     }
 }
