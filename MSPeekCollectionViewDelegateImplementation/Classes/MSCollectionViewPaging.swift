@@ -14,7 +14,7 @@ public protocol MSCollectionViewPagingDataSource: AnyObject {
     /// Will be called whenever the pager needs the offset of a specific index
     func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, offsetForItemAtIndex index: Int) -> CGFloat
 
-    /// Will be called whenever the pager needs an index at a specific offset
+    /// Will be called whenever the pager needs an index at a specific offset. If isNearest is set to true, it will return the index of the nearest offset
     func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, indexForItemAtOffset offset: CGFloat) -> Int
 
     /// The minimum velocity required to jump to the adjacent item
@@ -34,11 +34,7 @@ public class MSCollectionViewPaging: NSObject {
 
     weak var dataSource: MSCollectionViewPagingDataSource?
 
-    var currentContentOffset: CGFloat = 0 {
-        didSet {
-            print("Current Content Offset: ", currentContentOffset)
-        }
-    }
+    var currentContentOffset: CGFloat = 0
 
     var velocityThreshold: CGFloat {
         return dataSource?.collectionViewPagingVelocityThreshold(self) ?? 0
@@ -53,51 +49,49 @@ public class MSCollectionViewPaging: NSObject {
     }
 
     func getNewTargetOffset(startingOffset: CGFloat, velocity: CGFloat, targetOffset: CGFloat) -> CGFloat {
-//        print("Offsets: ", startingOffset, targetOffset, velocity)
-        // Get the current index and target index based on the offset
-        let currentIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: startingOffset) ?? 0
-        let targetIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: targetOffset) ?? 0
 
-        let imAtFistItemAndScrollingBack = currentIndex == 0 && velocity < 0
-        let imAtLastItemAndScrollingForward = currentIndex == numberOfItems && velocity > 0
+        // Check the velocity, if it's greater than the threshold, move at least 1 cell in the direction of the velocity
+        switch abs(velocity) {
+        case let v where v > velocityThreshold:
 
-        guard !imAtFistItemAndScrollingBack && !imAtLastItemAndScrollingForward else { return startingOffset }
+            // Get the current index and target index based on the offset
+            let currentIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: startingOffset) ?? 0
+            let targetIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: targetOffset) ?? 0
 
-        let delta = targetIndex - currentIndex
+            // Making sure not to scroll to non-existing indices
+            let imAtFistItemAndScrollingBack = currentIndex == 0 && velocity < 0
+            let imAtLastItemAndScrollingForward = currentIndex == numberOfItems && velocity > 0
 
-        var offset: Int
-        switch (currentIndex, targetIndex, abs(velocity)) {
-            // If there was no change in indices but the velocity is higher than the threshold, move to adjacent cell
-        case let (x, y, v) where x == y && v > velocityThreshold:
-            offset = 1
+            guard !imAtFistItemAndScrollingBack && !imAtLastItemAndScrollingForward else { return startingOffset }
 
-            // Otherwise, get the differece between the target and the current indices
+            // Making sure we move at least 1 cell
+            var offset = max(targetIndex - currentIndex, 1)
+
+            // If we've set a minimum number of items to scroll, enforce it
+            if let minimumItemsToScroll = dataSource?.collectionViewPagingMinimumItemsToScroll(self), offset != 0 {
+                offset = max(offset, minimumItemsToScroll)
+            }
+
+            // If we've set a maximum number of items to scroll, enforce it
+            if let maximumItemsToScroll = dataSource?.collectionViewPagingMaximumItemsToScroll(self) {
+                offset = min(offset, maximumItemsToScroll)
+            }
+
+            // The final index is the current index ofsetted by the value and in the velocity direction
+            var finalIndex = currentIndex + (offset * Sign(value: velocity).multiplier)
+
+            let indexExists = finalIndex < numberOfItems
+            // Move to index only if it exists. This will solve issues when there are multiple items in the same page
+            if !indexExists {
+                finalIndex = currentIndex
+            }
+            return dataSource?.collectionViewPaging(self, offsetForItemAtIndex: finalIndex) ?? 0
+
         default:
-            offset = abs(delta)
+
+            let finalIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: targetOffset) ?? 0
+            return dataSource?.collectionViewPaging(self, offsetForItemAtIndex: finalIndex) ?? 0
         }
-
-//        print("Indices: ", currentIndex, targetIndex, offset)
-
-        /// If we've set a minimum number of items to scroll, enforce it
-        if let minimumItemsToScroll = dataSource?.collectionViewPagingMinimumItemsToScroll(self), offset != 0 {
-            offset = max(offset, minimumItemsToScroll)
-        }
-
-        /// If we've set a maximum number of items to scroll, enforce it
-        if let maximumItemsToScroll = dataSource?.collectionViewPagingMaximumItemsToScroll(self) {
-            offset = min(offset, maximumItemsToScroll)
-        }
-
-        // The final index is the current index ofsetted by the value and in the velocity direction
-        var finalIndex = currentIndex + (offset * Sign(value: delta).multiplier)
-
-        let indexExists = finalIndex < numberOfItems
-        // Move to index only if it exists. This will solve issues when there are multiple items in the same page
-        if !indexExists {
-            finalIndex = currentIndex
-        }
-
-        return dataSource?.collectionViewPaging(self, offsetForItemAtIndex: finalIndex) ?? 0
     }
 
     public func collectionViewWillEndDragging(scrollDirection: UICollectionView.ScrollDirection, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -114,14 +108,5 @@ public class MSCollectionViewPaging: NSObject {
             newOffset = 0
         }
         currentContentOffset = newOffset
-    }
-
-    public func scrollViewWillBeginDragging(scrollDirection: UICollectionView.ScrollDirection, contentOffset: CGPoint) {
-//        switch scrollDirection {
-//        case .vertical:
-//            currentContentOffset = contentOffset.y
-//        case .horizontal:
-//            currentContentOffset = contentOffset.x
-//        }
     }
 }

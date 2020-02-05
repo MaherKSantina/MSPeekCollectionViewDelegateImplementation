@@ -92,8 +92,4 @@ extension ViewController: UICollectionViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         behavior.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
-
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        behavior.scrollViewWillBeginDragging(scrollView)
-    }
 }

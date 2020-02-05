@@ -21,7 +21,16 @@ enum Sign {
         }
     }
 
-    init(value: Int) {
+    init(value: Double) {
+        if value < 0 {
+            self = .negative
+        }
+        else {
+            self = .positive
+        }
+    }
+
+    init(value: CGFloat) {
         if value < 0 {
             self = .negative
         }

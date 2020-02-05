@@ -85,7 +85,7 @@ class MSPeekingTests: XCTestCase {
     func test_GreaterThanVelocityThreshold_Forward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
         setContentIndex(index: 1)
-        let newOffset = simulateHorizontalScroll(distance: 50, velocity: 0.21).pointee.x
+        let newOffset = simulateHorizontalScroll(distance: 190, velocity: 0.21).pointee.x
         XCTAssertEqual(newOffset, 750)
     }
 
@@ -152,9 +152,5 @@ extension MSPeekingTests: UICollectionViewDataSource {
 extension MSPeekingTests: UICollectionViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         sut.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
-    }
-
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        sut.scrollViewWillBeginDragging(scrollView)
     }
 }

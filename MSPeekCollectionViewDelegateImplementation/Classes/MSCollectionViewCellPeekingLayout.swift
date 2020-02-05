@@ -160,7 +160,10 @@ open class MSCollectionViewCellPeekingLayout: UICollectionViewLayout {
             return 0
         }
 
-        return min(max(0, Int(pointOffset / (itemLength(axis: .main) + spacingLength))), numberOfItems)
+        let coefficent = pointOffset / (itemLength(axis: .main) + spacingLength)
+        let finalCoefficent = Int(round(coefficent))
+
+        return min(max(0, finalCoefficent), numberOfItems)
     }
 
     func getIndexPaths(rect: CGRect) -> [IndexPath] {
