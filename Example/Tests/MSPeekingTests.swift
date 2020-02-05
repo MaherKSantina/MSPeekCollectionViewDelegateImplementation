@@ -41,9 +41,17 @@ class MSPeekingTests: XCTestCase {
     }
 
     @discardableResult
-    private func setContentOffset(index: Int) -> CGFloat {
+    private func setContentIndex(index: Int) -> CGFloat {
         let offset = sut.collectionViewPaging(sut.paging, offsetForItemAtIndex: index)
         collectionView.setContentOffset(CGPoint(x: offset, y: 0), animated: false)
+        sut.paging.setIndex(index)
+        return offset
+    }
+
+    @discardableResult
+    private func setContentOffset(offset: CGFloat) -> CGFloat {
+        collectionView.setContentOffset(CGPoint(x: offset, y: 0), animated: false)
+        sut.paging.currentContentOffset = offset
         return offset
     }
 
@@ -67,57 +75,63 @@ class MSPeekingTests: XCTestCase {
         XCTAssertEqual(sut.layout.collectionViewContentSize.width, 1300)
     }
 
-    func test_targetOffset_LessThanVelocityThreshold_Forward_ShouldShowCorrect() {
+    func test_LessThanVelocityThreshold_Forward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        setContentOffset(index: 1)
+        setContentIndex(index: 1)
         let newOffset = simulateHorizontalScroll(distance: 50, velocity: 0.2).pointee.x
         XCTAssertEqual(newOffset, 375)
     }
 
-    func test_targetOffset_LessThanVelocityThreshold_Backward_ShouldShowCorrect() {
+    func test_LessThanVelocityThreshold_Backward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        setContentOffset(index: 1)
+        setContentIndex(index: 1)
         let newOffset = simulateHorizontalScroll(distance: -50, velocity: -0.2).pointee.x
         XCTAssertEqual(newOffset, 375)
     }
 
-    func test_targetOffset_GreaterThanVelocityThreshold_Forward_ShouldShowCorrect() {
+    func test_GreaterThanVelocityThreshold_Forward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        setContentOffset(index: 1)
+        setContentIndex(index: 1)
         let newOffset = simulateHorizontalScroll(distance: 50, velocity: 0.21).pointee.x
         XCTAssertEqual(newOffset, 750)
     }
 
-    func test_targetOffset_GreaterThanVelocityThreshold_Backward_ShouldShowCorrect() {
+    func test_GreaterThanVelocityThreshold_Backward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        setContentOffset(index: 1)
+        setContentIndex(index: 1)
         let newOffset = simulateHorizontalScroll(distance: -50, velocity: -0.21).pointee.x
         XCTAssertEqual(newOffset, 0)
     }
 
-    func test_targetOffset_GreaterThanVelocityThreshold_LastItem_GoingForward_ShouldShowCorrect() {
+    func test_GreaterThanVelocityThreshold_LastItem_GoingForward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        setContentOffset(index: 3)
+        setContentIndex(index: 3)
         let newOffset = simulateHorizontalScroll(distance: 50, velocity: 0.21).pointee.x
         XCTAssertEqual(newOffset, 1125)
     }
 
-    func test_targetOffset_GreaterThanVelocityThreshold_FirstItem_GoingBack_ShouldShowCorrect() {
+    func test_GreaterThanVelocityThreshold_FirstItem_GoingBack_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        setContentOffset(index: 0)
+        setContentIndex(index: 0)
         let newOffset = simulateHorizontalScroll(distance: -50, velocity: -0.21).pointee.x
         XCTAssertEqual(newOffset, 0)
     }
 
-    func test_targetOffset_LessThanVelocityThreshold_GreaterThanScrollThreshold_Forward_ShouldShowCorrect() {
+    func test_LessThanVelocityThreshold_GreaterThanScrollThreshold_Forward_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
-        let paging = sut.paging
-        paging.setIndex(0)
-        let newOffset = paging.getNewTargetOffset(startingOffset: 0, velocity: 0.19, targetOffset: 50)
+        setContentIndex(index: 0)
+        let newOffset = simulateHorizontalScroll(distance: 51, velocity: 0.2).pointee.x
         XCTAssertEqual(newOffset, 375)
     }
 
-    func test_targetOffset_LessThanVelocityThreshold_GreaterThanScrollThreshold_Back_ShouldShowCorrect() {
+    func test_SingleTap_ShouldShowCorrect() {
+        setupWith(cellSpacing: 0, cellPeekWidth: 0)
+        setContentOffset(offset: 350)
+        let newOffset = simulateHorizontalScroll(distance: 0, velocity: 0).pointee.x
+        XCTAssertEqual(newOffset, 375)
+    }
+
+    func test_LessThanVelocityThreshold_GreaterThanScrollThreshold_Back_ShouldShowCorrect() {
         setupWith(cellSpacing: 0, cellPeekWidth: 0)
         let paging = sut.paging
         paging.setIndex(1)
