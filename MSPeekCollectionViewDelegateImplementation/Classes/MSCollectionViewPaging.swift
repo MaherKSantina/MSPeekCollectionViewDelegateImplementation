@@ -14,7 +14,7 @@ public protocol MSCollectionViewPagingDataSource: AnyObject {
     /// Will be called whenever the pager needs the offset of a specific index
     func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, offsetForItemAtIndex index: Int) -> CGFloat
 
-    /// Will be called whenever the pager needs an index at a specific offset. If isNearest is set to true, it will return the index of the nearest offset
+    /// Will be called whenever the pager needs an index at a specific offset.
     func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, indexForItemAtOffset offset: CGFloat) -> Int
 
     /// The minimum velocity required to jump to the adjacent item
