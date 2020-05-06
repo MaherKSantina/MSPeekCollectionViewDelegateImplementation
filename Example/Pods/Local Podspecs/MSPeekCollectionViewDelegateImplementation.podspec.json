@@ -19,6 +19,6 @@
   "platforms": {
     "ios": "9"
   },
-  "source_files": "MSPeekCollectionViewDelegateImplementation/Classes/**/*",
+  "source_files": "Sources/**/*.swift",
   "swift_version": "5.0"
 }

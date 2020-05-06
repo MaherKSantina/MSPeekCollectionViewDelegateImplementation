@@ -7,22 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20D80CAB3A2EA1C2A144AD509B7D48EB /* MSCollectionViewPaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79C02E2FF8DE49AC1291A25A68A144B /* MSCollectionViewPaging.swift */; };
-		256847B0B42D8E480B4EFCCB93C569EC /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB38892A2EDD4F5CE32177772113A576 /* Sign.swift */; };
+		37583F3600697EE4B8F1C49E261FB51D /* MSPeekCollectionViewDelegateImplementation-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E710D62C8F08D0BFC2C4B16616D720 /* MSPeekCollectionViewDelegateImplementation-dummy.m */; };
+		40A5FB71A38566DC92473A17000313AA /* MSPeekCollectionViewDelegateImplementation-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E29E26186FFEE8FE4C0455B566E3350 /* MSPeekCollectionViewDelegateImplementation-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42FCC6B7011D1243620DD0D8B8C1EB68 /* UICollectionViewScrollDirection+PeekDataCovnversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17A550C8BA6B4BB34D72B350ACE2AA /* UICollectionViewScrollDirection+PeekDataCovnversion.swift */; };
 		47401C68ECC509F8C7C39F556E2D9E65 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 130C99E8EE785EAC8A54E87904BAAF56 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4A1D68666942EB7624485ACA4434B412 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		5FCF55BDA8D0EA28AD8EFC0B9172DBE6 /* UICollectionView+PeekConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444C4D82A9355A19D450A8825F885D49 /* UICollectionView+PeekConfiguration.swift */; };
+		5E2D5791C3D147FC7BB31FCBC9A45448 /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A365A5A612EFDC919F51871E681040 /* Sign.swift */; };
 		69EF87244DA724D2E4DABF893536F667 /* Pods-MSPeekCollectionViewDelegateImplementation_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A06B2823B8BEAAB41A0B7B3854E9DE7 /* Pods-MSPeekCollectionViewDelegateImplementation_Example-dummy.m */; };
 		726D47D7696789BEBC5BF8F39D7AAA15 /* Pods-MSPeekCollectionViewDelegateImplementation_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 755A8851EBB498F17959941F22F402EA /* Pods-MSPeekCollectionViewDelegateImplementation_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8D27929FEC05F23909EB1F3E2EBAF07F /* MSPeekCollectionViewDelegateImplementation-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 32592BF6CA6177A834378DFE4581E5A8 /* MSPeekCollectionViewDelegateImplementation-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		77CB05DD1EE42FD5F2980B9B5696715D /* MSCollectionViewPeekingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB790AC693B251A269FEF2FFAD86203 /* MSCollectionViewPeekingBehavior.swift */; };
+		8A0C1805FFFE955D0CDE9A658FCCA8BC /* MSPeekCollectionViewDelegateImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8289CAD707984439111407C1B4FE4045 /* MSPeekCollectionViewDelegateImplementation.swift */; };
 		917193660D39898CE439844EC3FE0B73 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC4B232747626E60FEDBB62E7FC8716 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests-dummy.m */; };
-		AD65B6167DC8223D80AFEEC3227E8DF0 /* UICollectionViewScrollDirection+PeekDataCovnversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1CC89F610658808FB15B3357B47CDA /* UICollectionViewScrollDirection+PeekDataCovnversion.swift */; };
+		9C9D61AC7A2CD26B48E7CEF8E1092B94 /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4760B1E46F1F093FAC1ACD183354407 /* Axis.swift */; };
+		AB705E1E9B7617E1EA2FBC939E641F0B /* MSCollectionViewCellPeekingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DDF1DA9D6E4AF96552505FC09DF1E /* MSCollectionViewCellPeekingLayout.swift */; };
+		AD15E0C710E0A40621C4917E6503627D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		B000951ABD66F088C8E4E3600F17D70A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		B75E3F2C14DE50369B2CE4436CE87C15 /* MSPeekCollectionViewDelegateImplementation-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 527FC667A268BCAA4432118DA2764415 /* MSPeekCollectionViewDelegateImplementation-dummy.m */; };
-		BBE33BFD0D5A3EE6BE598BC901CF5B61 /* MSCollectionViewCellPeekingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA8DAD34A1367656C8E0DC9146C3429 /* MSCollectionViewCellPeekingLayout.swift */; };
-		CDFFA5736558B5FEB1BD28B083F3A7D4 /* MSCollectionViewPeekingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A894A108D9DB2160F2E42DFBF89015 /* MSCollectionViewPeekingBehavior.swift */; };
-		E2DC95EC54F44E59C15F1923D69D4204 /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF53AB523AE32C0F4E5FE27223BF3D2 /* Axis.swift */; };
-		FAA25E8408613ECD31A3A800A912C14A /* CGPoint+Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF5CC8F0CFB9A2923F519ABF005B1FD /* CGPoint+Axis.swift */; };
+		BCF7950066104E03282C3AF1219F223C /* CGPoint+Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0167A7862B8BB46B0D8D9A382F9E66D1 /* CGPoint+Axis.swift */; };
+		E48F0D0DE93EFA4511C3E9CE299567B3 /* MSCollectionViewPaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECD176769D0FB60E64E92CB7B9A7E52 /* MSCollectionViewPaging.swift */; };
+		EED73B7F45F4349869A9EBC574C31E26 /* UICollectionView+PeekConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBB9B0855C280309DA865A46ED36E71 /* UICollectionView+PeekConfiguration.swift */; };
 		FD1FFB86C019B8A87834AF0BECF07AC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,45 +45,47 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0167A7862B8BB46B0D8D9A382F9E66D1 /* CGPoint+Axis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CGPoint+Axis.swift"; path = "Sources/MSPeekCollectionViewDelegateImplementation/CGPoint+Axis.swift"; sourceTree = "<group>"; };
 		05535C4A68A465085C7DCD6BABA32342 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MSPeekCollectionViewDelegateImplementation_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0D9CEE579124EEC300DF13FF24020C8A /* Pods-MSPeekCollectionViewDelegateImplementation_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MSPeekCollectionViewDelegateImplementation_Example-Info.plist"; sourceTree = "<group>"; };
-		0E658B87A45C524631E7E76FE1DD520E /* MSPeekCollectionViewDelegateImplementation-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MSPeekCollectionViewDelegateImplementation-Info.plist"; sourceTree = "<group>"; };
 		130C99E8EE785EAC8A54E87904BAAF56 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MSPeekCollectionViewDelegateImplementation_Tests-umbrella.h"; sourceTree = "<group>"; };
 		1597A4D3F39F9554C3D1CA9235F4A525 /* Pods_MSPeekCollectionViewDelegateImplementation_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MSPeekCollectionViewDelegateImplementation_Example.framework; path = "Pods-MSPeekCollectionViewDelegateImplementation_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1837CFBA8594F72651B313ACBC0B5392 /* MSPeekCollectionViewDelegateImplementation-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MSPeekCollectionViewDelegateImplementation-Info.plist"; sourceTree = "<group>"; };
 		1AB03A0B7DF5337E33E43E8B7F91C997 /* Pods-MSPeekCollectionViewDelegateImplementation_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MSPeekCollectionViewDelegateImplementation_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		1F2DDF1DA9D6E4AF96552505FC09DF1E /* MSCollectionViewCellPeekingLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSCollectionViewCellPeekingLayout.swift; path = Sources/MSPeekCollectionViewDelegateImplementation/MSCollectionViewCellPeekingLayout.swift; sourceTree = "<group>"; };
+		206154393F906A32744BF0EE2B940EDF /* MSPeekCollectionViewDelegateImplementation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MSPeekCollectionViewDelegateImplementation.release.xcconfig; sourceTree = "<group>"; };
 		2848949DD809BC5C5680B3617CBE153C /* MSPeekCollectionViewDelegateImplementation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MSPeekCollectionViewDelegateImplementation.framework; path = MSPeekCollectionViewDelegateImplementation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FB0F28A0EA1F043A396BBEEACA2C069 /* Pods-MSPeekCollectionViewDelegateImplementation_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MSPeekCollectionViewDelegateImplementation_Example-frameworks.sh"; sourceTree = "<group>"; };
+		30059B085E7D0A5A6A84892B8428498C /* MSPeekCollectionViewDelegateImplementation.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MSPeekCollectionViewDelegateImplementation.modulemap; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		32592BF6CA6177A834378DFE4581E5A8 /* MSPeekCollectionViewDelegateImplementation-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MSPeekCollectionViewDelegateImplementation-umbrella.h"; sourceTree = "<group>"; };
-		3A1C8C31D816C631680CE409028C9068 /* MSPeekCollectionViewDelegateImplementation.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MSPeekCollectionViewDelegateImplementation.xcconfig; sourceTree = "<group>"; };
-		3CA8DAD34A1367656C8E0DC9146C3429 /* MSCollectionViewCellPeekingLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSCollectionViewCellPeekingLayout.swift; path = MSPeekCollectionViewDelegateImplementation/Classes/MSCollectionViewCellPeekingLayout.swift; sourceTree = "<group>"; };
-		444C4D82A9355A19D450A8825F885D49 /* UICollectionView+PeekConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UICollectionView+PeekConfiguration.swift"; path = "MSPeekCollectionViewDelegateImplementation/Classes/UICollectionView+PeekConfiguration.swift"; sourceTree = "<group>"; };
+		3E29E26186FFEE8FE4C0455B566E3350 /* MSPeekCollectionViewDelegateImplementation-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MSPeekCollectionViewDelegateImplementation-umbrella.h"; sourceTree = "<group>"; };
 		4A06B2823B8BEAAB41A0B7B3854E9DE7 /* Pods-MSPeekCollectionViewDelegateImplementation_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MSPeekCollectionViewDelegateImplementation_Example-dummy.m"; sourceTree = "<group>"; };
+		4AB790AC693B251A269FEF2FFAD86203 /* MSCollectionViewPeekingBehavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSCollectionViewPeekingBehavior.swift; path = Sources/MSPeekCollectionViewDelegateImplementation/MSCollectionViewPeekingBehavior.swift; sourceTree = "<group>"; };
 		510E835D5B0D2AC08598F9094DE78ABA /* Pods-MSPeekCollectionViewDelegateImplementation_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MSPeekCollectionViewDelegateImplementation_Example.modulemap"; sourceTree = "<group>"; };
-		527FC667A268BCAA4432118DA2764415 /* MSPeekCollectionViewDelegateImplementation-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MSPeekCollectionViewDelegateImplementation-dummy.m"; sourceTree = "<group>"; };
 		61FB463160263ED0FA81ECD607444FE6 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MSPeekCollectionViewDelegateImplementation_Tests.modulemap"; sourceTree = "<group>"; };
+		66A365A5A612EFDC919F51871E681040 /* Sign.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sign.swift; path = Sources/MSPeekCollectionViewDelegateImplementation/Sign.swift; sourceTree = "<group>"; };
+		694A227724B343DD703E4DB195E29A65 /* MSPeekCollectionViewDelegateImplementation-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MSPeekCollectionViewDelegateImplementation-prefix.pch"; sourceTree = "<group>"; };
 		755A8851EBB498F17959941F22F402EA /* Pods-MSPeekCollectionViewDelegateImplementation_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MSPeekCollectionViewDelegateImplementation_Example-umbrella.h"; sourceTree = "<group>"; };
-		809D9292FBC16B2F3ACC58822C5799D9 /* MSPeekCollectionViewDelegateImplementation.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = MSPeekCollectionViewDelegateImplementation.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		75E710D62C8F08D0BFC2C4B16616D720 /* MSPeekCollectionViewDelegateImplementation-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MSPeekCollectionViewDelegateImplementation-dummy.m"; sourceTree = "<group>"; };
+		7BB6EDE45A45BDD19A2A129FB15C5BA1 /* MSPeekCollectionViewDelegateImplementation.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = MSPeekCollectionViewDelegateImplementation.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		8289CAD707984439111407C1B4FE4045 /* MSPeekCollectionViewDelegateImplementation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSPeekCollectionViewDelegateImplementation.swift; path = Sources/MSPeekCollectionViewDelegateImplementation/MSPeekCollectionViewDelegateImplementation.swift; sourceTree = "<group>"; };
 		82931B2EF20F2C5A9CCC9D4E183FBE20 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MSPeekCollectionViewDelegateImplementation_Tests-Info.plist"; sourceTree = "<group>"; };
-		87A894A108D9DB2160F2E42DFBF89015 /* MSCollectionViewPeekingBehavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSCollectionViewPeekingBehavior.swift; path = MSPeekCollectionViewDelegateImplementation/Classes/MSCollectionViewPeekingBehavior.swift; sourceTree = "<group>"; };
-		8DF53AB523AE32C0F4E5FE27223BF3D2 /* Axis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Axis.swift; path = MSPeekCollectionViewDelegateImplementation/Classes/Axis.swift; sourceTree = "<group>"; };
+		8F45386BD8116AE6FD4B8E3FCA60AD4C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		91AE1976CAAD2832A107AA28CE687E7B /* Pods-MSPeekCollectionViewDelegateImplementation_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MSPeekCollectionViewDelegateImplementation_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		923BE2B19CD4AF4EA2544CA4C416BE3D /* Pods-MSPeekCollectionViewDelegateImplementation_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MSPeekCollectionViewDelegateImplementation_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		97E2D0180AA26D98363042EA2E3E3D62 /* MSPeekCollectionViewDelegateImplementation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MSPeekCollectionViewDelegateImplementation.debug.xcconfig; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9E1CC89F610658808FB15B3357B47CDA /* UICollectionViewScrollDirection+PeekDataCovnversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UICollectionViewScrollDirection+PeekDataCovnversion.swift"; path = "MSPeekCollectionViewDelegateImplementation/Classes/UICollectionViewScrollDirection+PeekDataCovnversion.swift"; sourceTree = "<group>"; };
 		9E60D4BD3BD862C48CB4AE8DDB04D649 /* Pods-MSPeekCollectionViewDelegateImplementation_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MSPeekCollectionViewDelegateImplementation_Example.release.xcconfig"; sourceTree = "<group>"; };
-		B0930610042251C2FEA1459C96A9932E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		B1FAD54BA09ECB949BBD8AC95D8994BB /* MSPeekCollectionViewDelegateImplementation-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MSPeekCollectionViewDelegateImplementation-prefix.pch"; sourceTree = "<group>"; };
 		B2FA36DBFE13B852C8EE4FEFB4D49DD9 /* Pods_MSPeekCollectionViewDelegateImplementation_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MSPeekCollectionViewDelegateImplementation_Tests.framework; path = "Pods-MSPeekCollectionViewDelegateImplementation_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB38892A2EDD4F5CE32177772113A576 /* Sign.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sign.swift; path = MSPeekCollectionViewDelegateImplementation/Classes/Sign.swift; sourceTree = "<group>"; };
-		BCF5CC8F0CFB9A2923F519ABF005B1FD /* CGPoint+Axis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CGPoint+Axis.swift"; path = "MSPeekCollectionViewDelegateImplementation/Classes/CGPoint+Axis.swift"; sourceTree = "<group>"; };
 		BDC4B232747626E60FEDBB62E7FC8716 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MSPeekCollectionViewDelegateImplementation_Tests-dummy.m"; sourceTree = "<group>"; };
-		BEB206C9E5624A63462064ACF50E04DC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		CBE15B98458F449EBFBF26FBDDA2E1A4 /* Pods-MSPeekCollectionViewDelegateImplementation_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MSPeekCollectionViewDelegateImplementation_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		CC17A550C8BA6B4BB34D72B350ACE2AA /* UICollectionViewScrollDirection+PeekDataCovnversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UICollectionViewScrollDirection+PeekDataCovnversion.swift"; path = "Sources/MSPeekCollectionViewDelegateImplementation/UICollectionViewScrollDirection+PeekDataCovnversion.swift"; sourceTree = "<group>"; };
 		D632938D2C39B0787D588CF9FF54BCB8 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MSPeekCollectionViewDelegateImplementation_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		D6B1694F1DA9F54F28DCFE4FCD000A30 /* MSPeekCollectionViewDelegateImplementation.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MSPeekCollectionViewDelegateImplementation.modulemap; sourceTree = "<group>"; };
 		D77320B4225CE7A4FDB8B9DE02DCED88 /* Pods-MSPeekCollectionViewDelegateImplementation_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MSPeekCollectionViewDelegateImplementation_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		E79C02E2FF8DE49AC1291A25A68A144B /* MSCollectionViewPaging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSCollectionViewPaging.swift; path = MSPeekCollectionViewDelegateImplementation/Classes/MSCollectionViewPaging.swift; sourceTree = "<group>"; };
+		E0BB375F1C9C009C3619F81EBF5ED8B0 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		EEBB9B0855C280309DA865A46ED36E71 /* UICollectionView+PeekConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UICollectionView+PeekConfiguration.swift"; path = "Sources/MSPeekCollectionViewDelegateImplementation/UICollectionView+PeekConfiguration.swift"; sourceTree = "<group>"; };
+		F4760B1E46F1F093FAC1ACD183354407 /* Axis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Axis.swift; path = Sources/MSPeekCollectionViewDelegateImplementation/Axis.swift; sourceTree = "<group>"; };
+		FECD176769D0FB60E64E92CB7B9A7E52 /* MSCollectionViewPaging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MSCollectionViewPaging.swift; path = Sources/MSPeekCollectionViewDelegateImplementation/MSCollectionViewPaging.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,11 +97,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65FB4767564486FAE39F9F2A53C9BFCC /* Frameworks */ = {
+		D08C644F26A8B97E992C218367D7CD67 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A1D68666942EB7624485ACA4434B412 /* Foundation.framework in Frameworks */,
+				AD15E0C710E0A40621C4917E6503627D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,36 +116,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		172C3EED990A6953C8487B9725A75975 /* Support Files */ = {
+		016ABC75A5B1BAF469232C3851BA49FD /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D6B1694F1DA9F54F28DCFE4FCD000A30 /* MSPeekCollectionViewDelegateImplementation.modulemap */,
-				3A1C8C31D816C631680CE409028C9068 /* MSPeekCollectionViewDelegateImplementation.xcconfig */,
-				527FC667A268BCAA4432118DA2764415 /* MSPeekCollectionViewDelegateImplementation-dummy.m */,
-				0E658B87A45C524631E7E76FE1DD520E /* MSPeekCollectionViewDelegateImplementation-Info.plist */,
-				B1FAD54BA09ECB949BBD8AC95D8994BB /* MSPeekCollectionViewDelegateImplementation-prefix.pch */,
-				32592BF6CA6177A834378DFE4581E5A8 /* MSPeekCollectionViewDelegateImplementation-umbrella.h */,
+				32F202746829998D0472D6BBC3C4499A /* MSPeekCollectionViewDelegateImplementation */,
 			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/MSPeekCollectionViewDelegateImplementation";
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		4E350BBFA3F3E990259F6FC9BE68435D /* MSPeekCollectionViewDelegateImplementation */ = {
+		32F202746829998D0472D6BBC3C4499A /* MSPeekCollectionViewDelegateImplementation */ = {
 			isa = PBXGroup;
 			children = (
-				8DF53AB523AE32C0F4E5FE27223BF3D2 /* Axis.swift */,
-				BCF5CC8F0CFB9A2923F519ABF005B1FD /* CGPoint+Axis.swift */,
-				3CA8DAD34A1367656C8E0DC9146C3429 /* MSCollectionViewCellPeekingLayout.swift */,
-				E79C02E2FF8DE49AC1291A25A68A144B /* MSCollectionViewPaging.swift */,
-				87A894A108D9DB2160F2E42DFBF89015 /* MSCollectionViewPeekingBehavior.swift */,
-				BB38892A2EDD4F5CE32177772113A576 /* Sign.swift */,
-				444C4D82A9355A19D450A8825F885D49 /* UICollectionView+PeekConfiguration.swift */,
-				9E1CC89F610658808FB15B3357B47CDA /* UICollectionViewScrollDirection+PeekDataCovnversion.swift */,
-				F6B6D0077F3ACA5546FF0EC70E324C1E /* Pod */,
-				172C3EED990A6953C8487B9725A75975 /* Support Files */,
+				F4760B1E46F1F093FAC1ACD183354407 /* Axis.swift */,
+				0167A7862B8BB46B0D8D9A382F9E66D1 /* CGPoint+Axis.swift */,
+				1F2DDF1DA9D6E4AF96552505FC09DF1E /* MSCollectionViewCellPeekingLayout.swift */,
+				FECD176769D0FB60E64E92CB7B9A7E52 /* MSCollectionViewPaging.swift */,
+				4AB790AC693B251A269FEF2FFAD86203 /* MSCollectionViewPeekingBehavior.swift */,
+				8289CAD707984439111407C1B4FE4045 /* MSPeekCollectionViewDelegateImplementation.swift */,
+				66A365A5A612EFDC919F51871E681040 /* Sign.swift */,
+				EEBB9B0855C280309DA865A46ED36E71 /* UICollectionView+PeekConfiguration.swift */,
+				CC17A550C8BA6B4BB34D72B350ACE2AA /* UICollectionViewScrollDirection+PeekDataCovnversion.swift */,
+				3FF594E7C9F13291C8D5B1221839787B /* Pod */,
+				E00343D22AFF76312A2D57239B3552CB /* Support Files */,
 			);
 			name = MSPeekCollectionViewDelegateImplementation;
 			path = ../..;
+			sourceTree = "<group>";
+		};
+		3FF594E7C9F13291C8D5B1221839787B /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				8F45386BD8116AE6FD4B8E3FCA60AD4C /* LICENSE */,
+				7BB6EDE45A45BDD19A2A129FB15C5BA1 /* MSPeekCollectionViewDelegateImplementation.podspec */,
+				E0BB375F1C9C009C3619F81EBF5ED8B0 /* README.md */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		718313A4F2EA5DFC95018C4C9D48A34B /* Pods-MSPeekCollectionViewDelegateImplementation_Example */ = {
@@ -160,14 +168,6 @@
 			);
 			name = "Pods-MSPeekCollectionViewDelegateImplementation_Example";
 			path = "Target Support Files/Pods-MSPeekCollectionViewDelegateImplementation_Example";
-			sourceTree = "<group>";
-		};
-		8B52194D746B2F4E23607C8866E35828 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4E350BBFA3F3E990259F6FC9BE68435D /* MSPeekCollectionViewDelegateImplementation */,
-			);
-			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		8B5BC221759C0DC1EA73678838AAD0E6 /* Products */ = {
@@ -192,7 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				8B52194D746B2F4E23607C8866E35828 /* Development Pods */,
+				016ABC75A5B1BAF469232C3851BA49FD /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				8B5BC221759C0DC1EA73678838AAD0E6 /* Products */,
 				D263F72A4A70246B08B745B8A4338AF6 /* Targets Support Files */,
@@ -232,19 +232,32 @@
 			path = "Target Support Files/Pods-MSPeekCollectionViewDelegateImplementation_Tests";
 			sourceTree = "<group>";
 		};
-		F6B6D0077F3ACA5546FF0EC70E324C1E /* Pod */ = {
+		E00343D22AFF76312A2D57239B3552CB /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				BEB206C9E5624A63462064ACF50E04DC /* LICENSE */,
-				809D9292FBC16B2F3ACC58822C5799D9 /* MSPeekCollectionViewDelegateImplementation.podspec */,
-				B0930610042251C2FEA1459C96A9932E /* README.md */,
+				30059B085E7D0A5A6A84892B8428498C /* MSPeekCollectionViewDelegateImplementation.modulemap */,
+				75E710D62C8F08D0BFC2C4B16616D720 /* MSPeekCollectionViewDelegateImplementation-dummy.m */,
+				1837CFBA8594F72651B313ACBC0B5392 /* MSPeekCollectionViewDelegateImplementation-Info.plist */,
+				694A227724B343DD703E4DB195E29A65 /* MSPeekCollectionViewDelegateImplementation-prefix.pch */,
+				3E29E26186FFEE8FE4C0455B566E3350 /* MSPeekCollectionViewDelegateImplementation-umbrella.h */,
+				97E2D0180AA26D98363042EA2E3E3D62 /* MSPeekCollectionViewDelegateImplementation.debug.xcconfig */,
+				206154393F906A32744BF0EE2B940EDF /* MSPeekCollectionViewDelegateImplementation.release.xcconfig */,
 			);
-			name = Pod;
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/MSPeekCollectionViewDelegateImplementation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		6AF1ACC327827C00D47F92FF7CFDB3AA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A5FB71A38566DC92473A17000313AA /* MSPeekCollectionViewDelegateImplementation-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9539C84E7CE08427161B15F6398C698B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -258,14 +271,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				726D47D7696789BEBC5BF8F39D7AAA15 /* Pods-MSPeekCollectionViewDelegateImplementation_Example-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FF12CA578256AE6A001C865B1395FCC0 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8D27929FEC05F23909EB1F3E2EBAF07F /* MSPeekCollectionViewDelegateImplementation-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,12 +317,12 @@
 		};
 		CC4DE41EB4BC5DDE87BBBE62DE643BD8 /* MSPeekCollectionViewDelegateImplementation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 46ABB2B0B6CE8342412CEEF0A65B55AA /* Build configuration list for PBXNativeTarget "MSPeekCollectionViewDelegateImplementation" */;
+			buildConfigurationList = 403A1C36E7ED79FE0B89B61732D33527 /* Build configuration list for PBXNativeTarget "MSPeekCollectionViewDelegateImplementation" */;
 			buildPhases = (
-				FF12CA578256AE6A001C865B1395FCC0 /* Headers */,
-				048EE3D3638B47F7885602E899EBB078 /* Sources */,
-				65FB4767564486FAE39F9F2A53C9BFCC /* Frameworks */,
-				853B8903E33E82D16D0DA8F48406D78F /* Resources */,
+				6AF1ACC327827C00D47F92FF7CFDB3AA /* Headers */,
+				DB92ED0F839476A635529D021FF721B9 /* Sources */,
+				D08C644F26A8B97E992C218367D7CD67 /* Frameworks */,
+				C940AAF64ABE217FF6C1E849BE831A48 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -343,6 +348,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = 8B5BC221759C0DC1EA73678838AAD0E6 /* Products */;
@@ -364,14 +370,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		853B8903E33E82D16D0DA8F48406D78F /* Resources */ = {
+		C397DB87E65659AA348C49524703F3A6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C397DB87E65659AA348C49524703F3A6 /* Resources */ = {
+		C940AAF64ABE217FF6C1E849BE831A48 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -381,22 +387,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		048EE3D3638B47F7885602E899EBB078 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E2DC95EC54F44E59C15F1923D69D4204 /* Axis.swift in Sources */,
-				FAA25E8408613ECD31A3A800A912C14A /* CGPoint+Axis.swift in Sources */,
-				BBE33BFD0D5A3EE6BE598BC901CF5B61 /* MSCollectionViewCellPeekingLayout.swift in Sources */,
-				20D80CAB3A2EA1C2A144AD509B7D48EB /* MSCollectionViewPaging.swift in Sources */,
-				CDFFA5736558B5FEB1BD28B083F3A7D4 /* MSCollectionViewPeekingBehavior.swift in Sources */,
-				B75E3F2C14DE50369B2CE4436CE87C15 /* MSPeekCollectionViewDelegateImplementation-dummy.m in Sources */,
-				256847B0B42D8E480B4EFCCB93C569EC /* Sign.swift in Sources */,
-				5FCF55BDA8D0EA28AD8EFC0B9172DBE6 /* UICollectionView+PeekConfiguration.swift in Sources */,
-				AD65B6167DC8223D80AFEEC3227E8DF0 /* UICollectionViewScrollDirection+PeekDataCovnversion.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		476F59DFC6C5615D883DD38DD68760EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -410,6 +400,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				69EF87244DA724D2E4DABF893536F667 /* Pods-MSPeekCollectionViewDelegateImplementation_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB92ED0F839476A635529D021FF721B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C9D61AC7A2CD26B48E7CEF8E1092B94 /* Axis.swift in Sources */,
+				BCF7950066104E03282C3AF1219F223C /* CGPoint+Axis.swift in Sources */,
+				AB705E1E9B7617E1EA2FBC939E641F0B /* MSCollectionViewCellPeekingLayout.swift in Sources */,
+				E48F0D0DE93EFA4511C3E9CE299567B3 /* MSCollectionViewPaging.swift in Sources */,
+				77CB05DD1EE42FD5F2980B9B5696715D /* MSCollectionViewPeekingBehavior.swift in Sources */,
+				37583F3600697EE4B8F1C49E261FB51D /* MSPeekCollectionViewDelegateImplementation-dummy.m in Sources */,
+				8A0C1805FFFE955D0CDE9A658FCCA8BC /* MSPeekCollectionViewDelegateImplementation.swift in Sources */,
+				5E2D5791C3D147FC7BB31FCBC9A45448 /* Sign.swift in Sources */,
+				EED73B7F45F4349869A9EBC574C31E26 /* UICollectionView+PeekConfiguration.swift in Sources */,
+				42FCC6B7011D1243620DD0D8B8C1EB68 /* UICollectionViewScrollDirection+PeekDataCovnversion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,9 +438,9 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1CCC222BA0FEA83F56D03653F883213C /* Debug */ = {
+		02D997F004665136FF16D309A0839F16 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3A1C8C31D816C631680CE409028C9068 /* MSPeekCollectionViewDelegateImplementation.xcconfig */;
+			baseConfigurationReference = 97E2D0180AA26D98363042EA2E3E3D62 /* MSPeekCollectionViewDelegateImplementation.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -461,6 +468,38 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		0FA5082B50B09B14CC04CEED0B6A2CF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 206154393F906A32744BF0EE2B940EDF /* MSPeekCollectionViewDelegateImplementation.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MSPeekCollectionViewDelegateImplementation/MSPeekCollectionViewDelegateImplementation-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MSPeekCollectionViewDelegateImplementation/MSPeekCollectionViewDelegateImplementation-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/MSPeekCollectionViewDelegateImplementation/MSPeekCollectionViewDelegateImplementation.modulemap";
+				PRODUCT_MODULE_NAME = MSPeekCollectionViewDelegateImplementation;
+				PRODUCT_NAME = MSPeekCollectionViewDelegateImplementation;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		3BD8C457901B66FA45E21354BA7ABF61 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -593,38 +632,6 @@
 			};
 			name = Debug;
 		};
-		D05370546FA2AD7735D8F84B2871A557 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3A1C8C31D816C631680CE409028C9068 /* MSPeekCollectionViewDelegateImplementation.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/MSPeekCollectionViewDelegateImplementation/MSPeekCollectionViewDelegateImplementation-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MSPeekCollectionViewDelegateImplementation/MSPeekCollectionViewDelegateImplementation-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MSPeekCollectionViewDelegateImplementation/MSPeekCollectionViewDelegateImplementation.modulemap";
-				PRODUCT_MODULE_NAME = MSPeekCollectionViewDelegateImplementation;
-				PRODUCT_NAME = MSPeekCollectionViewDelegateImplementation;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		D5841DFC0F282F15262CA21DEB778779 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9E60D4BD3BD862C48CB4AE8DDB04D649 /* Pods-MSPeekCollectionViewDelegateImplementation_Example.release.xcconfig */;
@@ -755,11 +762,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		46ABB2B0B6CE8342412CEEF0A65B55AA /* Build configuration list for PBXNativeTarget "MSPeekCollectionViewDelegateImplementation" */ = {
+		403A1C36E7ED79FE0B89B61732D33527 /* Build configuration list for PBXNativeTarget "MSPeekCollectionViewDelegateImplementation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1CCC222BA0FEA83F56D03653F883213C /* Debug */,
-				D05370546FA2AD7735D8F84B2871A557 /* Release */,
+				02D997F004665136FF16D309A0839F16 /* Debug */,
+				0FA5082B50B09B14CC04CEED0B6A2CF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -13,7 +13,6 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		698929E023A78BD000396CC7 /* MSPeekingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698929DF23A78BD000396CC7 /* MSPeekingTests.swift */; };
 		6CC61A01D070E53B5C9713D3 /* Pods_MSPeekCollectionViewDelegateImplementation_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D63706738AAABD8B65F2802 /* Pods_MSPeekCollectionViewDelegateImplementation_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +38,6 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* MSPeekCollectionViewDelegateImplementation_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSPeekCollectionViewDelegateImplementation_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		698929DF23A78BD000396CC7 /* MSPeekingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSPeekingTests.swift; sourceTree = "<group>"; };
 		6D62A78B4ED727736705D900 /* Pods-MSPeekCollectionViewDelegateImplementation_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MSPeekCollectionViewDelegateImplementation_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MSPeekCollectionViewDelegateImplementation_Example/Pods-MSPeekCollectionViewDelegateImplementation_Example.release.xcconfig"; sourceTree = "<group>"; };
 		7C9735FF72CB49CDCEB9B535 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		A2049B1E9B6ED415F87F1C5A /* MSPeekCollectionViewDelegateImplementation.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MSPeekCollectionViewDelegateImplementation.podspec; path = ../MSPeekCollectionViewDelegateImplementation.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -136,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				607FACE91AFB9204008FA782 /* Supporting Files */,
-				698929DF23A78BD000396CC7 /* MSPeekingTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -170,7 +167,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				3DA048842E593156326D1069 /* [CP] Embed Pods Frameworks */,
+				D840CE19C5D15337C7AE435E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -279,24 +276,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3DA048842E593156326D1069 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MSPeekCollectionViewDelegateImplementation_Example/Pods-MSPeekCollectionViewDelegateImplementation_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/MSPeekCollectionViewDelegateImplementation/MSPeekCollectionViewDelegateImplementation.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MSPeekCollectionViewDelegateImplementation.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MSPeekCollectionViewDelegateImplementation_Example/Pods-MSPeekCollectionViewDelegateImplementation_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4F8E503FD4797A91204CB9B0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -315,6 +294,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D840CE19C5D15337C7AE435E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MSPeekCollectionViewDelegateImplementation_Example/Pods-MSPeekCollectionViewDelegateImplementation_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MSPeekCollectionViewDelegateImplementation/MSPeekCollectionViewDelegateImplementation.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MSPeekCollectionViewDelegateImplementation.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MSPeekCollectionViewDelegateImplementation_Example/Pods-MSPeekCollectionViewDelegateImplementation_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -331,7 +328,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				698929E023A78BD000396CC7 /* MSPeekingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

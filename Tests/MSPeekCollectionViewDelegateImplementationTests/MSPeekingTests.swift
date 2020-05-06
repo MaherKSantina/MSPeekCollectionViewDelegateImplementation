@@ -8,7 +8,6 @@
 
 import XCTest
 @testable import MSPeekCollectionViewDelegateImplementation
-@testable import MSPeekCollectionViewDelegateImplementation_Example
 
 class MSPeekingTests: XCTestCase {
 

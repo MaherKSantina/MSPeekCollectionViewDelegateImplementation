@@ -32,7 +32,7 @@ I wrote this library because there's no pod that does this simple feature. Also,
 
   s.ios.deployment_target = '9'
 
-  s.source_files = 'MSPeekCollectionViewDelegateImplementation/Classes/**/*'
+  s.source_files = 'Sources/**/*.swift'
   
   # s.resource_bundles = {
   #   'MSPeekCollectionViewDelegateImplementation' => ['MSPeekCollectionViewDelegateImplementation/Assets/*.png']
