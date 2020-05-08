@@ -36,6 +36,10 @@ public class MSCollectionViewPaging: NSObject {
 
     var currentContentOffset: CGFloat = 0
 
+    public var currentIndex: Int {
+        return dataSource?.collectionViewPaging(self, indexForItemAtOffset: currentContentOffset) ?? 0
+    }
+
     var velocityThreshold: CGFloat {
         return dataSource?.collectionViewPagingVelocityThreshold(self) ?? 0
     }

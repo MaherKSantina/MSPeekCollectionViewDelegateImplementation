@@ -182,6 +182,10 @@ extension ViewController: UICollectionViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         behavior.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        print(behavior.currentIndex)
+    }
 }
 ```
 
@@ -195,6 +199,14 @@ public func scrollToItem(at index: Int, animated: Bool)
 You can do something like:
 ```swift
 behavior.scrollToItem(at: 1, animated: true)
+```
+
+### Listen to index changes
+You can use the scroll view's delegate function to do that (Make sure you conform to `UICollectionViewDelegate`):
+```
+func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    print(behavior.currentIndex)
+}
 ```
 
 ## Customization

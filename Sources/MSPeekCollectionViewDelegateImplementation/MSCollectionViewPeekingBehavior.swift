@@ -53,6 +53,11 @@ public class MSCollectionViewPeekingBehavior {
         return layout.collectionView?.numberOfItems(inSection: 0) ?? 0
     }
 
+    /// Returns the current index of the left most item
+    public var currentIndex: Int {
+        return paging.currentIndex
+    }
+
     public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, minimumItemsToScroll: Int? = nil, maximumItemsToScroll: Int? = nil, numberOfItemsToShow: Int = 1, scrollDirection: UICollectionView.ScrollDirection = .horizontal, velocityThreshold: CGFloat = 0.2) {
         self.cellSpacing = cellSpacing
         self.cellPeekWidth = cellPeekWidth
