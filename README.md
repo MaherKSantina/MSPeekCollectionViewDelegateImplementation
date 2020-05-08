@@ -203,7 +203,7 @@ behavior.scrollToItem(at: 1, animated: true)
 
 ### Listen to index changes
 You can use the scroll view's delegate function to do that (Make sure you conform to `UICollectionViewDelegate`):
-```
+```swift
 func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     print(behavior.currentIndex)
 }
