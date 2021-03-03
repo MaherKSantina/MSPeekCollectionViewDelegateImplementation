@@ -56,9 +56,9 @@ open class MSCollectionViewCellPeekingLayout: UICollectionViewLayout {
     override open var collectionViewContentSize: CGSize {
         switch scrollDirection {
         case .horizontal:
-            return CGSize(width: contentLength(axis: .main, m: false), height: contentLength(axis: .cross, m: false))
+            return CGSize(width: contentLength(axis: .main, allowNegativeValues: false), height: contentLength(axis: .cross, allowNegativeValues: false))
         case .vertical:
-            return CGSize(width: contentLength(axis: .cross, m: false), height: contentLength(axis: .main, m: false))
+            return CGSize(width: contentLength(axis: .cross, allowNegativeValues: false), height: contentLength(axis: .main, allowNegativeValues: false))
         default:
             return .zero
         }
@@ -98,12 +98,12 @@ open class MSCollectionViewCellPeekingLayout: UICollectionViewLayout {
         }
     }
 
-    func contentLength(axis: Axis, m: Bool) -> CGFloat {
-        let spc = m ? spacingLength * 2 : max(0, spacingLength * 2)
+    func contentLength(axis: Axis, allowNegativeValues: Bool) -> CGFloat {
+        let spacing = allowNegativeValues ? spacingLength * 2 : max(0, spacingLength * 2)
         switch axis {
         case .main:
             let length = itemLength(axis: .main)
-            let offsets = spc + peekingLength * 2 // One from the start and one at the end
+            let offsets = spacing + peekingLength * 2 // One from the start and one at the end
             return (length * CGFloat(numberOfItems)) + (CGFloat(numberOfItems) * spacingLength) + offsets
         case .cross:
             return itemLength(axis: .cross)
