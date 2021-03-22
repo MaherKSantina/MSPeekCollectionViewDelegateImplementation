@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2722B1562608D384009FCC4A /* MSPeekingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2722B1542608D37E009FCC4A /* MSPeekingTests.swift */; };
 		4AA9BF6F4BB998C07B416FB0 /* Pods_MSPeekCollectionViewDelegateImplementation_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A20EF37E9F7674D252EC07 /* Pods_MSPeekCollectionViewDelegateImplementation_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		1D63706738AAABD8B65F2802 /* Pods_MSPeekCollectionViewDelegateImplementation_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPeekCollectionViewDelegateImplementation_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A20EF37E9F7674D252EC07 /* Pods_MSPeekCollectionViewDelegateImplementation_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MSPeekCollectionViewDelegateImplementation_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2722B1542608D37E009FCC4A /* MSPeekingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MSPeekingTests.swift; path = ../../Tests/MSPeekCollectionViewDelegateImplementationTests/MSPeekingTests.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* MSPeekCollectionViewDelegateImplementation_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MSPeekCollectionViewDelegateImplementation_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				2722B1542608D37E009FCC4A /* MSPeekingTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -328,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2722B1562608D384009FCC4A /* MSPeekingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
