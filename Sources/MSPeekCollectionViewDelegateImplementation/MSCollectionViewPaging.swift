@@ -52,6 +52,20 @@ public class MSCollectionViewPaging: NSObject {
         currentContentOffset = dataSource?.collectionViewPaging(self, offsetForItemAtIndex: index) ?? 0
     }
 
+    func getIndexWithMinimumAndMaximumItemsToScroll(currentIndex: Int) -> Int {
+        var offset = currentIndex
+        // If we've set a minimum number of items to scroll, enforce it
+        if let minimumItemsToScroll = dataSource?.collectionViewPagingMinimumItemsToScroll(self), offset != 0 {
+            offset = max(offset, minimumItemsToScroll)
+        }
+
+        // If we've set a maximum number of items to scroll, enforce it
+        if let maximumItemsToScroll = dataSource?.collectionViewPagingMaximumItemsToScroll(self) {
+            offset = min(offset, maximumItemsToScroll)
+        }
+        return offset
+    }
+
     func getNewTargetOffset(startingOffset: CGFloat, velocity: CGFloat, targetOffset: CGFloat) -> CGFloat {
 
         // Check the velocity, if it's greater than the threshold, move at least 1 cell in the direction of the velocity
@@ -71,15 +85,7 @@ public class MSCollectionViewPaging: NSObject {
             // Making sure we move at least 1 cell
             var offset = max(targetIndex - currentIndex, 1)
 
-            // If we've set a minimum number of items to scroll, enforce it
-            if let minimumItemsToScroll = dataSource?.collectionViewPagingMinimumItemsToScroll(self), offset != 0 {
-                offset = max(offset, minimumItemsToScroll)
-            }
-
-            // If we've set a maximum number of items to scroll, enforce it
-            if let maximumItemsToScroll = dataSource?.collectionViewPagingMaximumItemsToScroll(self) {
-                offset = min(offset, maximumItemsToScroll)
-            }
+            offset = getIndexWithMinimumAndMaximumItemsToScroll(currentIndex: offset)
 
             // The final index is the current index ofsetted by the value and in the velocity direction
             var finalIndex = currentIndex + (offset * Sign(value: velocity).multiplier)
@@ -93,7 +99,10 @@ public class MSCollectionViewPaging: NSObject {
 
         default:
 
-            let finalIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: targetOffset) ?? 0
+            var finalIndex = dataSource?.collectionViewPaging(self, indexForItemAtOffset: targetOffset) ?? 0
+
+            finalIndex = getIndexWithMinimumAndMaximumItemsToScroll(currentIndex: finalIndex)
+
             return dataSource?.collectionViewPaging(self, offsetForItemAtIndex: finalIndex) ?? 0
         }
     }
