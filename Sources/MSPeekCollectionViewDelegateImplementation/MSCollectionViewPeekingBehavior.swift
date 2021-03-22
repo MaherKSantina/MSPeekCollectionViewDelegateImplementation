@@ -111,7 +111,7 @@ extension MSCollectionViewPeekingBehavior: MSCollectionViewPagingDataSource {
     }
 
     public func collectionViewPaging(_ collectionViewPaging: MSCollectionViewPaging, indexForItemAtOffset offset: CGFloat) -> Int {
-        let safeOffset = min(max(0, offset), layout.contentLength(axis: .main))
+        let safeOffset = min(max(0, offset), layout.contentLength(axis: .main, allowNegativeValues: true))
         let point: CGPoint
         switch (scrollDirection) {
         case .horizontal:
