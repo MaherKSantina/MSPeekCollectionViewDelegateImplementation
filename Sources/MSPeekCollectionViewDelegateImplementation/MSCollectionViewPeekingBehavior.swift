@@ -58,14 +58,14 @@ public class MSCollectionViewPeekingBehavior {
         return paging.currentIndex
     }
 
-    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, minimumItemsToScroll: Int? = nil, maximumItemsToScroll: Int? = nil, numberOfItemsToShow: Int = 1, scrollDirection: UICollectionView.ScrollDirection = .horizontal, velocityThreshold: CGFloat = 0.2) {
+    public init(cellSpacing: CGFloat = 20, cellPeekWidth: CGFloat = 20, minimumItemsToScroll: Int? = nil, maximumItemsToScroll: Int? = nil, numberOfItemsToShow: Int = 1, scrollDirection: UICollectionView.ScrollDirection = .horizontal, velocityThreshold: CGFloat = 0.2, shouldFlipOnRTL: Bool = true) {
         self.cellSpacing = cellSpacing
         self.cellPeekWidth = cellPeekWidth
         self.minimumItemsToScroll = minimumItemsToScroll
         self.maximumItemsToScroll = maximumItemsToScroll
         self.numberOfItemsToShow = numberOfItemsToShow
         self.scrollDirection = scrollDirection
-        layout = MSCollectionViewCellPeekingLayout(scrollDirection: scrollDirection)
+        layout = MSCollectionViewCellPeekingLayout(scrollDirection: scrollDirection, shouldFlipOnRTL: shouldFlipOnRTL)
         self.velocityThreshold = velocityThreshold
         layout.dataSource = self
         paging.dataSource = self

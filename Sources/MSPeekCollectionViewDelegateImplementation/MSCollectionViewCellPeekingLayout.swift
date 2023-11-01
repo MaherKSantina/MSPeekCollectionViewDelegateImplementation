@@ -28,6 +28,12 @@ open class MSCollectionViewCellPeekingLayout: UICollectionViewLayout {
     public weak var dataSource: MSCollectionViewCellPeekingLayoutDataSource?
 
     open var scrollDirection: UICollectionView.ScrollDirection
+    
+    public var shouldFlipOnRTL: Bool
+    
+    open override var flipsHorizontallyInOppositeLayoutDirection: Bool {
+        return shouldFlipOnRTL
+    }
 
     var boundsWidth: CGFloat {
         return collectionView?.bounds.width ?? 1
@@ -64,13 +70,15 @@ open class MSCollectionViewCellPeekingLayout: UICollectionViewLayout {
         }
     }
 
-    public init(scrollDirection: UICollectionView.ScrollDirection) {
+    public init(scrollDirection: UICollectionView.ScrollDirection, shouldFlipOnRTL: Bool) {
         self.scrollDirection = scrollDirection
+        self.shouldFlipOnRTL = shouldFlipOnRTL
         super.init()
     }
 
     required public init?(coder: NSCoder) {
         self.scrollDirection = .horizontal
+        self.shouldFlipOnRTL = true
         super.init(coder: coder)
     }
 
